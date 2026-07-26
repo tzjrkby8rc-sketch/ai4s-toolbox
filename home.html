@@ -142,6 +142,7 @@ footer{background:#111827;color:#9ca3af;text-align:center;padding:32px 0;font-si
     <div class="report" id="report">
       <div class="rep-pain" id="repPain"></div>
       <div class="rep-block"><h4>🛠️ 推荐上手工具（按同行热度）</h4><div id="repTools"></div></div>
+      <div class="rep-block" id="repSkillsBlock" style="display:none"><h4>🧰 配套开源技能（装进 Claude Code 即用）</h4><div id="repSkills"></div></div>
       <div class="rep-block"><h4>💰 可申报政策</h4><div id="repPols"></div></div>
       <div id="repWarn"></div>
       <!-- 留资 -->
@@ -172,6 +173,7 @@ footer{background:#111827;color:#9ca3af;text-align:center;padding:32px 0;font-si
 
 <script src="data/policies.js"></script>
 <script src="data/assets.js"></script>
+<script src="data/skills.js"></script>
 <script>
 /* ========== 渲染政策卡 ========== */
 (function(){
@@ -254,6 +256,21 @@ function matchPols(disc,age){
     return {s,p};
   }).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).slice(0,3);
 }
+// ===== 双轨: 痛点→开源技能包环节映射 =====
+const PAIN2STAGE={"知识聚合":"文献调研","假设生成":"假设生成","仿真计算":"实验与计算",
+ "实验闭环":"实验与计算","质量治理":"诚信治理","协作传播":"论文写作"};
+function matchSkills(disc,pain){
+  if(typeof SKILLS_DB==="undefined")return [];
+  const stage=PAIN2STAGE[pain];if(!stage)return [];
+  let list=SKILLS_DB.skills.filter(s=>s.环节===stage);
+  // 同学科优先,交叉通用兜底
+  const same=list.filter(s=>s.学科===disc);
+  const gen=list.filter(s=>s.学科==="交叉通用");
+  // 排序:同学科>类型(即装即用优先)>id
+  const tw={"即装即用":0,"数据连接器":1,"需GPU/远程":2};
+  const sortFn=(a,b)=>(tw[a.类型]??3)-(tw[b.类型]??3)||a.id.localeCompare(b.id);
+  return same.sort(sortFn).concat(gen.sort(sortFn)).slice(0,3);
+}
 document.getElementById('genBtn').addEventListener('click',()=>{
   const disc=answers["学科"],pain=STEP2PAIN[answers["耗时环节"]];
   const team=answers["AI团队"],age=parseInt(answers["年龄"]);
@@ -267,6 +284,15 @@ document.getElementById('genBtn').addEventListener('click',()=>{
      ${t.热度?`<span class="heat">${t.热度}调用</span>`:(t.下载量?`<span class="heat">↓${t.下载量}</span>`:"")}
      <div style="color:#6b7280;font-size:13px">${(t.简介||"").slice(0,52)} · ${t.机构.slice(0,20)}</div></div>`
   ).join(""):"<div class='tool-item'>该学科暂无完全匹配工具，建议查看相邻领域或联系顾问。</div>";
+  // 开源技能(双轨)
+  const sks=matchSkills(disc,pain);
+  if(sks.length){
+    document.getElementById('repSkills').innerHTML=sks.map(s=>
+      `<div class="tool-item"><span class="ttype" style="background:#d1fae5;color:#065f46">${s.类型}</span><b>${s.id}</b>
+       <div style="color:#6b7280;font-size:13px">${s.cn||s.description.slice(0,52)}</div></div>`
+    ).join("")+`<div style="margin-top:10px"><a href="skills.html" style="color:#0d9488;font-size:13px;font-weight:600">查看全部120个科研技能 →</a></div>`;
+    document.getElementById('repSkillsBlock').style.display='block';
+  }
   // 政策
   const pols=matchPols(disc,age);
   document.getElementById('repPols').innerHTML=pols.map(({p})=>

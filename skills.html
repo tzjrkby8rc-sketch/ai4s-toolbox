@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>科研技能包 · 真实好用的AI工具助力高效科研</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--pri:#0d9488;--deep:#115e59;--acc:#1a56db;--ink:#111827;--sub:#6b7280;--line:#e5e7eb;--bg:#f8fafc}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:var(--bg);line-height:1.6}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+nav{position:sticky;top:0;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:50}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font-weight:800;font-size:18px;color:var(--deep);text-decoration:none}
+.back{font-size:14px;color:var(--sub);text-decoration:none}
+/* Hero */
+.hero{background:linear-gradient(135deg,#115e59 0%,#0d9488 60%,#14b8a6 130%);color:#fff;padding:56px 0 44px}
+.hero h1{font-size:32px;font-weight:800;margin-bottom:12px}
+.hero p{font-size:16px;opacity:.94;max-width:720px;margin-bottom:22px}
+.hero .stats{display:flex;gap:24px;flex-wrap:wrap}
+.hero .stats div{font-size:13px;opacity:.92}.hero .stats b{display:block;font-size:24px;font-weight:800}
+.hero .src{margin-top:18px;font-size:13px;opacity:.85}
+.hero .src a{color:#a7f3d0;text-decoration:underline}
+/* 布局: 侧栏+主区 */
+.layout{display:grid;grid-template-columns:230px 1fr;gap:24px;padding:32px 0}
+@media(max-width:820px){.layout{grid-template-columns:1fr}}
+/* 侧栏筛选 */
+.sidebar{position:sticky;top:76px;align-self:start;background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px}
+@media(max-width:820px){.sidebar{position:static}}
+.f-group{margin-bottom:18px}
+.f-group h4{font-size:13px;color:var(--sub);margin-bottom:8px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.f-opt{display:block;padding:7px 10px;border-radius:7px;cursor:pointer;font-size:14px;color:var(--ink)}
+.f-opt:hover{background:#f0fdfa}
+.f-opt.sel{background:var(--pri);color:#fff;font-weight:600}
+.f-opt .cnt{float:right;font-size:12px;opacity:.7}
+/* 主区 */
+.section-head{display:flex;align-items:baseline;gap:10px;margin:26px 0 14px}
+.section-head h2{font-size:22px;font-weight:800;color:var(--deep)}
+.section-head .n{font-size:14px;color:var(--sub)}
+.section-head:first-child{margin-top:0}
+.stage-desc{font-size:14px;color:var(--sub);margin-bottom:14px}
+/* 技能卡网格 */
+.sk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px}
+.sk{background:#fff;border:1px solid var(--line);border-radius:11px;padding:16px;transition:.15s;cursor:pointer}
+.sk:hover{box-shadow:0 6px 18px rgba(13,148,136,.12);transform:translateY(-2px);border-color:var(--pri)}
+.sk-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px}
+.sk-name{font-weight:700;font-size:15.5px;color:var(--deep)}
+.sk-badge{font-size:11px;padding:2px 8px;border-radius:12px;white-space:nowrap;font-weight:600}
+.b-ready{background:#d1fae5;color:#065f46}
+.b-gpu{background:#fef3c7;color:#92400e}
+.b-conn{background:#dbeafe;color:#1e40af}
+.sk-cn{font-size:13.5px;color:var(--ink);margin-bottom:8px;line-height:1.5}
+.sk-meta{font-size:12px;color:var(--sub);display:flex;gap:8px;flex-wrap:wrap}
+.sk-meta .disc{background:#f3f4f6;padding:1px 8px;border-radius:10px}
+.sk-src{font-size:11px;color:#9ca3af;margin-top:6px}
+/* 技能详情展开 */
+.sk-detail{display:none;margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);font-size:13px}
+.sk.open .sk-detail{display:block}
+.sk-detail .en{color:var(--sub);margin-bottom:10px;font-size:12.5px}
+.install-box{background:#0f172a;color:#a7f3d0;border-radius:8px;padding:12px 14px;font-family:ui-monospace,monospace;font-size:12.5px;margin:10px 0}
+.install-box .cmt{color:#64748b}
+.sk-detail a{color:var(--acc);font-size:13px}
+.tut-link{display:inline-block;margin-top:8px;background:var(--acc);color:#fff;padding:7px 16px;border-radius:7px;text-decoration:none;font-size:13px;font-weight:600}
+/* 重型武器区 */
+.heavy{background:linear-gradient(135deg,#1e1b4b,#312e81);border-radius:14px;padding:26px;color:#fff;margin-top:30px}
+.heavy h2{color:#fff;margin-bottom:6px}
+.heavy .sub{color:#c7d2fe;font-size:14px;margin-bottom:18px}
+.heavy .sk{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.15);color:#fff}
+.heavy .sk-name{color:#a5b4fc}
+.heavy .sk-cn{color:#e0e7ff}
+.heavy .sk:hover{border-color:#818cf8;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+.heavy .sk-src{color:#6366f1}
+/* 数据库直通车 */
+.db-flow{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;margin-top:30px}
+.db-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:14px}
+.db-item{background:#f0fdfa;border:1px solid #99f6e4;border-radius:8px;padding:10px 14px;font-size:13px}
+.db-item b{color:var(--deep)}
+footer{background:#115e59;color:#99f6e4;text-align:center;padding:26px 0;font-size:13px;margin-top:40px}
+</style></head><body>
+<nav><div class="wrap">
+  <a class="logo" href="index.html">🧰 科研技能包</a>
+  <a class="back" href="index.html">← 返回门户</a>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <h1>科研技能包 · 真实好用的 AI 工具</h1>
+  <p>从三大顶级开源项目精选 <b id="totalN">120</b> 个科研技能，按科研流程组织——装进 Claude Code / Cursor 即可用，帮科学家把文献、计算、分析、写作每个环节提速一个量级。</p>
+  <div class="stats">
+    <div><b id="n1">120</b>精选技能</div>
+    <div><b id="n2">6</b>科研环节</div>
+    <div><b id="n3">20</b>GPU重型武器</div>
+    <div><b id="n4">10</b>数据连接器</div>
+  </div>
+  <div class="src">来源项目（MIT 开源）：
+    <a href="https://github.com/K-Dense-AI/claude-scientific-skills" target="_blank">claude-scientific-skills</a> ·
+    <a href="https://github.com/PKU-YuanGroup/OpenAI4S" target="_blank">OpenAI4S</a> ·
+    <a href="https://github.com/ai4s-research/open-science" target="_blank">open-science</a>
+  </div>
+</div></header>
+
+<div class="wrap"><div class="layout">
+  <!-- 侧栏筛选 -->
+  <aside class="sidebar">
+    <div class="f-group"><h4>科研环节</h4><div id="fStage"></div></div>
+    <div class="f-group"><h4>学科</h4><div id="fDisc"></div></div>
+    <div class="f-group"><h4>类型</h4><div id="fType"></div></div>
+  </aside>
+
+  <!-- 主区 -->
+  <main id="main">
+    <div id="stageSections"></div>
+    <!-- 重型武器库 -->
+    <div class="heavy" id="heavySec"></div>
+    <!-- 数据库直通车 -->
+    <div class="db-flow" id="dbSec"></div>
+  </main>
+</div></div>
+
+<footer>科研技能包 · 技能来自三大开源项目(MIT) · 由 AI4S 工具箱精选重组</footer>
+
+<script src="data/skills.js"></script>
+<script>
+const DB=SKILLS_DB, SKILLS=DB.skills;
+const STAGES=DB.meta.环节, DISCS=DB.meta.学科, TYPES=DB.meta.类型;
+const STAGE_DESC={
+ "文献调研":"找文献、读论文、做综述，不再逐篇硬啃",
+ "假设生成":"从方向到具体科学问题，AI 陪你头脑风暴",
+ "实验与计算":"跑模型、做计算、操控仪器，科研的重活这里都有工具",
+ "数据分析":"统计、可视化、机器学习，把数据变成结论",
+ "论文写作":"写作、图表、海报、投稿，最后一公里的加速器",
+ "诚信治理":"投稿前自查，数据可复现，远离撤稿风险"};
+const TYPE_BADGE={"即装即用":["b-ready","即装即用"],"需GPU/远程":["b-gpu","需GPU"],"数据连接器":["b-conn","数据连接"]};
+const SRC_SHORT={"claude-scientific-skills":"K-Dense","OpenAI4S":"OpenAI4S","open-science":"open-science"};
+
+// 统计
+document.getElementById('totalN').textContent=SKILLS.length;
+document.getElementById('n1').textContent=SKILLS.length;
+document.getElementById('n3').textContent=SKILLS.filter(s=>s.类型==="需GPU/远程").length;
+document.getElementById('n4').textContent=SKILLS.filter(s=>s.类型==="数据连接器").length;
+
+// 筛选状态
+const F={stage:"全部",disc:"全部",type:"全部"};
+
+// 渲染筛选器
+function renderFilter(elId,options,key){
+  const el=document.getElementById(elId);
+  const counts={};
+  SKILLS.forEach(s=>{
+    const v=key==="stage"?s.环节:key==="disc"?s.学科:s.类型;
+    counts[v]=(counts[v]||0)+1;
+  });
+  const total=SKILLS.length;
+  el.innerHTML=`<span class="f-opt${F[key]==='全部'?' sel':''}" data-v="全部">全部<span class="cnt">${total}</span></span>`+
+    options.map(o=>counts[o]?`<span class="f-opt${F[key]===o?' sel':''}" data-v="${o}">${o}<span class="cnt">${counts[o]}</span></span>`:'').join('');
+  el.querySelectorAll('.f-opt').forEach(o=>o.addEventListener('click',()=>{
+    F[key]=o.dataset.v;refresh();
+  }));
+}
+
+function installCmd(s){
+  if(s.source.includes("claude-scientific-skills"))
+    return `<span class="cmt"># 装进 Claude Code / Cursor(推荐npx)</span>\nnpx skills add K-Dense-AI/claude-scientific-skills ${s.id}`;
+  if(s.source.includes("OpenAI4S"))
+    return `<span class="cmt"># OpenAI4S 技能, 克隆即用</span>\ngit clone https://github.com/PKU-YuanGroup/OpenAI4S\n<span class="cmt"># 技能位于 skills/${s.id}/</span>`;
+  return `<span class="cmt"># open-science 技能, 桌面版内置</span>\ngit clone https://github.com/ai4s-research/open-science`;
+}
+function srcLink(s){
+  const map={"claude-scientific-skills":"https://github.com/K-Dense-AI/claude-scientific-skills/tree/main/skills/"+s.id,
+    "OpenAI4S":"https://github.com/PKU-YuanGroup/OpenAI4S/tree/main/skills/"+s.id,
+    "open-science":"https://github.com/ai4s-research/open-science"};
+  const base=s.source.split('+')[0];
+  return map[base]||map["open-science"];
+}
+function skCard(s,tutorials){
+  const [bc,bt]=TYPE_BADGE[s.类型]||["b-ready",s.类型];
+  const cn=s.cn||s.description.slice(0,60);
+  const hasTut=tutorials&&tutorials.includes(s.id);
+  return `<div class="sk" data-id="${s.id}">
+    <div class="sk-top"><span class="sk-name">${s.id}</span><span class="sk-badge ${bc}">${bt}</span></div>
+    <div class="sk-cn">${cn}</div>
+    <div class="sk-meta"><span class="disc">${s.学科}</span><span class="disc">${s.环节}</span></div>
+    <div class="sk-src">来源: ${s.source.split('+').map(x=>SRC_SHORT[x]||x).join(' + ')}</div>
+    <div class="sk-detail">
+      <div class="en">${s.description}</div>
+      <div class="install-box">${installCmd(s)}</div>
+      <a href="${srcLink(s)}" target="_blank">查看源技能文档 →</a>
+      ${hasTut?`<a class="tut-link" href="tutorials.html#${s.id}">📖 中文使用教程</a>`:''}
+    </div>
+  </div>`;
+}
+
+const TUTORIALS=[]; // P2.5 填充
+function refresh(){
+  renderFilter('fStage',STAGES,'stage');
+  renderFilter('fDisc',DISCS,'disc');
+  renderFilter('fType',TYPES,'type');
+  const filtered=SKILLS.filter(s=>
+    (F.stage==="全部"||s.环节===F.stage)&&
+    (F.disc==="全部"||s.学科===F.disc)&&
+    (F.type==="全部"||s.类型===F.type));
+  // 按环节分区
+  const sec=document.getElementById('stageSections');
+  sec.innerHTML=STAGES.map(st=>{
+    const list=filtered.filter(s=>s.环节===st);
+    if(!list.length)return '';
+    return `<div class="section-head"><h2>${st}</h2><span class="n">${list.length} 个技能</span></div>
+      <div class="stage-desc">${STAGE_DESC[st]||''}</div>
+      <div class="sk-grid">${list.map(s=>skCard(s,TUTORIALS)).join('')}</div>`;
+  }).join('')||'<p style="color:#6b7280;padding:40px 0">当前筛选无匹配技能,请调整条件。</p>';
+  // 重型武器(GPU类)
+  const heavy=filtered.filter(s=>s.类型==="需GPU/远程");
+  document.getElementById('heavySec').innerHTML=`
+    <h2>🚀 重型武器库</h2>
+    <div class="sub">蛋白质结构预测 / 蛋白设计 / 分子对接 / 基因组大模型——以前是超算级门槛，现在远程 GPU 就能跑（OpenAI4S 支持 ¥9.9/月豆包起步）</div>
+    <div class="sk-grid">${heavy.map(s=>skCard(s,TUTORIALS)).join('')||'<span style="color:#c7d2fe">当前筛选下无GPU技能</span>'}</div>`;
+  // 数据库直通车
+  const conn=filtered.filter(s=>s.类型==="数据连接器");
+  document.getElementById('dbSec').innerHTML=`
+    <h2 style="color:var(--deep);font-size:22px;font-weight:800">🔌 数据库直通车</h2>
+    <div class="stage-desc">一个入口接通全球权威科学数据库——database-lookup 一个技能集成 78+ 库，加上 MCP 连接器生态</div>
+    <div class="sk-grid">${conn.map(s=>skCard(s,TUTORIALS)).join('')}</div>
+    <h4 style="margin:18px 0 4px;color:var(--deep)">MCP 一键连接器（open-science 生态）</h4>
+    <div class="db-grid">${["arXiv","PubMed","Crossref","Semantic Scholar","bioRxiv/medRxiv","ClinicalTrials.gov","Materials Project","FRED 经济数据","Open-Meteo 气象","USGS 水文"].map(d=>`<div class="db-item"><b>${d}</b></div>`).join('')}</div>`;
+}
+document.getElementById('main').addEventListener('click',e=>{
+  const card=e.target.closest('.sk');
+  if(card&&!e.target.closest('a'))card.classList.toggle('open');
+});
+refresh();
+</script>
+</body></html>

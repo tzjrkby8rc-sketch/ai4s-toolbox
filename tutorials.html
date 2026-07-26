@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Top 20 技能中文教程 · 科研技能包</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--pri:#0d9488;--deep:#115e59;--acc:#1a56db;--ink:#111827;--sub:#6b7280;--line:#e5e7eb;--bg:#f8fafc}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:var(--bg);line-height:1.7}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+nav{position:sticky;top:0;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:50}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font-weight:800;font-size:18px;color:var(--deep);text-decoration:none}
+nav .links a{font-size:14px;color:var(--sub);text-decoration:none;margin-left:16px}
+.head{padding:44px 0 24px;text-align:center}
+.head h1{font-size:28px;font-weight:800;margin-bottom:10px}
+.head p{color:var(--sub);font-size:15px}
+.toc{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 22px;margin-bottom:28px}
+.toc h3{font-size:15px;margin-bottom:10px;color:var(--deep)}
+.toc .items{display:flex;flex-wrap:wrap;gap:8px}
+.toc a{font-size:13px;color:var(--pri);text-decoration:none;background:#f0fdfa;padding:5px 12px;border-radius:14px;border:1px solid #99f6e4}
+.toc a:hover{background:var(--pri);color:#fff}
+.tut{background:#fff;border:1px solid var(--line);border-radius:14px;padding:32px 36px;margin-bottom:24px}
+@media(max-width:640px){.tut{padding:22px}}
+.tut .backtop{display:block;text-align:right;font-size:12px;color:var(--sub);text-decoration:none;margin-top:20px}
+/* markdown */
+.md h1{font-size:22px;margin:0 0 14px;color:var(--deep)}
+.md h2{font-size:19px;margin:20px 0 10px;color:var(--deep)}
+.md h3{font-size:16px;margin:16px 0 8px;color:var(--pri)}
+.md p{margin:9px 0;font-size:14.5px}
+.md ul,.md ol{margin:9px 0 9px 22px;font-size:14.5px}
+.md li{margin:5px 0}
+.md strong{color:var(--ink)}
+.md code{background:#f1f5f9;padding:2px 6px;border-radius:4px;font-size:13px;color:#be123c}
+.md pre{background:#0f172a;color:#a7f3d0;padding:14px 16px;border-radius:8px;overflow-x:auto;margin:12px 0}
+.md pre code{background:none;color:inherit;padding:0}
+.md blockquote{border-left:4px solid var(--pri);background:#f0fdfa;padding:10px 14px;margin:12px 0;border-radius:6px;color:#115e59}
+footer{background:#115e59;color:#99f6e4;text-align:center;padding:26px 0;font-size:13px;margin-top:36px}
+</style></head><body>
+<nav><div class="wrap">
+  <a class="logo" href="skills.html">📖 Top 20 技能中文教程</a>
+  <div class="links"><a href="skills.html">← 技能包</a><a href="index.html">门户</a></div>
+</div></nav>
+<div class="wrap">
+  <div class="head">
+    <h1>Top 20 科研技能 · 中文上手教程</h1>
+    <p>为非开发者教授写的保姆级教程：解决什么痛点 · 怎么安装 · 上手三步 · 真实例子</p>
+  </div>
+  <div class="toc"><h3>教程目录</h3><div class="items" id="tocItems"></div></div>
+  <div id="tutList"></div>
+</div>
+<footer>Top 20 技能中文教程 · 内容基于原技能文档由 AI 整理 · 命令以原文档为准</footer>
+<script src="data/tutorials.js"></script>
+<script>
+function md(src){
+  let h=src;
+  // 代码块先保护
+  const blocks=[];
+  h=h.replace(/```(\w*)\n([\s\S]*?)```/g,(m,lang,code)=>{blocks.push(code);return `\x00B${blocks.length-1}\x00`;});
+  h=h.replace(/^### (.*)$/gm,'<h3>$1</h3>').replace(/^## (.*)$/gm,'<h2>$1</h2>').replace(/^# (.*)$/gm,'<h1>$1</h1>');
+  h=h.replace(/^> (.*)$/gm,'<blockquote>$1</blockquote>');
+  h=h.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/`([^`\n]+)`/g,'<code>$1</code>');
+  h=h.replace(/(https?:\/\/[^\s)<]+)/g,'<a href="$1" target="_blank" style="color:var(--acc)">$1</a>');
+  h=h.replace(/^\s*[-*] (.*)$/gm,'<li>$1</li>');
+  h=h.replace(/(<li>[\s\S]*?<\/li>)(?!\s*<li>)/g,'<ul>$1</ul>');
+  h=h.replace(/<\/ul>\s*<ul>/g,'');
+  h=h.replace(/^\d+\. (.*)$/gm,'<li>$1</li>');
+  h=h.split(/\n{2,}/).map(b=>{
+    b=b.trim();if(!b)return '';
+    if(/^<(h\d|ul|ol|blockquote|pre)/.test(b))return b;
+    if(/^\x00B\d+\x00$/.test(b))return b;
+    return '<p>'+b.replace(/\n/g,'<br>')+'</p>';
+  }).join('\n');
+  h=h.replace(/\x00B(\d+)\x00/g,(m,i)=>'<pre><code>'+blocks[+i].replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</code></pre>');
+  return h;
+}
+const order=TUTORIALS.order, items=TUTORIALS.items;
+// 目录
+document.getElementById('tocItems').innerHTML=order.filter(id=>items[id]).map(id=>
+  `<a href="#${id}">${id}</a>`).join('');
+// 教程列表
+document.getElementById('tutList').innerHTML=order.filter(id=>items[id]).map(id=>
+  `<div class="tut md" id="${id}">${md(items[id].md)}<a class="backtop" href="#">↑ 回顶部</a></div>`).join('');
+</script>
+</body></html>
