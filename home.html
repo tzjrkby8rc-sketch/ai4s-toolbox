@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AI4S 科研赋能工具箱 · 让AI为你的科研加速</title>
+<style>
+:root{
+  --pri:#1a56db;--pri2:#1e40af;--acc:#0e9f6e;--warn:#e02424;
+  --ink:#111827;--sub:#6b7280;--line:#e5e7eb;--bg:#f9fafb;--card:#fff;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:var(--bg);line-height:1.6}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+/* 顶导 */
+nav{position:sticky;top:0;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:50}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font-weight:800;font-size:19px;color:var(--pri)}
+.logo span{color:var(--acc)}
+nav a.btn{background:var(--pri);color:#fff;padding:9px 18px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:600}
+/* Hero */
+.hero{background:linear-gradient(135deg,#1e3a8a 0%,#1a56db 55%,#0e9f6e 130%);color:#fff;padding:72px 0 64px}
+.hero h1{font-size:40px;line-height:1.25;font-weight:800;margin-bottom:16px}
+.hero p{font-size:18px;opacity:.92;max-width:640px;margin-bottom:28px}
+.hero .cta{display:inline-block;background:#fff;color:var(--pri);padding:14px 32px;border-radius:10px;font-weight:700;font-size:17px;text-decoration:none;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.hero .cta2{display:inline-block;margin-left:14px;color:#fff;border:2px solid rgba(255,255,255,.5);padding:12px 26px;border-radius:10px;font-weight:600;text-decoration:none}
+.badges{display:flex;gap:26px;margin-top:38px;flex-wrap:wrap}
+.badges div{font-size:14px;opacity:.9}
+.badges b{display:block;font-size:26px;font-weight:800}
+/* 区块 */
+section{padding:56px 0}
+.sec-title{font-size:28px;font-weight:800;text-align:center;margin-bottom:8px}
+.sec-sub{text-align:center;color:var(--sub);margin-bottom:36px;font-size:16px}
+/* 政策卡 */
+.pol-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}
+.pol-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;transition:.2s}
+.pol-card:hover{box-shadow:0 8px 24px rgba(0,0,0,.08);transform:translateY(-2px)}
+.pol-tag{display:inline-block;font-size:12px;padding:3px 10px;border-radius:20px;font-weight:600;margin-bottom:10px}
+.st-open{background:#def7ec;color:#03543f}
+.st-closed{background:#fde8e8;color:#9b1c1c}
+.st-always{background:#e1effe;color:#1e429f}
+.pol-card h3{font-size:17px;margin-bottom:8px;line-height:1.4}
+.pol-meta{font-size:13px;color:var(--sub);margin-bottom:6px}
+.pol-fund{color:var(--acc);font-weight:600;font-size:14px;margin:8px 0}
+.pol-link{font-size:13px;color:var(--pri);text-decoration:none}
+/* 诊断 */
+.diag{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:36px;max-width:760px;margin:0 auto}
+.q{margin-bottom:26px}
+.q label{display:block;font-weight:700;margin-bottom:12px;font-size:16px}
+.q .num{color:var(--pri);margin-right:6px}
+.opts{display:flex;flex-wrap:wrap;gap:10px}
+.opt{border:1.5px solid var(--line);background:#fff;padding:10px 18px;border-radius:9px;cursor:pointer;font-size:14px;transition:.15s}
+.opt:hover{border-color:var(--pri)}
+.opt.sel{background:var(--pri);color:#fff;border-color:var(--pri)}
+.diag-btn{width:100%;background:var(--acc);color:#fff;border:none;padding:15px;border-radius:10px;font-size:17px;font-weight:700;cursor:pointer;margin-top:8px}
+.diag-btn:disabled{background:#9ca3af;cursor:not-allowed}
+/* 报告 */
+.report{display:none;margin-top:8px}
+.rep-block{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px;margin-bottom:16px}
+.rep-block h4{color:var(--pri);margin-bottom:10px;font-size:16px}
+.rep-pain{background:#fff7ed;border-left:4px solid #f59e0b;padding:14px 18px;border-radius:8px;margin-bottom:16px}
+.tool-item{padding:10px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.tool-item:last-child{border:none}
+.tool-item b{color:var(--ink)}
+.ttype{font-size:11px;background:#eef2ff;color:var(--pri);padding:2px 8px;border-radius:12px;margin-right:6px}
+.heat{color:var(--acc);font-size:12px;font-weight:600}
+.warntip{background:#fef2f2;border-left:4px solid var(--warn);padding:12px 16px;border-radius:8px;font-size:14px;margin-top:10px}
+/* 留资 */
+.lead{background:linear-gradient(135deg,#1e3a8a,#0e9f6e);border-radius:16px;padding:36px;color:#fff;max-width:760px;margin:0 auto;text-align:center}
+.lead h3{font-size:24px;margin-bottom:10px}
+.lead p{opacity:.92;margin-bottom:22px}
+.lead form{display:flex;gap:10px;max-width:520px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+.lead input{flex:1;min-width:180px;padding:13px 16px;border-radius:9px;border:none;font-size:15px}
+.lead button{background:#fff;color:var(--pri);border:none;padding:13px 28px;border-radius:9px;font-weight:700;cursor:pointer;font-size:15px}
+.lead-ok{display:none;margin-top:14px;font-weight:600}
+/* 标杆 */
+.case-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.case{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px}
+.case .field{font-size:12px;color:var(--pri);font-weight:700;margin-bottom:8px}
+.case h4{font-size:15px;margin-bottom:8px;line-height:1.4}
+.case .eff{color:var(--acc);font-size:13px;font-weight:600}
+footer{background:#111827;color:#9ca3af;text-align:center;padding:32px 0;font-size:13px;margin-top:40px}
+@media(max-width:640px){.hero h1{font-size:28px}.diag{padding:22px}}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <div class="logo">AI4S<span>·</span>科研赋能工具箱</div>
+  <a class="btn" href="#diag">免费诊断</a>
+</div></nav>
+
+<!-- HERO -->
+<header class="hero"><div class="wrap">
+  <h1>让 AI 为你的科研加速<br>从假设到发现的全流程赋能</h1>
+  <p>面向科学家 / 教授 / 高校教师 —— 政策经费匹配 · 能力诊断 · 137+ 科研智能体/工具/模型选型导航，一站式打通 AI4S 落地路径。</p>
+  <a class="cta" href="#diag">5分钟免费能力诊断 →</a>
+  <a class="cta2" href="#policy">查看可申报经费</a>
+  <div class="badges">
+    <div><b>9+4</b>政策与标杆案例</div>
+    <div><b>137</b>智能体·工具·模型</div>
+    <div><b>6</b>大学科全覆盖</div>
+    <div><b>4000万</b>单项最高补贴</div>
+  </div>
+</div></header>
+
+<!-- 政策雷达 -->
+<section id="policy"><div class="wrap">
+  <h2 class="sec-title">💰 政策雷达 · 你的研究能申报哪笔 AI 经费？</h2>
+  <p class="sec-sub">上海 AI4S 最新政策实时追踪 · 申报窗口倒计时 · 匹配你的学科</p>
+  <div class="pol-grid" id="polGrid"></div>
+</div></section>
+
+<!-- 能力诊断 -->
+<section id="diag" style="background:#fff"><div class="wrap">
+  <h2 class="sec-title">🧭 AI4S 能力诊断</h2>
+  <p class="sec-sub">回答 4 个问题，生成你的个性化《AI4S 落地路径报告》</p>
+  <div class="diag">
+    <div class="q"><label><span class="num">Q1</span>你的学科领域？</label>
+      <div class="opts" data-q="学科">
+        <div class="opt">生命科学</div><div class="opt">物质科学</div><div class="opt">地球环境</div>
+        <div class="opt">数学量子</div><div class="opt">工程技术</div><div class="opt">其他</div>
+      </div></div>
+    <div class="q"><label><span class="num">Q2</span>科研中哪个环节最耗时/最卡？</label>
+      <div class="opts" data-q="耗时环节">
+        <div class="opt">文献检索</div><div class="opt">选题/假设</div><div class="opt">计算/仿真</div>
+        <div class="opt">实验执行</div><div class="opt">数据整理</div><div class="opt">写作/投稿</div>
+      </div></div>
+    <div class="q"><label><span class="num">Q3</span>你的团队 AI 力量？</label>
+      <div class="opts" data-q="AI团队">
+        <div class="opt" data-v="完整">已有AI+领域+工程完整团队</div>
+        <div class="opt" data-v="有AI">有AI力量但缺工程</div>
+        <div class="opt" data-v="无AI">纯领域背景，无AI</div>
+      </div></div>
+    <div class="q"><label><span class="num">Q4</span>你的年龄（用于青年专项匹配）？</label>
+      <div class="opts" data-q="年龄">
+        <div class="opt" data-v="35">≤35岁</div><div class="opt" data-v="38">36-40岁</div><div class="opt" data-v="45">41岁以上</div>
+      </div></div>
+    <button class="diag-btn" id="genBtn" disabled>生成我的落地路径报告</button>
+
+    <!-- 报告 -->
+    <div class="report" id="report">
+      <div class="rep-pain" id="repPain"></div>
+      <div class="rep-block"><h4>🛠️ 推荐上手工具（按同行热度）</h4><div id="repTools"></div></div>
+      <div class="rep-block"><h4>💰 可申报政策</h4><div id="repPols"></div></div>
+      <div id="repWarn"></div>
+      <!-- 留资 -->
+      <div class="lead" style="margin-top:20px">
+        <h3>📄 获取完整版报告 + 申报自检清单</h3>
+        <p>留下邮箱，发送《AI4S 落地路径完整报告》《百团百项自检清单》《政策申报日历》</p>
+        <form id="leadForm">
+          <input type="email" id="leadEmail" placeholder="你的邮箱" required>
+          <input type="text" id="leadName" placeholder="姓名/单位(选填)">
+          <button type="submit">发送完整报告</button>
+        </form>
+        <div class="lead-ok" id="leadOk">✓ 已收到！完整报告将发送至你的邮箱。</div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 标杆案例 -->
+<section id="case"><div class="wrap">
+  <h2 class="sec-title">🏆 标杆实践 · 同行已用 AI 领先</h2>
+  <p class="sec-sub">真实的 AI4S 落地效果</p>
+  <div class="case-grid" id="caseGrid"></div>
+</div></section>
+
+<footer>
+  AI4S 科研赋能工具箱 · 数据来源于智爱赛思公开知识库 · 政策以官方通知为准
+</footer>
+
+<script src="data/policies.js"></script>
+<script src="data/assets.js"></script>
+<script>
+/* ========== 渲染政策卡 ========== */
+(function(){
+  const g=document.getElementById('polGrid');
+  const stMap={"申报中":"st-open","已截止":"st-closed","常年":"st-always","参考":"st-always"};
+  POLICIES.政策.forEach(p=>{
+    const st=p["状态"],cls=stMap[st]||"st-always";
+    g.insertAdjacentHTML('beforeend',`
+      <div class="pol-card">
+        <span class="pol-tag ${cls}">${st}</span>
+        <h3>${p["标题"]}</h3>
+        <div class="pol-meta">🏛️ ${p["发布机构"]} · ${p["发布日期"]}</div>
+        <div class="pol-meta">⏰ ${p["申报时间窗"]}</div>
+        <div class="pol-fund">💰 ${p["资助强度"].slice(0,44)}</div>
+        <div style="font-size:13px;color:#6b7280;margin-bottom:8px">${p["对科研人员的价值"]}</div>
+        <a class="pol-link" href="${p["原文链接"]}" target="_blank">查看原文 →</a>
+      </div>`);
+  });
+  // 标杆
+  const cg=document.getElementById('caseGrid');
+  POLICIES.标杆实践.forEach(b=>{
+    cg.insertAdjacentHTML('beforeend',`
+      <div class="case">
+        <div class="field">${b["领域"]}</div>
+        <h4>${b["标题"]}</h4>
+        <div class="eff">✓ ${b["效果"]}</div>
+      </div>`);
+  });
+})();
+
+/* ========== 诊断逻辑(前端化) ========== */
+const STEP2PAIN={"文献检索":"知识聚合","选题/假设":"假设生成","计算/仿真":"仿真计算",
+ "实验执行":"实验闭环","数据整理":"质量治理","写作/投稿":"协作传播"};
+const PAIN_DESC={"知识聚合":"文献/数据库散落，检索低效","假设生成":"假设靠拍脑袋，文献调研耗时",
+ "仿真计算":"计算门槛高，试错成本高","实验闭环":"实验设计靠经验，湿实验难自动化",
+ "质量治理":"图像不当处理，结果不可复现","协作传播":"项目管理乱，成果呈现弱"};
+const PAIN2TAGS={"知识聚合":["知识问答","数据库检索","知识图谱","文献驱动"],
+ "假设生成":["假设生成","文献驱动"],
+ "仿真计算":["仿真计算","化学计算","材料计算","生物计算","优化求解","算力加速"],
+ "实验闭环":["实验闭环","主动学习","湿实验","protocol生成","材料设计"],
+ "质量治理":["质量治理","图像校验","代码复现","数据处理","统计分析"],
+ "协作传播":["协作传播","项目管理","成果呈现","流程编排"]};
+const STEPS={"知识聚合":"① 用 Origene/SciGraph 打通目标数据库 → ② InternAgent 做文献驱动假设 → ③ 接入工具链形成检索-分析闭环",
+ "假设生成":"① InternAgent/大圣 拆解问题 → ② MolPilot 生成科学假设 → ③ 仿真工具验证",
+ "仿真计算":"① SciToolAgent-* 跑全流程计算 → ② VenusFactory/Bgolearn 逆向设计 → ③ Thoth 形成实验闭环",
+ "实验闭环":"① Thoth-Plan 把 protocol 写成机器可执行 → ② Thoth-OP 编排湿实验 → ③ 主动学习迭代优化",
+ "质量治理":"① 图像真实性校验助手做投稿前体检 → ② 代码复现审查官评级 → ③ 数据处理规范化",
+ "协作传播":"① 科研项目管理看板可视化 → ② 学术海报智能设计师出成果 → ③ SCP-Workflow 编排流程"};
+
+const ALL=ASSETS.智能体.concat(ASSETS.工具链,ASSETS.模型);
+const answers={};
+// 选项点击
+document.querySelectorAll('.opts').forEach(box=>{
+  box.addEventListener('click',e=>{
+    if(!e.target.classList.contains('opt'))return;
+    box.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+    e.target.classList.add('sel');
+    answers[box.dataset.q]=e.target.dataset.v||e.target.textContent;
+    document.getElementById('genBtn').disabled=Object.keys(answers).length<4;
+  });
+});
+function heat(a){if(a.热度){const v=parseFloat(String(a.热度));return isNaN(v)?0:v*1000}return a.下载量||0}
+function matchTools(disc,pain){
+  const tags=PAIN2TAGS[pain]||[];const seen=new Set();let res=[];
+  tags.forEach(tg=>{
+    ALL.filter(a=>(a.痛点||[]).some(p=>p.includes(tg)||tg.includes(p))&&(a.学科===disc||a.学科==="通用"))
+      .forEach(a=>{if(!seen.has(a.名称)){seen.add(a.名称);res.push(a)}});
+  });
+  const order={"智能体":0,"工具":1,"模型":2};
+  return res.sort((x,y)=>(order[x.类型]??3)-(order[y.类型]??3)||heat(y)-heat(x)).slice(0,6);
+}
+function matchPols(disc,age){
+  return POLICIES.政策.map(p=>{
+    let s=0;const blob=p["标题"]+p["重点领域"].join("")+p["对科研人员的价值"]+p["匹配标签"].join("");
+    if(p["状态"]==="申报中")s+=5;else if(p["状态"]==="已截止")s-=2;
+    if(disc&&blob.includes(disc))s+=6;
+    if(age<=40&&(blob.includes("青年")||blob.includes("40")||blob.includes("百团百项")))s+=6;
+    if(age>40&&(blob.includes("青年")||blob.includes("40岁")))s-=3;
+    if(p["资助强度"].includes("4000万")||p["资助强度"].includes("2000万"))s+=3;
+    return {s,p};
+  }).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).slice(0,3);
+}
+document.getElementById('genBtn').addEventListener('click',()=>{
+  const disc=answers["学科"],pain=STEP2PAIN[answers["耗时环节"]];
+  const team=answers["AI团队"],age=parseInt(answers["年龄"]);
+  // 瓶颈
+  document.getElementById('repPain').innerHTML=
+    `<b>🎯 核心瓶颈：${pain}</b> — ${PAIN_DESC[pain]}<br><span style="font-size:14px;color:#78350f">推荐路径：${STEPS[pain]}</span>`;
+  // 工具
+  const tools=matchTools(disc,pain);
+  document.getElementById('repTools').innerHTML=tools.length?tools.map(t=>
+    `<div class="tool-item"><span class="ttype">${t.类型}</span><b>${t.名称}</b>
+     ${t.热度?`<span class="heat">${t.热度}调用</span>`:(t.下载量?`<span class="heat">↓${t.下载量}</span>`:"")}
+     <div style="color:#6b7280;font-size:13px">${(t.简介||"").slice(0,52)} · ${t.机构.slice(0,20)}</div></div>`
+  ).join(""):"<div class='tool-item'>该学科暂无完全匹配工具，建议查看相邻领域或联系顾问。</div>";
+  // 政策
+  const pols=matchPols(disc,age);
+  document.getElementById('repPols').innerHTML=pols.map(({p})=>
+    `<div class="tool-item"><b>${p["标题"]}</b> <span class="pol-tag ${p["状态"]==="申报中"?"st-open":"st-closed"}" style="margin:0 6px">${p["状态"]}</span>
+     <div style="color:#0e9f6e;font-size:13px;font-weight:600">${p["资助强度"].slice(0,40)}</div></div>`
+  ).join("");
+  // 预警
+  let warn="";
+  if(team==="无AI")warn+="⚠️ 团队短板：无 AI 力量 —— 申报'百团百项'需先组建 AI+领域+工程 三人组。<br>";
+  if(age<=40)warn+="💡 你是青年科学家（≤40岁）：优先准备每年5月的'百团百项'专项，提前2-3个月组队。";
+  document.getElementById('repWarn').innerHTML=warn?`<div class="warntip">${warn}</div>`:"";
+  // 展示并滚动
+  const rep=document.getElementById('report');rep.style.display='block';
+  rep.scrollIntoView({behavior:'smooth',block:'start'});
+});
+// 留资
+document.getElementById('leadForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const email=document.getElementById('leadEmail').value;
+  const name=document.getElementById('leadName').value;
+  // 存入 localStorage(静态站无后端,后续接CRM/邮件服务)
+  const leads=JSON.parse(localStorage.getItem('ai4s_leads')||'[]');
+  leads.push({email,name,answers,time:new Date().toISOString()});
+  localStorage.setItem('ai4s_leads',JSON.stringify(leads));
+  document.getElementById('leadOk').style.display='block';
+  e.target.querySelector('button').disabled=true;
+  console.log('留资:',email,name);
+});
+</script>
+</body>
+</html>

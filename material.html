@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>物质科学 × AI · 科研智能工具箱</title>
+<style>
+:root{--pri:#b45309;--deep:#78350f;--ink:#111827;--sub:#6b7280;--line:#e5e7eb;--bg:#f9fafb;--card:#fff}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:var(--bg);line-height:1.6}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+nav{position:sticky;top:0;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:50}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font-weight:800;font-size:19px;color:var(--deep)}
+.logo span{color:var(--pri)}
+nav a.btn{background:var(--pri);color:#fff;padding:9px 18px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:600}
+.hero{background:linear-gradient(135deg,var(--deep) 0%,var(--pri) 130%);color:#fff;padding:66px 0 58px}
+.hero .kick{display:inline-block;background:rgba(255,255,255,.15);padding:5px 14px;border-radius:20px;font-size:13px;margin-bottom:18px;font-weight:600}
+.hero h1{font-size:36px;line-height:1.25;font-weight:800;margin-bottom:16px}
+.hero p{font-size:17px;opacity:.94;max-width:680px;margin-bottom:26px}
+.hero .cta{display:inline-block;background:#fff;color:var(--deep);padding:14px 32px;border-radius:10px;font-weight:700;font-size:17px;text-decoration:none;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.hero .cta2{display:inline-block;margin-left:14px;color:#fff;border:2px solid rgba(255,255,255,.5);padding:12px 26px;border-radius:10px;font-weight:600;text-decoration:none}
+.badges{display:flex;gap:26px;margin-top:36px;flex-wrap:wrap}
+.badges div{font-size:13px;opacity:.92}.badges b{display:block;font-size:24px;font-weight:800}
+section{padding:52px 0}
+.sec-title{font-size:26px;font-weight:800;text-align:center;margin-bottom:8px}
+.sec-sub{text-align:center;color:var(--sub);margin-bottom:32px;font-size:15px}
+.scene-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(480px,1fr));gap:20px}
+@media(max-width:640px){.scene-grid{grid-template-columns:1fr}}
+.scene{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px;transition:.2s;cursor:pointer}
+.scene:hover{box-shadow:0 10px 28px rgba(0,0,0,.1);transform:translateY(-3px);border-color:var(--pri)}
+.scene .ic{font-size:32px;margin-bottom:12px}
+.scene h3{font-size:20px;margin-bottom:6px;color:var(--deep)}
+.scene .one{font-size:14px;color:var(--sub);margin-bottom:14px}
+.scene .who{font-size:12.5px;background:#fef3c7;color:var(--deep);padding:6px 12px;border-radius:8px;display:inline-block;margin-bottom:12px}
+.scene .tools-count{font-size:13px;color:var(--pri);font-weight:700}
+.scene .hook{margin-top:14px;padding-top:14px;border-top:1px dashed var(--line);font-size:13px;color:#92400e;font-style:italic}
+.scene-detail{display:none;background:#fff;border:1px solid var(--line);border-radius:14px;padding:30px;margin-top:20px}
+.scene-detail.open{display:block}
+.sd-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.sd-head h3{font-size:22px;color:var(--deep)}
+.sd-close{background:none;border:1px solid var(--line);border-radius:8px;padding:6px 14px;cursor:pointer;color:var(--sub)}
+.sd-pain{background:#fff7ed;border-left:4px solid #f59e0b;padding:12px 16px;border-radius:8px;font-size:14px;margin:14px 0}
+.tool-row{display:flex;gap:14px;padding:14px 0;border-bottom:1px dashed var(--line);align-items:flex-start}
+.tool-row:last-child{border:none}
+.tool-row .nm{font-weight:700;min-width:170px;font-size:15px}
+.tool-row .nm .tag{display:block;font-size:11px;color:var(--pri);font-weight:600;margin-top:2px}
+.tool-row .val{flex:1;font-size:14px;color:#374151}
+.tool-row .heat{color:var(--pri);font-weight:700;font-size:13px;white-space:nowrap}
+.sd-hook{margin-top:16px;background:linear-gradient(135deg,var(--deep),var(--pri));color:#fff;padding:16px 20px;border-radius:10px;font-size:15px;font-weight:600}
+.diag{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:34px;max-width:780px;margin:0 auto}
+.q{margin-bottom:24px}.q label{display:block;font-weight:700;margin-bottom:12px;font-size:16px}
+.q .num{color:var(--pri);margin-right:6px}
+.opts{display:flex;flex-wrap:wrap;gap:10px}
+.opt{border:1.5px solid var(--line);background:#fff;padding:10px 18px;border-radius:9px;cursor:pointer;font-size:14px;transition:.15s}
+.opt:hover{border-color:var(--pri)}.opt.sel{background:var(--pri);color:#fff;border-color:var(--pri)}
+.diag-btn{width:100%;background:var(--deep);color:#fff;border:none;padding:15px;border-radius:10px;font-size:17px;font-weight:700;cursor:pointer;margin-top:6px}
+.diag-btn:disabled{background:#9ca3af;cursor:not-allowed}
+.report{display:none;margin-top:10px}
+.rep-block{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px;margin-bottom:16px}
+.rep-block h4{color:var(--deep);margin-bottom:12px;font-size:16px}
+.rep-pain{background:#fff7ed;border-left:4px solid #f59e0b;padding:14px 18px;border-radius:8px;margin-bottom:16px;font-size:14.5px}
+.warntip{background:#fef2f2;border-left:4px solid #e02424;padding:12px 16px;border-radius:8px;font-size:14px;margin-top:10px}
+.lead{background:linear-gradient(135deg,var(--deep),var(--pri));border-radius:14px;padding:32px;color:#fff;text-align:center;margin-top:20px}
+.lead h3{font-size:22px;margin-bottom:8px}.lead p{opacity:.92;margin-bottom:20px;font-size:14px}
+.lead form{display:flex;gap:10px;max-width:540px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+.lead input{flex:1;min-width:170px;padding:13px 16px;border-radius:9px;border:none;font-size:15px}
+.lead button{background:#fff;color:var(--deep);border:none;padding:13px 26px;border-radius:9px;font-weight:700;cursor:pointer}
+.lead-ok{display:none;margin-top:14px;font-weight:600}
+footer{background:var(--deep);color:#d1d5db;text-align:center;padding:30px 0;font-size:13px;margin-top:40px}
+</style></head><body>
+<nav><div class="wrap"><div class="logo">⚛️ 物质科学<span>×</span>AI 工具箱</div><a class="btn" href="#diag">免费场景诊断</a></div></nav>
+<header class="hero"><div class="wrap">
+  <div class="kick">⚛️ 专为材料 / 化学 / 化工 / 能源教授打造</div>
+  <h1>从经验试错到数据驱动<br>AI 正在重构材料与化学研发</h1>
+  <p>计算化学 · 新材料发现 · 结构解析 · 性质预测——33 项物质科学 AI 资产，让'十年磨一剑'变成'一键通关'。</p>
+  <a class="cta" href="#diag">找到我的研究场景 →</a>
+  <a class="cta2" href="#scenes">浏览场景</a>
+  <div class="badges"><div><b>33</b>物质科学AI资产</div><div><b>19</b>垂类模型</div><div><b>10235</b>电解液数据集</div><div><b>一键</b>半导体研发通关</div></div>
+</div></header>
+<section id="scenes"><div class="wrap">
+  <h2 class="sec-title">研究场景 · 对号入座</h2>
+  <p class="sec-sub">点开你的方向，看同行在用什么 AI、解决什么痛点</p>
+  <div class="scene-grid" id="sceneGrid"></div>
+  <div class="scene-detail" id="sceneDetail"></div>
+</div></section>
+<section id="diag" style="background:#fff"><div class="wrap">
+  <h2 class="sec-title">🧭 物质科学 AI 场景诊断</h2>
+  <p class="sec-sub">3 个问题，生成你的专属《物质科学 AI 落地路径》</p>
+  <div class="diag">
+    <div class="q"><label><span class="num">Q1</span>你的研究方向最接近哪个场景？</label>
+      <div class="opts" data-q="场景"><div class="opt" data-v="chem">🧪 计算化学</div><div class="opt" data-v="newmat">🔋 新材料发现</div><div class="opt" data-v="struct">💎 结构与解析</div></div></div>
+    <div class="q"><label><span class="num">Q2</span>当前最大的卡点？</label>
+      <div class="opts" data-q="卡点"><div class="opt">计算门槛太高</div><div class="opt">配方试错太慢</div><div class="opt">结构解析太难</div><div class="opt">缺AI方法/人才</div></div></div>
+    <div class="q"><label><span class="num">Q3</span>你的年龄（青年专项匹配）？</label>
+      <div class="opts" data-q="年龄"><div class="opt" data-v="35">≤35岁</div><div class="opt" data-v="38">36-40岁</div><div class="opt" data-v="45">41岁以上</div></div></div>
+    <button class="diag-btn" id="genBtn" disabled>生成我的落地路径</button>
+    <div class="report" id="report">
+      <div class="rep-pain" id="repPain"></div>
+      <div class="rep-block"><h4>🛠️ 你的场景推荐工具</h4><div id="repTools"></div></div>
+      <div class="rep-block"><h4>💰 可申报政策（物质科学方向）</h4><div id="repPols"></div></div>
+      <div id="repWarn"></div>
+      <div class="lead"><h3>📄 获取完整版 + 百团百项自检清单</h3>
+        <p>留下邮箱，发送《物质科学 AI 落地完整报告》《百团百项申报自检清单》《政策申报日历》</p>
+        <form id="leadForm"><input type="email" id="leadEmail" placeholder="你的邮箱" required><input type="text" id="leadName" placeholder="姓名/单位(选填)"><button type="submit">发送完整报告</button></form>
+        <div class="lead-ok" id="leadOk">✓ 已收到！完整报告将发送至你的邮箱。</div></div>
+    </div>
+  </div>
+</div></section>
+<footer>物质科学 × AI 工具箱 · 数据来源于智爱赛思公开知识库 · 政策以官方通知为准</footer>
+<script src="data/policies.js"></script>
+<script src="data/verticals.js"></script>
+<script>
+const V=VERTICALS["material"],S=V.场景;
+const grid=document.getElementById('sceneGrid'),detail=document.getElementById('sceneDetail');
+S.forEach(s=>{grid.insertAdjacentHTML('beforeend',
+  '<div class="scene" data-id="'+s.id+'"><div class="ic">'+s.图标+'</div><h3>'+s.名称+'</h3>'+
+  '<div class="one">'+s.一句话+'</div><div class="who">👥 '+s.适合谁+'</div>'+
+  '<div class="tools-count">▸ '+s.代表工具.length+' 类核心工具/模型</div>'+
+  '<div class="hook">"'+s.营销钩子+'"</div></div>');});
+grid.addEventListener('click',e=>{const card=e.target.closest('.scene');if(!card)return;
+  const s=S.find(x=>x.id===card.dataset.id);
+  const rows=s.代表工具.map(t=>'<div class="tool-row">'+
+    '<div class="nm">'+t.名称+'<span class="tag">'+t.类型+' · '+t.机构+'</span></div>'+
+    '<div class="val">'+t.价值+'</div>'+(t.热度?'<div class="heat">'+t.热度+'</div>':'<div class="heat"></div>')+'</div>').join('');
+  detail.innerHTML='<div class="sd-head"><h3>'+s.图标+' '+s.名称+'</h3><button class="sd-close">收起</button></div>'+
+    '<div style="color:#6b7280;font-size:15px">'+s.一句话+'</div>'+
+    '<div class="sd-pain">😖 <b>典型痛点：</b>'+s.痛点+'</div>'+rows+
+    '<div class="sd-hook">💬 '+s.营销钩子+'</div>';
+  detail.classList.add('open');detail.scrollIntoView({behavior:'smooth',block:'nearest'});});
+detail.addEventListener('click',e=>{if(e.target.classList.contains('sd-close'))detail.classList.remove('open')});
+const answers={};
+document.querySelectorAll('.opts').forEach(box=>{box.addEventListener('click',e=>{
+  if(!e.target.classList.contains('opt'))return;
+  box.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+  e.target.classList.add('sel');answers[box.dataset.q]=e.target.dataset.v||e.target.textContent;
+  document.getElementById('genBtn').disabled=Object.keys(answers).length<3;});});
+const DISCKW="材料";
+function advice(stuck){
+  if(/AI|人才/.test(stuck))return "申报'百团百项'需 AI+领域+工程 三人组——平台可帮你对接";
+  if(/计算|资源|性能/.test(stuck))return "对接'科学智能开放社区算力支持计划'(免费/补贴算力)";
+  if(/试错|数据|检索|处理/.test(stuck))return "用AI主动学习/数据库工具,把盲目试错变成定向搜索";
+  return "引入对应AI工具,逐步替换低效环节";}
+document.getElementById('genBtn').addEventListener('click',()=>{
+  const sc=S.find(x=>x.id===answers["场景"]);const stuck=answers["卡点"],age=parseInt(answers["年龄"]);
+  document.getElementById('repPain').innerHTML='<b>🎯 你的场景：'+sc.名称+'</b><br>😖 痛点:'+sc.痛点+'<br>💡 针对"'+stuck+'"：'+advice(stuck);
+  document.getElementById('repTools').innerHTML=sc.代表工具.map(t=>'<div class="tool-row">'+
+    '<div class="nm">'+t.名称+'<span class="tag">'+t.类型+' · '+t.机构+'</span></div>'+
+    '<div class="val">'+t.价值+'</div>'+(t.热度?'<div class="heat">'+t.热度+'</div>':'<div class="heat"></div>')+'</div>').join('');
+  const pols=POLICIES.政策.map(p=>{let s=0;const blob=p["标题"]+p["重点领域"].join("")+p["对科研人员的价值"]+p["匹配标签"].join("");
+    if(p["状态"]==="申报中")s+=5;else if(p["状态"]==="已截止")s-=2;
+    if(blob.includes(DISCKW))s+=6;if(blob.includes("百团百项")||blob.includes("科学智能"))s+=3;
+    if(age<=40&&(blob.includes("青年")||blob.includes("百团百项")))s+=6;
+    if(p["资助强度"].includes("4000万"))s+=2;return {s,p};
+  }).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).slice(0,3);
+  document.getElementById('repPols').innerHTML=pols.map(x=>'<div class="tool-row">'+
+    '<div class="nm" style="min-width:0;flex:1">'+x.p["标题"]+'<span class="tag">'+x.p["状态"]+' · '+x.p["申报时间窗"]+'</span></div>'+
+    '<div class="val" style="color:'+V.主题色+';font-weight:600">'+x.p["资助强度"].slice(0,36)+'</div></div>').join('');
+  const warn=age<=40?"💡 你是青年科学家(≤40岁)：优先准备每年5月'百团百项'，需AI+领域+工程三人组。":"";
+  document.getElementById('repWarn').innerHTML=warn?'<div class="warntip">'+warn+'</div>':"";
+  const rep=document.getElementById('report');rep.style.display='block';rep.scrollIntoView({behavior:'smooth',block:'start'});
+});
+document.getElementById('leadForm').addEventListener('submit',e=>{e.preventDefault();
+  const leads=JSON.parse(localStorage.getItem('ai4s_leads_material')||'[]');
+  leads.push({email:leadEmail.value,name:leadName.value,answers,time:new Date().toISOString()});
+  localStorage.setItem('ai4s_leads_material',JSON.stringify(leads));
+  document.getElementById('leadOk').style.display='block';e.target.querySelector('button').disabled=true;});
+</script>
+</body></html>
