@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>课程学习中心 · AI4S 科研赋能工具箱</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--pri:#1a56db;--acc:#0e9f6e;--ink:#111827;--sub:#6b7280;--line:#e5e7eb;--bg:#f9fafb}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:var(--bg);line-height:1.7}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+nav{position:sticky;top:0;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:50}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font-weight:800;font-size:18px;color:var(--pri);text-decoration:none}
+.back{font-size:14px;color:var(--sub);text-decoration:none}
+.head{padding:50px 0 30px;text-align:center}
+.head h1{font-size:32px;font-weight:800;margin-bottom:10px}
+.head p{color:var(--sub);font-size:16px}
+.tagfilter{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:30px}
+.tf{border:1.5px solid var(--line);background:#fff;padding:7px 18px;border-radius:20px;cursor:pointer;font-size:14px;transition:.15s}
+.tf.sel{background:var(--pri);color:#fff;border-color:var(--pri)}
+.course{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:18px;cursor:pointer;transition:.2s}
+.course:hover{box-shadow:0 8px 24px rgba(0,0,0,.08);transform:translateY(-2px)}
+.c-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
+.c-title{font-size:19px;font-weight:700;line-height:1.4;flex:1}
+.c-tag{font-size:12px;background:#e1effe;color:#1e429f;padding:4px 12px;border-radius:14px;white-space:nowrap;font-weight:600}
+.c-meta{font-size:13px;color:var(--sub);margin:8px 0}
+.c-one{color:var(--acc);font-weight:600;font-size:15px;margin-top:8px}
+.c-more{font-size:13px;color:var(--pri);margin-top:10px;font-weight:600}
+.c-body{display:none;margin-top:18px;padding-top:18px;border-top:1px dashed var(--line)}
+.course.open .c-body{display:block}
+.c-actions{margin-top:16px;display:flex;gap:12px}
+.c-actions a{font-size:14px;padding:9px 20px;border-radius:8px;text-decoration:none;font-weight:600}
+.btn-v{background:var(--acc);color:#fff}
+.btn-p{background:#fff;color:var(--pri);border:1.5px solid var(--pri)}
+/* markdown正文样式 */
+.md h1,.md h2,.md h3,.md h4{margin:18px 0 10px;line-height:1.4}
+.md h1{font-size:21px}.md h2{font-size:19px;color:var(--pri)}.md h3{font-size:16px}
+.md p{margin:10px 0;font-size:15px}
+.md ul,.md ol{margin:10px 0 10px 24px;font-size:15px}
+.md li{margin:5px 0}
+.md strong{color:var(--ink)}
+.md table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13.5px}
+.md th,.md td{border:1px solid var(--line);padding:8px 10px;text-align:left}
+.md th{background:#f3f4f6;font-weight:700}
+.md blockquote{border-left:4px solid var(--acc);background:#f0fdf4;padding:12px 16px;margin:14px 0;border-radius:6px;color:#065f46}
+.md code{background:#f3f4f6;padding:2px 6px;border-radius:4px;font-size:13px}
+.md hr{border:none;border-top:1px solid var(--line);margin:18px 0}
+footer{background:#111827;color:#9ca3af;text-align:center;padding:28px 0;font-size:13px;margin-top:40px}
+</style></head><body>
+<nav><div class="wrap">
+  <a class="logo" href="index.html">📚 课程学习中心</a>
+  <a class="back" href="index.html">← 返回门户</a>
+</div></nav>
+<div class="wrap">
+  <div class="head">
+    <h1>AI 在科研中怎么用、效果如何</h1>
+    <p>基于智爱赛思百家讲坛课程视频，AI 自动提炼的结构化课程卡片（视觉 PPT 理解 + 语音转录双路融合）</p>
+  </div>
+  <div class="tagfilter" id="tagFilter"></div>
+  <div id="courseList"></div>
+</div>
+<footer>课程学习中心 · 内容由 AI 从公开课程视频整理 · 数据来源:智爱赛思公开知识库</footer>
+<script src="data/courses.js"></script>
+<script>
+// 微型markdown渲染器(覆盖卡片常用语法)
+function md(src){
+  let h=src;
+  const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  // 表格
+  h=h.replace(/(^\|.*\|[ \t]*\n)+/gm,block=>{
+    const rows=block.trim().split('\n').map(r=>r.trim()).filter(r=>!/^\|[\s:-]+\|$/.test(r.replace(/\|/g,m=>m)));
+    const cells=r=>r.split('|').slice(1,-1).map(c=>c.trim());
+    let out='<table>';
+    rows.forEach((r,i)=>{
+      if(/^\|[\s:|-]+\|$/.test(r))return;
+      const cs=cells(r);
+      if(i===0)out+='<tr>'+cs.map(c=>'<th>'+c+'</th>').join('')+'</tr>';
+      else if(!/^[:\-| ]+$/.test(r.replace(/\|/g,'')))out+='<tr>'+cs.map(c=>'<td>'+c+'</td>').join('')+'</tr>';
+    });
+    return out+'</table>';
+  });
+  h=h.split('\n').map(line=>{
+    if(/^\|.*\|$/.test(line.trim()))return line; // 表格已处理
+    return line;
+  }).join('\n');
+  // 标题
+  h=h.replace(/^#### (.*)$/gm,'<h4>$1</h4>').replace(/^### (.*)$/gm,'<h3>$1</h3>')
+     .replace(/^## (.*)$/gm,'<h2>$1</h2>').replace(/^# (.*)$/gm,'<h1>$1</h1>');
+  // 引用
+  h=h.replace(/^> (.*)$/gm,'<blockquote>$1</blockquote>');
+  // 分隔线
+  h=h.replace(/^---$/gm,'<hr>');
+  // 加粗/代码
+  h=h.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/`([^`]+)`/g,'<code>$1</code>');
+  // 链接
+  h=h.replace(/(https?:\/\/[^\s)<]+)/g,'<a href="$1" target="_blank" style="color:var(--pri)">$1</a>');
+  // 列表
+  h=h.replace(/^\s*[-*] (.*)$/gm,'<li>$1</li>');
+  h=h.replace(/(<li>[\s\S]*?<\/li>)(?!\s*<li>)/g,'<ul>$1</ul>');
+  h=h.replace(/<\/ul>\s*<ul>/g,'');
+  h=h.replace(/^\d+\. (.*)$/gm,'<li>$1</li>');
+  // 段落(非标签行包p)
+  h=h.split(/\n{2,}/).map(b=>{
+    b=b.trim();
+    if(!b)return '';
+    if(/^<(h\d|ul|ol|table|blockquote|hr|li)/.test(b))return b;
+    return '<p>'+b.replace(/\n/g,'<br>')+'</p>';
+  }).join('\n');
+  return h;
+}
+// 渲染标签过滤器
+const tags=['全部',...new Set(COURSES.map(c=>c.标签))];
+const tf=document.getElementById('tagFilter');
+tags.forEach((t,i)=>{
+  tf.insertAdjacentHTML('beforeend',`<div class="tf${i===0?' sel':''}" data-t="${t}">${t}</div>`);
+});
+tf.addEventListener('click',e=>{
+  if(!e.target.classList.contains('tf'))return;
+  tf.querySelectorAll('.tf').forEach(x=>x.classList.remove('sel'));
+  e.target.classList.add('sel');
+  render(e.target.dataset.t);
+});
+function render(filter='全部'){
+  const list=document.getElementById('courseList');
+  list.innerHTML='';
+  COURSES.filter(c=>filter==='全部'||c.标签===filter).forEach(c=>{
+    list.insertAdjacentHTML('beforeend',`
+    <div class="course" data-id="${c.编号}">
+      <div class="c-top"><div class="c-title">${c.标题}</div><span class="c-tag">${c.标签}</span></div>
+      <div class="c-meta">讲师:${c.讲师||'—'} · 课程 ${c.编号}</div>
+      ${c.一句话?`<div class="c-one">"${c.一句话}"</div>`:''}
+      <div class="c-more">展开课程卡片 ▾</div>
+      <div class="c-body">
+        <div class="md">${md(c.正文)}</div>
+        <div class="c-actions">
+          ${c.视频?`<a class="btn-v" href="${c.视频}" target="_blank">▶ 观看原课程视频</a>`:''}
+          <a class="btn-p" href="index.html">返回工具箱诊断</a>
+        </div>
+      </div>
+    </div>`);
+  });
+}
+document.getElementById('courseList').addEventListener('click',e=>{
+  const card=e.target.closest('.course');
+  if(card&&!e.target.closest('a'))card.classList.toggle('open');
+});
+render();
+</script>
+</body></html>
