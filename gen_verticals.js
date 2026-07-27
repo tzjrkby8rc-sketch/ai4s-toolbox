@@ -107,9 +107,13 @@ var sBox=document.getElementById('skillsBox'),aBox=document.getElementById('asse
 function installCmd(s){if(s.source.indexOf('claude-scientific-skills')>=0)return '# 装进 Claude Code / Cursor<br>npx skills add K-Dense-AI/claude-scientific-skills '+s.id;if(s.source.indexOf('OpenAI4S')>=0)return '# OpenAI4S 技能, 克隆即用<br>git clone https://github.com/PKU-YuanGroup/OpenAI4S';if(s.source.indexOf('supervisor-skills')>=0)return '# Supervisor-Skills 技能(非商业)<br>git clone https://github.com/HKUSTDial/Supervisor-Skills';return '# open-science 技能<br>git clone https://github.com/ai4s-research/open-science';}
 function srcLink(s){var m={'claude-scientific-skills':'https://github.com/K-Dense-AI/claude-scientific-skills/tree/main/skills/'+s.id,'OpenAI4S':'https://github.com/PKU-YuanGroup/OpenAI4S/tree/main/skills/'+s.id,'supervisor-skills':'https://github.com/HKUSTDial/Supervisor-Skills/tree/main/skills/'+s.id,'open-science':'https://github.com/ai4s-research/open-science'};return m[s.source.split('+')[0]]||m['open-science'];}
 function licShort(l){return l.replace('CC-BY-NC-SA-4.0','NC-SA').replace('CC-BY-4.0','BY');}
-if(sBox)sBox.innerHTML=SKILLS_DATA.map(function(s){return '<div class="tool-card"><div class="tc-top"><span class="tc-name">'+s.id+'</span><span class="tc-badge">'+s.环节+'</span>'+(s.license&&s.license!=='MIT'?'<span class="tc-lic">'+licShort(s.license)+'</span>':'')+'</div><div class="tc-cn">'+(s.cn||s.description.slice(0,60))+'</div><div class="tc-detail"><div class="en">'+s.description+'</div><div class="install-box">'+installCmd(s)+'</div><a href="'+srcLink(s)+'" target="_blank">查看源技能文档 -></a>'+(TUT_IDS.indexOf(s.id)>=0?'<a class="tut-link" href="tutorials.html#'+s.id+'">📖 中文教程</a>':'')+'</div></div>';}).join('');
-if(aBox)aBox.innerHTML=ASSETS_DATA.map(function(a){return '<div class="tool-card"><div class="tc-top"><span class="tc-name">'+a.名称+'</span><span class="tc-badge">'+a.类型+'</span></div><div class="tc-cn">'+(a.简介||'').slice(0,60)+'</div><div class="tc-detail"><div class="en">'+(a.简介||'')+'</div><div class="asset-meta">机构: '+(a.机构||'')+' · 类型: '+a.类型+'</div></div></div>';}).join('');
+if(sBox)sBox.innerHTML=SKILLS_DATA.map(function(s){return '<div class="tool-card" id="'+s.id+'"><div class="tc-top"><span class="tc-name">'+s.id+'</span><span class="tc-badge">'+s.环节+'</span>'+(s.license&&s.license!=='MIT'?'<span class="tc-lic">'+licShort(s.license)+'</span>':'')+'</div><div class="tc-cn">'+(s.cn||s.description.slice(0,60))+'</div><div class="tc-detail"><div class="en">'+s.description+'</div><div class="install-box">'+installCmd(s)+'</div><a href="'+srcLink(s)+'" target="_blank">查看源技能文档 -></a>'+(TUT_IDS.indexOf(s.id)>=0?'<a class="tut-link" href="tutorials.html#'+s.id+'">📖 中文教程</a>':'')+'</div></div>';}).join('');
+if(aBox)aBox.innerHTML=ASSETS_DATA.map(function(a){return '<div class="tool-card" id="asset-'+a.名称+'"><div class="tc-top"><span class="tc-name">'+a.名称+'</span><span class="tc-badge">'+a.类型+'</span></div><div class="tc-cn">'+(a.简介||'').slice(0,60)+'</div><div class="tc-detail"><div class="en">'+(a.简介||'')+'</div><div class="asset-meta">机构: '+(a.机构||'')+' · 类型: '+a.类型+'</div></div></div>';}).join('');
 [sBox,aBox].forEach(function(box){if(box)box.addEventListener('click',function(e){var c=e.target.closest('.tool-card');if(c&&!e.target.closest('a'))c.classList.toggle('open');});});
+// guide-box 点击展开 + 详情工具名自动链接(匹配技能/资产,锚点跳转)
+document.querySelectorAll('.guide-exp').forEach(function(box){box.addEventListener('click',function(e){if(e.target.tagName==='A')return;box.classList.toggle('open');var h=box.querySelector('.exp-hint');if(h)h.textContent=box.classList.contains('open')?'▴ 收起':'▾ 详情';});});
+function linkTools(text){var map={};var i=0;ASSETS_DATA.forEach(function(a){if(!a.名称)return;var ph='__L'+(i++)+'__';map[ph]='<a href="#asset-'+a.名称+'">'+a.名称+'</a>';text=text.split(a.名称).join(ph);});SKILLS_DATA.forEach(function(s){var ph='__L'+(i++)+'__';map[ph]='<a href="#'+s.id+'">'+s.id+'</a>';text=text.split(s.id).join(ph);});for(var k in map)text=text.split(k).join(map[k]);return text;}
+document.querySelectorAll('.g-det').forEach(function(d){d.innerHTML=linkTools(d.innerHTML);});
 `;
 
 function gen(key){
@@ -241,6 +245,11 @@ section{padding:54px 0}
 .guide-box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;margin-bottom:14px}
 .guide-box h4{color:var(--deep);font-size:15px;margin-bottom:8px}
 .guide-box p{font-size:13.5px;color:#374151}
+.guide-exp{cursor:pointer;transition:.2s}.guide-exp:hover{border-color:var(--pri)}
+.guide-exp .exp-hint{font-size:12px;color:var(--pri);font-weight:400;float:right}
+.guide-exp .g-det{display:none;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);font-size:13.5px;color:#374151;line-height:1.7}
+.guide-exp.open .g-det{display:block}
+.guide-exp .g-det a{color:var(--pri);text-decoration:none;border-bottom:1px dashed var(--pri);cursor:pointer}
 footer{background:var(--deep);color:rgba(255,255,255,.8);text-align:center;padding:28px 0;font-size:13px;margin-top:40px}
 footer a{color:#fff}
 @media(max-width:640px){.grid2,.scene-grid{grid-template-columns:1fr}.hero h1{font-size:28px}}
@@ -333,9 +342,9 @@ footer a{color:#fff}
 <section id="tools"><div class="wrap">
   <h2 class="sec-title"><span class="sec-num">6</span>适用工具</h2>
   <p class="sec-sub">该学科适用的科研技能包工具 + 平台资产 + 流程/数据集/模型/算力指导</p>
-  <div class="guide-box"><h4>🔧 科研流程规划</h4><p>${v.适用工具指导.流程}</p></div>
-  <div class="guide-box"><h4>📊 数据集采纳</h4><p>${v.适用工具指导.数据集}</p></div>
-  <div class="guide-box"><h4>🤖 模型与算力选择</h4><p>${v.适用工具指导.模型} ｜ 算力:${v.适用工具指导.算力}</p></div>
+  <div class="guide-box guide-exp"><h4>🔧 科研流程规划 <span class="exp-hint">▾ 详情</span></h4><p class="g-sum">${v.适用工具指导.流程.摘}</p><div class="g-det">${v.适用工具指导.流程.详}</div></div>
+  <div class="guide-box guide-exp"><h4>📊 数据集采纳 <span class="exp-hint">▾ 详情</span></h4><p class="g-sum">${v.适用工具指导.数据集.摘}</p><div class="g-det">${v.适用工具指导.数据集.详}</div></div>
+  <div class="guide-box guide-exp"><h4>🤖 模型与算力选择 <span class="exp-hint">▾ 详情</span></h4><p class="g-sum">${v.适用工具指导.模型.摘} ｜ 算力:${v.适用工具指导.算力.摘}</p><div class="g-det">${v.适用工具指导.模型.详}<br>算力:${v.适用工具指导.算力.详}</div></div>
   <h4 style="color:var(--deep);margin:24px 0 10px;font-size:15px">开源技能(skills 包,${skills.length} 个,点击查看详情)</h4>
   <div id="skillsBox" class="tool-grid"></div>
   <h4 style="color:var(--deep);margin:24px 0 10px;font-size:15px">平台资产(${assets.length} 项,点击查看详情)</h4>
