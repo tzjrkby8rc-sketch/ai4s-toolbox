@@ -118,13 +118,13 @@ function gen(key){
   // 科研设计
   const designHTML=v.科研设计.map(x=>`<div class="step-card"><div class="step-no">${x.阶段}</div><p>${x.要点}</p></div>`).join('');
   // 政策
-  const polHTML=pols.length?pols.map(p=>`<div class="pol-row"><div class="pol-name">${p.标题}<span class="pol-tag">${p.状态} · ${p.申报时间窗||''}</span></div><div class="pol-amt">${(p.资助强度||'').slice(0,40)}</div></div>`).join(''):'<p class="empty">该学科暂无精准匹配政策,可关注通用类(百团百项/AI+制造等)。</p>';
+  const polHTML=pols.length?pols.map(p=>`<div class="pol-row"><div class="pol-name">${p.标题}<span class="pol-tag">${p.状态} · ${p.申报时间窗||''}</span></div><div class="pol-amt">${(p.资助强度||'').slice(0,40)}</div></div>`).join(''):'';
   // 适用工具-技能
   const skillHTML=skills.slice(0,12).map(s=>`<div class="tool-chip" data-href="skills.html"><span class="tc-name">${s.id}</span><span class="tc-disc">${s.环节}</span>${s.license&&s.license!=="MIT"?`<span class="tc-lic">${s.license.replace('CC-BY-NC-SA-4.0','NC-SA').replace('CC-BY-4.0','BY')}</span>`:''}</div>`).join('');
   // 适用工具-资产
   const assetHTML=assets.slice(0,10).map(a=>`<div class="tool-chip"><span class="tc-name">${a.名称}</span><span class="tc-disc">${a.类型}</span></div>`).join('');
   // 课程案例
-  const caseHTML=courses.length?courses.map(c=>`<div class="case-card"><div class="case-no">课程 ${c.编号}</div><h3>${c.标题}</h3><p class="case-one">${c.一句话}</p><div class="case-meta">讲师: ${c.讲师} · 标签: ${c.标签}</div></div>`).join(''):'<p class="empty">该学科暂无对应课程案例,可参考标杆实践与资产介绍。</p>';
+  const caseHTML=courses.length?courses.map(c=>`<div class="case-card"><div class="case-no">课程 ${c.编号}</div><h3>${c.标题}</h3><p class="case-one">${c.一句话}</p><div class="case-meta">讲师: ${c.讲师} · 标签: ${c.标签}</div></div>`).join(''):'';
   // 场景卡选项(诊断Q1)
   const sceneOpts=v.场景.map(s=>`<div class="opt" data-v="${s.id}">${s.图标} ${s.名称}</div>`).join('');
   const stuckOpts=v.卡点.map(k=>`<div class="opt">${k}</div>`).join('');
@@ -228,7 +228,6 @@ footer a{color:#fff}
 <body>
 <nav><div class="wrap">
   <div class="logo">${v.学科}<span>×</span>AI 工具箱</div>
-  <a class="btn" href="#diag">场景诊断</a>
 </div></nav>
 
 <header class="hero"><div class="wrap">
@@ -317,20 +316,20 @@ footer a{color:#fff}
   <div class="guide-box"><h4>📊 数据集采纳</h4><p>${v.适用工具指导.数据集}</p></div>
   <div class="guide-box"><h4>🤖 模型与算力选择</h4><p>${v.适用工具指导.模型} ｜ 算力:${v.适用工具指导.算力}</p></div>
   <h4 style="color:var(--deep);margin:24px 0 10px;font-size:15px">开源技能(skills 包,${skills.length} 个)</h4>
-  <div>${skillHTML||'<p class="empty">该学科暂无匹配开源技能</p>'}</div>
+  <div>${skillHTML||''}</div>
   <h4 style="color:var(--deep);margin:24px 0 10px;font-size:15px">平台资产(${assets.length} 项)</h4>
-  <div>${assetHTML||'<p class="empty">该学科暂无匹配平台资产</p>'}</div>
+  <div>${assetHTML||''}</div>
 </div></section>
 
 <!-- 7. 使用案例(课程) -->
 <section id="cases" style="background:#fff"><div class="wrap">
   <h2 class="sec-title"><span class="sec-num">7</span>使用案例</h2>
-  <p class="sec-sub">智爱赛思百家讲坛课程--${v.学科}方向的 AI 实践</p>
+  
   <div class="grid2">${caseHTML}</div>
 </div></section>
 
 <footer>
-  ${v.学科} × AI 工具箱 · 数据来源于智爱赛思公开知识库 · 政策以官方通知为准 · <a href="index.html">返回门户</a>
+  ${v.学科} × AI 工具箱 · <a href="index.html">返回门户</a>
 </footer>
 
 <script>var VERTICALS=${JSON.stringify({[key]:v})};var POLICIES_JSON=${polJson};</script>
@@ -343,5 +342,5 @@ ${CLIENT.replace(/__KEY__/g,key).replace(/__DISCKW_JSON__/g,discJson)}
   console.log(`✓ ${key}.html (场景${v.场景.length}/技能${skills.length}/资产${assets.length}/课程${courses.length}/政策${pols.length})`);
 }
 
-['life','material','engineering','earth','math','cross'].forEach(gen);
+['life','material','earth','math','engineering','cross'].forEach(gen);
 console.log('\n✓ 6 学科页生成完成');
