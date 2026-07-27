@@ -14,6 +14,7 @@ load('policies.js','POLICIES');
 load('courses.js','COURSES');
 load('assets.js','ASSETS');
 load('skills.js','SKILLS_DB');
+load('tutorials.js','TUTORIALS');
 
 // 学科 key -> 学科名(skills/assets 的学科标签)
 const KEY2DISC={life:"生命科学",material:"物质科学",engineering:"工程技术",earth:"地球环境",math:"数学量子",cross:"交叉通用"};
@@ -101,6 +102,14 @@ document.getElementById('leadForm').addEventListener('submit',e=>{
   localStorage.setItem('ai4s_leads___KEY__',JSON.stringify(leads));
   document.getElementById('leadOk').style.display='block';
   e.target.querySelector('button').disabled=true;});
+// 渲染工具卡(技能+资产,点击展开详情与开源地址)
+var sBox=document.getElementById('skillsBox'),aBox=document.getElementById('assetsBox');
+function installCmd(s){if(s.source.indexOf('claude-scientific-skills')>=0)return '# 装进 Claude Code / Cursor<br>npx skills add K-Dense-AI/claude-scientific-skills '+s.id;if(s.source.indexOf('OpenAI4S')>=0)return '# OpenAI4S 技能, 克隆即用<br>git clone https://github.com/PKU-YuanGroup/OpenAI4S';if(s.source.indexOf('supervisor-skills')>=0)return '# Supervisor-Skills 技能(非商业)<br>git clone https://github.com/HKUSTDial/Supervisor-Skills';return '# open-science 技能<br>git clone https://github.com/ai4s-research/open-science';}
+function srcLink(s){var m={'claude-scientific-skills':'https://github.com/K-Dense-AI/claude-scientific-skills/tree/main/skills/'+s.id,'OpenAI4S':'https://github.com/PKU-YuanGroup/OpenAI4S/tree/main/skills/'+s.id,'supervisor-skills':'https://github.com/HKUSTDial/Supervisor-Skills/tree/main/skills/'+s.id,'open-science':'https://github.com/ai4s-research/open-science'};return m[s.source.split('+')[0]]||m['open-science'];}
+function licShort(l){return l.replace('CC-BY-NC-SA-4.0','NC-SA').replace('CC-BY-4.0','BY');}
+if(sBox)sBox.innerHTML=SKILLS_DATA.map(function(s){return '<div class="tool-card"><div class="tc-top"><span class="tc-name">'+s.id+'</span><span class="tc-badge">'+s.环节+'</span>'+(s.license&&s.license!=='MIT'?'<span class="tc-lic">'+licShort(s.license)+'</span>':'')+'</div><div class="tc-cn">'+(s.cn||s.description.slice(0,60))+'</div><div class="tc-detail"><div class="en">'+s.description+'</div><div class="install-box">'+installCmd(s)+'</div><a href="'+srcLink(s)+'" target="_blank">查看源技能文档 -></a>'+(TUT_IDS.indexOf(s.id)>=0?'<a class="tut-link" href="tutorials.html#'+s.id+'">📖 中文教程</a>':'')+'</div></div>';}).join('');
+if(aBox)aBox.innerHTML=ASSETS_DATA.map(function(a){return '<div class="tool-card"><div class="tc-top"><span class="tc-name">'+a.名称+'</span><span class="tc-badge">'+a.类型+'</span></div><div class="tc-cn">'+(a.简介||'').slice(0,60)+'</div><div class="tc-detail"><div class="en">'+(a.简介||'')+'</div><div class="asset-meta">机构: '+(a.机构||'')+' · 类型: '+a.类型+'</div></div></div>';}).join('');
+[sBox,aBox].forEach(function(box){if(box)box.addEventListener('click',function(e){var c=e.target.closest('.tool-card');if(c&&!e.target.closest('a'))c.classList.toggle('open');});});
 `;
 
 function gen(key){
@@ -119,10 +128,10 @@ function gen(key){
   const designHTML=v.科研设计.map(x=>`<div class="step-card"><div class="step-no">${x.阶段}</div><p>${x.要点}</p></div>`).join('');
   // 政策
   const polHTML=pols.length?pols.map(p=>`<div class="pol-row"><div class="pol-name">${p.标题}<span class="pol-tag">${p.状态} · ${p.申报时间窗||''}</span></div><div class="pol-amt">${(p.资助强度||'').slice(0,40)}</div></div>`).join(''):'';
-  // 适用工具-技能
-  const skillHTML=skills.slice(0,12).map(s=>`<div class="tool-chip" data-href="skills.html"><span class="tc-name">${s.id}</span><span class="tc-disc">${s.环节}</span>${s.license&&s.license!=="MIT"?`<span class="tc-lic">${s.license.replace('CC-BY-NC-SA-4.0','NC-SA').replace('CC-BY-4.0','BY')}</span>`:''}</div>`).join('');
-  // 适用工具-资产
-  const assetHTML=assets.slice(0,10).map(a=>`<div class="tool-chip"><span class="tc-name">${a.名称}</span><span class="tc-disc">${a.类型}</span></div>`).join('');
+  // 适用工具数据(客户端渲染可展开卡片)
+  const skillsData=JSON.stringify(skills.map(s=>({id:s.id,description:s.description,cn:s.cn,环节:s.环节,license:s.license,source:s.source})));
+  const assetsData=JSON.stringify(assets.map(a=>({名称:a.名称,类型:a.类型,机构:a.机构,简介:a.简介})));
+  const tutIds=JSON.stringify((typeof TUTORIALS!=='undefined'&&TUTORIALS.order)||[]);
   // 课程案例
   const caseHTML=courses.length?courses.map(c=>`<div class="case-card"><div class="case-no">课程 ${c.编号}</div><h3>${c.标题}</h3><p class="case-one">${c.一句话}</p><div class="case-meta">讲师: ${c.讲师} · 标签: ${c.标签}</div></div>`).join(''):'';
   // 场景卡选项(诊断Q1)
@@ -207,9 +216,21 @@ section{padding:54px 0}
 .pol-row:last-child{border:none}
 .pol-name{font-weight:600;font-size:14.5px;flex:1}.pol-name .pol-tag{display:block;font-size:11px;color:var(--pri);font-weight:600;margin-top:2px}
 .pol-amt{color:var(--pri);font-weight:700;font-size:13.5px;white-space:nowrap}
-.tool-chip{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:7px 12px;margin:4px;font-size:13px;cursor:pointer;transition:.15s}
-.tool-chip:hover{border-color:var(--pri);background:var(--bg)}
-.tc-name{font-weight:600;color:var(--deep)}.tc-disc{font-size:11px;color:var(--sub)}
+.tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.tool-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;cursor:pointer;transition:.2s}
+.tool-card:hover{border-color:var(--pri);box-shadow:0 4px 12px rgba(0,0,0,.06)}
+.tool-card .tc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:8px}
+.tool-card .tc-name{font-weight:700;color:var(--deep);font-size:14px}
+.tool-card .tc-badge{font-size:11px;background:var(--bg);color:var(--deep);padding:2px 8px;border-radius:6px;white-space:nowrap}
+.tool-card .tc-lic{font-size:10px;background:#fef3c7;color:#92400e;padding:1px 6px;border-radius:4px}
+.tool-card .tc-cn{font-size:12.5px;color:var(--sub);line-height:1.5}
+.tool-card .tc-detail{display:none;margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
+.tool-card.open .tc-detail{display:block}
+.tool-card .en{font-size:12px;color:#374151;margin-bottom:8px;line-height:1.5}
+.tool-card .install-box{background:#0f172a;color:#a7f3d0;padding:10px 12px;border-radius:6px;font-size:11.5px;font-family:monospace;margin:8px 0}
+.tool-card .asset-meta{font-size:12px;color:var(--sub);margin-top:6px}
+.tool-card a{display:inline-block;margin-top:6px;color:var(--pri);font-size:12.5px;text-decoration:none}
+.tool-card .tut-link{margin-left:10px}
 .tc-lic{font-size:10px;background:#fef3c7;color:#92400e;padding:1px 6px;border-radius:4px}
 .case-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;border-top:3px solid var(--pri)}
 .case-no{font-size:12px;color:var(--pri);font-weight:600;margin-bottom:6px}
@@ -315,10 +336,10 @@ footer a{color:#fff}
   <div class="guide-box"><h4>🔧 科研流程规划</h4><p>${v.适用工具指导.流程}</p></div>
   <div class="guide-box"><h4>📊 数据集采纳</h4><p>${v.适用工具指导.数据集}</p></div>
   <div class="guide-box"><h4>🤖 模型与算力选择</h4><p>${v.适用工具指导.模型} ｜ 算力:${v.适用工具指导.算力}</p></div>
-  <h4 style="color:var(--deep);margin:24px 0 10px;font-size:15px">开源技能(skills 包,${skills.length} 个)</h4>
-  <div>${skillHTML||''}</div>
-  <h4 style="color:var(--deep);margin:24px 0 10px;font-size:15px">平台资产(${assets.length} 项)</h4>
-  <div>${assetHTML||''}</div>
+  <h4 style="color:var(--deep);margin:24px 0 10px;font-size:15px">开源技能(skills 包,${skills.length} 个,点击查看详情)</h4>
+  <div id="skillsBox" class="tool-grid"></div>
+  <h4 style="color:var(--deep);margin:24px 0 10px;font-size:15px">平台资产(${assets.length} 项,点击查看详情)</h4>
+  <div id="assetsBox" class="tool-grid"></div>
 </div></section>
 
 <!-- 7. 使用案例(课程) -->
@@ -332,7 +353,7 @@ footer a{color:#fff}
   ${v.学科} × AI 工具箱 · <a href="index.html">返回门户</a>
 </footer>
 
-<script>var VERTICALS=${JSON.stringify({[key]:v})};var POLICIES_JSON=${polJson};</script>
+<script>var VERTICALS=${JSON.stringify({[key]:v})};var POLICIES_JSON=${polJson};var SKILLS_DATA=${skillsData};var ASSETS_DATA=${assetsData};var TUT_IDS=${tutIds};</script>
 <script>
 ${CLIENT.replace(/__KEY__/g,key).replace(/__DISCKW_JSON__/g,discJson)}
 </script>
