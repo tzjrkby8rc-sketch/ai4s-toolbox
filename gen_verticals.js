@@ -114,6 +114,8 @@ if(aBox)aBox.innerHTML=ASSETS_DATA.map(function(a){return '<div class="tool-card
 document.querySelectorAll('.guide-exp').forEach(function(box){box.addEventListener('click',function(e){if(e.target.tagName==='A')return;box.classList.toggle('open');var h=box.querySelector('.exp-hint');if(h)h.textContent=box.classList.contains('open')?'▴ 收起':'▾ 详情';});});
 function linkTools(text){var map={};var i=0;ASSETS_DATA.forEach(function(a){if(!a.名称)return;var ph='__L'+(i++)+'__';map[ph]='<a href="#asset-'+a.名称+'">'+a.名称+'</a>';text=text.split(a.名称).join(ph);});SKILLS_DATA.forEach(function(s){var ph='__L'+(i++)+'__';map[ph]='<a href="#'+s.id+'">'+s.id+'</a>';text=text.split(s.id).join(ph);});for(var k in map)text=text.split(k).join(map[k]);return text;}
 document.querySelectorAll('.g-det').forEach(function(d){d.innerHTML=linkTools(d.innerHTML);});
+// 工具名链接点击:直接展开对应工具卡详情 + 滚动定位(不跳转)
+document.querySelectorAll('.g-det a').forEach(function(a){a.addEventListener('click',function(e){var href=a.getAttribute('href');if(href&&href.indexOf('#')===0){var t=document.getElementById(href.slice(1));if(t){e.preventDefault();t.classList.add('open');t.scrollIntoView({behavior:'smooth',block:'center'});}}});});
 `;
 
 function gen(key){
