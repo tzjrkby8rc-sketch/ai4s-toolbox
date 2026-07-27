@@ -52,6 +52,8 @@ section{padding:54px 0}
 .tool-row .nm .tag{display:block;font-size:11px;color:var(--pri);font-weight:600;margin-top:2px}
 .tool-row .val{flex:1;font-size:13.5px;color:#374151}
 .tool-row .heat{color:var(--pri);font-weight:700;font-size:12.5px;white-space:nowrap}
+.tool-link{color:var(--pri);cursor:pointer;border-bottom:1px dashed var(--pri);display:inline-block}
+.tool-link:hover{color:var(--deep);border-color:var(--deep)}
 .sd-hook{margin-top:16px;background:linear-gradient(135deg,var(--deep),var(--pri));color:#fff;padding:14px 18px;border-radius:10px;font-size:14.5px;font-weight:600}
 .diag{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:32px;max-width:780px;margin:0 auto}
 .q{margin-bottom:22px}.q label{display:block;font-weight:700;margin-bottom:11px;font-size:15.5px}
@@ -231,7 +233,7 @@ S.forEach(s=>{grid.insertAdjacentHTML('beforeend',
 grid.addEventListener('click',e=>{const card=e.target.closest('.scene');if(!card)return;
   const s=S.find(x=>x.id===card.dataset.id);
   const rows=s.代表工具.map(t=>'<div class="tool-row">'+
-    '<div class="nm">'+t.名称+'<span class="tag">'+t.类型+' · '+t.机构+'</span></div>'+
+    '<div class="nm tool-link" data-tool="'+t.名称+'">'+t.名称+'<span class="tag">'+t.类型+' · '+t.机构+'</span></div>'+
     '<div class="val">'+t.价值+'</div>'+(t.热度?'<div class="heat">'+t.热度+'</div>':'<div class="heat"></div>')+'</div>').join('');
   detail.innerHTML='<div class="sd-head"><h3>'+s.图标+' '+s.名称+'</h3><button class="sd-close">收起</button></div>'+
     '<div style="color:#6b7280;font-size:15px">'+s.一句话+'</div>'+
@@ -257,7 +259,7 @@ document.getElementById('genBtn').addEventListener('click',()=>{
   document.getElementById('repPain').innerHTML=
     '<b>🎯 你的场景：'+sc.名称+'</b><br>😖 痛点:'+sc.痛点+'<br>💡 针对"'+stuck+'"：'+advice(stuck);
   document.getElementById('repTools').innerHTML=sc.代表工具.map(t=>
-    '<div class="tool-row"><div class="nm">'+t.名称+'<span class="tag">'+t.类型+' · '+t.机构+'</span></div>'+
+    '<div class="tool-row"><div class="nm tool-link" data-tool="'+t.名称+'">'+t.名称+'<span class="tag">'+t.类型+' · '+t.机构+'</span></div>'+
     '<div class="val">'+t.价值+'</div>'+(t.热度?'<div class="heat">'+t.热度+'</div>':'<div class="heat"></div>')+'</div>').join('');
   const pols=POL.政策.map(p=>{let s=0;const blob=(p["重点领域"]||[]).join("")+p["标题"]+(p["匹配标签"]||[]).join("");
     if(p["状态"]==="申报中")s+=5;else if(p["状态"]==="已截止")s-=2;
@@ -293,6 +295,9 @@ function linkTools(text){var map={};var i=0;ASSETS_DATA.forEach(function(a){if(!
 document.querySelectorAll('.g-det').forEach(function(d){d.innerHTML=linkTools(d.innerHTML);});
 // 工具名链接点击:直接展开对应工具卡详情 + 滚动定位(不跳转)
 document.querySelectorAll('.g-det a').forEach(function(a){a.addEventListener('click',function(e){var href=a.getAttribute('href');if(href&&href.indexOf('#')===0){var t=document.getElementById(href.slice(1));if(t){e.preventDefault();t.classList.add('open');t.scrollIntoView({behavior:'smooth',block:'center'});}}});});
+// 场景诊断工具名点击:模糊匹配下方工具卡并展开(事件委托,支持动态渲染)
+function findToolCard(name){var card=document.getElementById(name)||document.getElementById('asset-'+name);if(card)return card;var cards=document.querySelectorAll('.tool-card');for(var i=0;i<cards.length;i++){var cn=cards[i].querySelector('.tc-name');if(cn&&(cn.textContent.indexOf(name)>=0||name.indexOf(cn.textContent)>=0))return cards[i];}return null;}
+document.addEventListener('click',function(e){var link=e.target.closest('.tool-link');if(link){var name=link.getAttribute('data-tool');var card=findToolCard(name);if(card){card.classList.add('open');card.scrollIntoView({behavior:'smooth',block:'center'});}}});
 
 </script>
 </body>
