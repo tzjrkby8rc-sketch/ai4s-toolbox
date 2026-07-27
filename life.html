@@ -3,268 +3,267 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>生命科学 × AI · 从蛋白到药物的智能科研工具箱</title>
+<title>生命科学 × AI · 科研工具箱</title>
 <style>
-:root{
-  --pri:#0e9f6e;--pri2:#057a55;--deep:#065f46;--acc:#1a56db;
-  --ink:#111827;--sub:#6b7280;--line:#e5e7eb;--bg:#f6faf8;--card:#fff;
-}
+:root{--pri:#0e9f6e;--pri2:#065f46;--deep:#065f46;--acc:#1a56db;--ink:#111827;--sub:#6b7280;--line:#e5e7eb;--bg:#ecfdf5;--card:#fff;}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:var(--bg);line-height:1.6}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:#fafafa;line-height:1.7}
 .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
 nav{position:sticky;top:0;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:50}
 nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
-.logo{font-weight:800;font-size:19px;color:var(--deep)}
-.logo span{color:var(--pri)}
+.logo{font-weight:800;font-size:19px;color:var(--deep)}.logo span{color:var(--pri)}
 nav a.btn{background:var(--pri);color:#fff;padding:9px 18px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:600}
-/* Hero */
-.hero{background:linear-gradient(135deg,#064e3b 0%,#0e9f6e 60%,#34d399 130%);color:#fff;padding:70px 0 60px}
+.hero{background:linear-gradient(135deg,var(--deep) 0%,var(--pri) 60%);color:#fff;padding:70px 0 60px}
 .hero .kick{display:inline-block;background:rgba(255,255,255,.15);padding:5px 14px;border-radius:20px;font-size:13px;margin-bottom:18px;font-weight:600}
 .hero h1{font-size:38px;line-height:1.25;font-weight:800;margin-bottom:16px}
-.hero p{font-size:17px;opacity:.94;max-width:660px;margin-bottom:28px}
+.hero p{font-size:17px;opacity:.94;max-width:680px;margin-bottom:28px}
 .hero .cta{display:inline-block;background:#fff;color:var(--deep);padding:14px 32px;border-radius:10px;font-weight:700;font-size:17px;text-decoration:none;box-shadow:0 6px 20px rgba(0,0,0,.18)}
-.hero .cta2{display:inline-block;margin-left:14px;color:#fff;border:2px solid rgba(255,255,255,.5);padding:12px 26px;border-radius:10px;font-weight:600;text-decoration:none}
 .badges{display:flex;gap:26px;margin-top:38px;flex-wrap:wrap}
-.badges div{font-size:13px;opacity:.92}
-.badges b{display:block;font-size:25px;font-weight:800}
-/* 区块 */
+.badges div{font-size:13px;opacity:.92}.badges b{display:block;font-size:25px;font-weight:800}
 section{padding:54px 0}
-.sec-title{font-size:27px;font-weight:800;text-align:center;margin-bottom:8px}
+.sec-title{font-size:27px;font-weight:800;text-align:center;margin-bottom:8px;color:var(--deep)}
 .sec-sub{text-align:center;color:var(--sub);margin-bottom:34px;font-size:15px}
-/* 场景卡 */
-.scene-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(500px,1fr));gap:20px}
-@media(max-width:640px){.scene-grid{grid-template-columns:1fr}}
-.scene{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px;transition:.2s;cursor:pointer}
-.scene:hover{box-shadow:0 10px 28px rgba(14,159,110,.12);transform:translateY(-3px);border-color:var(--pri)}
-.scene .ic{font-size:34px;margin-bottom:12px}
-.scene h3{font-size:21px;margin-bottom:6px;color:var(--deep)}
-.scene .one{font-size:14px;color:var(--sub);margin-bottom:14px;line-height:1.5}
-.scene .who{font-size:12.5px;background:#ecfdf5;color:#065f46;padding:6px 12px;border-radius:8px;display:inline-block;margin-bottom:14px}
-.scene .tools-count{font-size:13px;color:var(--pri);font-weight:700}
-.scene .hook{margin-top:14px;padding-top:14px;border-top:1px dashed var(--line);font-size:13px;color:#92400e;font-style:italic}
-/* 场景详情 */
-.scene-detail{display:none;background:#fff;border:1px solid var(--line);border-radius:14px;padding:30px;margin-top:20px}
+.sec-num{display:inline-block;background:var(--pri);color:#fff;width:32px;height:32px;border-radius:50%;line-height:32px;text-align:center;font-size:15px;font-weight:700;margin-right:10px;vertical-align:middle}
+.grid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}
+.info-card{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--pri);border-radius:12px;padding:22px}
+.info-card h3{color:var(--deep);font-size:18px;margin-bottom:8px}
+.info-card p{font-size:14px;color:#374151;line-height:1.6}
+.step-card{display:flex;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 22px;align-items:flex-start}
+.step-no{background:var(--bg);color:var(--deep);font-weight:700;font-size:14px;padding:6px 14px;border-radius:8px;white-space:nowrap;border:1px solid var(--pri)}
+.step-card p{font-size:14px;color:#374151;flex:1}
+.scene-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:18px}
+.scene{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;transition:.2s;cursor:pointer}
+.scene:hover{box-shadow:0 10px 28px rgba(0,0,0,.08);transform:translateY(-3px);border-color:var(--pri)}
+.scene .ic{font-size:32px;margin-bottom:10px}
+.scene h3{font-size:19px;margin-bottom:6px;color:var(--deep)}
+.scene .one{font-size:13.5px;color:var(--sub);margin-bottom:12px;line-height:1.5}
+.scene .who{font-size:12px;background:var(--bg);color:var(--deep);padding:5px 11px;border-radius:8px;display:inline-block;margin-bottom:12px}
+.scene .tools-count{font-size:12.5px;color:var(--pri);font-weight:700}
+.scene .hook{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);font-size:12.5px;color:#92400e;font-style:italic}
+.scene-detail{display:none;background:#fff;border:1px solid var(--line);border-radius:14px;padding:28px;margin-top:18px}
 .scene-detail.open{display:block}
 .sd-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.sd-head h3{font-size:23px;color:var(--deep)}
+.sd-head h3{font-size:22px;color:var(--deep)}
 .sd-close{background:none;border:1px solid var(--line);border-radius:8px;padding:6px 14px;cursor:pointer;color:var(--sub)}
 .sd-pain{background:#fff7ed;border-left:4px solid #f59e0b;padding:12px 16px;border-radius:8px;font-size:14px;margin:14px 0}
-.tool-row{display:flex;gap:14px;padding:14px 0;border-bottom:1px dashed var(--line);align-items:flex-start}
+.tool-row{display:flex;gap:14px;padding:13px 0;border-bottom:1px dashed var(--line);align-items:flex-start}
 .tool-row:last-child{border:none}
-.tool-row .nm{font-weight:700;min-width:170px;font-size:15px}
+.tool-row .nm{font-weight:700;min-width:170px;font-size:14.5px}
 .tool-row .nm .tag{display:block;font-size:11px;color:var(--pri);font-weight:600;margin-top:2px}
-.tool-row .val{flex:1;font-size:14px;color:#374151}
-.tool-row .heat{color:var(--pri);font-weight:700;font-size:13px;white-space:nowrap}
-.sd-hook{margin-top:16px;background:linear-gradient(135deg,#064e3b,#0e9f6e);color:#fff;padding:16px 20px;border-radius:10px;font-size:15px;font-weight:600}
-/* 诊断 */
-.diag{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:34px;max-width:780px;margin:0 auto}
-.q{margin-bottom:24px}
-.q label{display:block;font-weight:700;margin-bottom:12px;font-size:16px}
+.tool-row .val{flex:1;font-size:13.5px;color:#374151}
+.tool-row .heat{color:var(--pri);font-weight:700;font-size:12.5px;white-space:nowrap}
+.sd-hook{margin-top:16px;background:linear-gradient(135deg,var(--deep),var(--pri));color:#fff;padding:14px 18px;border-radius:10px;font-size:14.5px;font-weight:600}
+.diag{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:32px;max-width:780px;margin:0 auto}
+.q{margin-bottom:22px}.q label{display:block;font-weight:700;margin-bottom:11px;font-size:15.5px}
 .q .num{color:var(--pri);margin-right:6px}
-.opts{display:flex;flex-wrap:wrap;gap:10px}
-.opt{border:1.5px solid var(--line);background:#fff;padding:10px 18px;border-radius:9px;cursor:pointer;font-size:14px;transition:.15s}
-.opt:hover{border-color:var(--pri)}
-.opt.sel{background:var(--pri);color:#fff;border-color:var(--pri)}
-.diag-btn{width:100%;background:var(--deep);color:#fff;border:none;padding:15px;border-radius:10px;font-size:17px;font-weight:700;cursor:pointer;margin-top:6px}
+.opts{display:flex;flex-wrap:wrap;gap:9px}
+.opt{border:1.5px solid var(--line);background:#fff;padding:9px 16px;border-radius:9px;cursor:pointer;font-size:13.5px;transition:.15s}
+.opt:hover{border-color:var(--pri)}.opt.sel{background:var(--pri);color:#fff;border-color:var(--pri)}
+.diag-btn{width:100%;background:var(--deep);color:#fff;border:none;padding:14px;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;margin-top:6px}
 .diag-btn:disabled{background:#9ca3af;cursor:not-allowed}
 .report{display:none;margin-top:10px}
-.rep-block{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px;margin-bottom:16px}
-.rep-block h4{color:var(--deep);margin-bottom:12px;font-size:16px}
-.rep-pain{background:#fff7ed;border-left:4px solid #f59e0b;padding:14px 18px;border-radius:8px;margin-bottom:16px;font-size:14.5px}
-.warntip{background:#fef2f2;border-left:4px solid #e02424;padding:12px 16px;border-radius:8px;font-size:14px;margin-top:10px}
-.lead{background:linear-gradient(135deg,#064e3b,#0e9f6e);border-radius:14px;padding:32px;color:#fff;text-align:center;margin-top:20px}
-.lead h3{font-size:22px;margin-bottom:8px}
-.lead p{opacity:.92;margin-bottom:20px;font-size:14px}
-.lead form{display:flex;gap:10px;max-width:540px;margin:0 auto;flex-wrap:wrap;justify-content:center}
-.lead input{flex:1;min-width:170px;padding:13px 16px;border-radius:9px;border:none;font-size:15px}
-.lead button{background:#fff;color:var(--deep);border:none;padding:13px 26px;border-radius:9px;font-weight:700;cursor:pointer}
-.lead-ok{display:none;margin-top:14px;font-weight:600}
-footer{background:#064e3b;color:#a7f3d0;text-align:center;padding:30px 0;font-size:13px;margin-top:40px}
+.rep-block{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:14px}
+.rep-block h4{color:var(--deep);margin-bottom:11px;font-size:15.5px}
+.rep-pain{background:#fff7ed;border-left:4px solid #f59e0b;padding:13px 17px;border-radius:8px;margin-bottom:14px;font-size:14px}
+.warntip{background:#fef2f2;border-left:4px solid #e02424;padding:11px 15px;border-radius:8px;font-size:13.5px;margin-top:10px}
+.lead{background:linear-gradient(135deg,var(--deep),var(--pri));border-radius:14px;padding:30px;color:#fff;text-align:center;margin-top:18px}
+.lead h3{font-size:20px;margin-bottom:8px}.lead p{opacity:.92;margin-bottom:18px;font-size:13.5px}
+.lead form{display:flex;gap:10px;max-width:520px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+.lead input{flex:1;min-width:160px;padding:12px 15px;border-radius:9px;border:none;font-size:14.5px}
+.lead button{background:#fff;color:var(--deep);border:none;padding:12px 24px;border-radius:9px;font-weight:700;cursor:pointer}
+.lead-ok{display:none;margin-top:12px;font-weight:600}
+.pol-row{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px dashed var(--line);gap:14px}
+.pol-row:last-child{border:none}
+.pol-name{font-weight:600;font-size:14.5px;flex:1}.pol-name .pol-tag{display:block;font-size:11px;color:var(--pri);font-weight:600;margin-top:2px}
+.pol-amt{color:var(--pri);font-weight:700;font-size:13.5px;white-space:nowrap}
+.tool-chip{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:7px 12px;margin:4px;font-size:13px;cursor:pointer;transition:.15s}
+.tool-chip:hover{border-color:var(--pri);background:var(--bg)}
+.tc-name{font-weight:600;color:var(--deep)}.tc-disc{font-size:11px;color:var(--sub)}
+.tc-lic{font-size:10px;background:#fef3c7;color:#92400e;padding:1px 6px;border-radius:4px}
+.case-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;border-top:3px solid var(--pri)}
+.case-no{font-size:12px;color:var(--pri);font-weight:600;margin-bottom:6px}
+.case-card h3{font-size:16px;color:var(--deep);margin-bottom:6px}
+.case-one{font-size:13.5px;color:var(--sub);margin-bottom:8px}
+.case-meta{font-size:12px;color:var(--sub)}
+.empty{color:var(--sub);font-size:14px;text-align:center;padding:20px}
+.guide-box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;margin-bottom:14px}
+.guide-box h4{color:var(--deep);font-size:15px;margin-bottom:8px}
+.guide-box p{font-size:13.5px;color:#374151}
+footer{background:var(--deep);color:rgba(255,255,255,.8);text-align:center;padding:28px 0;font-size:13px;margin-top:40px}
+footer a{color:#fff}
+@media(max-width:640px){.grid2,.scene-grid{grid-template-columns:1fr}.hero h1{font-size:28px}}
 </style>
 </head>
 <body>
-
 <nav><div class="wrap">
   <div class="logo">生命科学<span>×</span>AI 工具箱</div>
-  <a class="btn" href="#diag">免费场景诊断</a>
+  <a class="btn" href="#diag">场景诊断</a>
 </div></nav>
 
 <header class="hero"><div class="wrap">
   <div class="kick">🧬 专为生命 / 生物医药教授打造</div>
   <h1>从蛋白到药物<br>AI 已让生命科学研究提速一个数量级</h1>
-  <p>蛋白质工程 · 药物发现 · 基因组学 · 医学影像——58 项生命科学专属 AI 资产（5 智能体 / 8 工具链 / 45 模型），按你的研究场景精准匹配，附政策经费导航。</p>
+  <p>蛋白质工程 · 药物发现 · 基因组学 · 医学影像--58 项生命科学专属 AI 资产，按你的研究场景精准匹配，附政策经费导航。</p>
   <a class="cta" href="#diag">找到我的研究场景 →</a>
-  <a class="cta2" href="#scenes">浏览四大场景</a>
   <div class="badges">
-    <div><b>58</b>生命科学AI资产</div>
-    <div><b>45</b>垂类模型</div>
-    <div><b>74万</b>VenusFactory调用</div>
-    <div><b>52万</b>图像校验调用</div>
+    <div><b>58</b>生命科学AI资产</div><div><b>45</b>垂类模型</div><div><b>74万</b>VenusFactory调用</div><div><b>52万</b>图像校验调用</div>
   </div>
 </div></header>
 
-<!-- 四大场景 -->
-<section id="scenes"><div class="wrap">
-  <h2 class="sec-title">四大研究场景 · 对号入座</h2>
-  <p class="sec-sub">点开你的方向，看同行在用什么 AI、解决什么痛点</p>
+<!-- 1. AI4S 使用范畴 -->
+<section id="scope"><div class="wrap">
+  <h2 class="sec-title"><span class="sec-num">1</span>AI4S 使用范畴</h2>
+  <p class="sec-sub">AI 在生命科学领域能做什么--四个核心方向</p>
+  <div class="grid2"><div class="info-card"><h3>蛋白质工程</h3><p>从定向进化到理性设计:结构预测(Uni-Fold 对标 AlphaFold)、功能注释(CoKE 免微调)、序列设计(ProSST/ESM2 蛋白质语言模型)。突变筛选从月级压缩到周级。</p></div><div class="info-card"><h3>药物发现</h3><p>多智能体打通全链路:靶点发现(女娲基因导航)->分子设计(浑天绫)->对接模拟(DrugSDA)->ADMET 预测。虚拟筛选效率提升一个数量级。</p></div><div class="info-card"><h3>基因组学</h3><p>一个入口查遍全球权威库:Origene 覆盖 NCBI/UniProt/KEGG/Ensembl 等 12+ 库;SciGraph 跨科知识图谱串联基因-疾病-药物-表型。</p></div><div class="info-card"><h3>医学影像与投稿合规</h3><p>AI 读片(女娲多模态影像)+ 投稿前图像体检(52.5 万次调用,识别 Western Blot/显微图不当处理),效率与合规双保障。</p></div></div>
+</div></section>
+
+<!-- 2. 基础使用技巧 -->
+<section id="basics" style="background:#fff"><div class="wrap">
+  <h2 class="sec-title"><span class="sec-num">2</span>基础使用技巧</h2>
+  <p class="sec-sub">从零上手--核心工具的使用路径</p>
+  <div class="grid2"><div class="info-card"><h3>VenusFactory</h3><p>蛋白质工程 AI 基础设施:npx 启动 -> 选任务(突变/功能/位点预测)-> 输入序列 -> 获取预测+训练部署,代码/Notebook/GUI 全形态。</p></div><div class="info-card"><h3>Origene 数据库群</h3><p>免切换多库检索:输入基因/蛋白/药物名 -> 自动查 NCBI/UniProt/KEGG/ChEMBL 等 -> 结构化返回,检索时间从小时级到分钟级。</p></div><div class="info-card"><h3>图像真实性校验</h3><p>投稿前合规:上传论文图像 -> 自动识别 Western Blot 条带异常/显微图处理痕迹 -> 生成体检报告,防撤稿。</p></div></div>
+</div></section>
+
+<!-- 3. 科研设计指南 -->
+<section id="design"><div class="wrap">
+  <h2 class="sec-title"><span class="sec-num">3</span>科研设计指南</h2>
+  <p class="sec-sub">如何设计 AI 辅助的生命科学研究--分阶段要点</p>
+  <div style="max-width:820px;margin:0 auto"><div class="step-card"><div class="step-no">假设生成</div><p>用 SciGraph 知识图谱扫清领域全貌,定位基因-疾病-药物空白;InternAgent 拆解科研问题并生成综述。</p></div><div class="step-card"><div class="step-no">计算验证</div><p>蛋白结构先 Uni-Fold 预测,再 VenusFactory 做功能/位点预测;药物用浑天绫全链路模拟,ADMET 提前评估。</p></div><div class="step-card"><div class="step-no">实验闭环</div><p>干实验筛选候选 -> 湿实验验证(ToursynClaw 编排 protocol)-> 数据回流再训练,形成主动学习闭环。</p></div><div class="step-card"><div class="step-no">投稿合规</div><p>投稿前跑图像体检 + 代码复现审查官审查代码可复现性,双保险防撤稿。</p></div></div>
+</div></section>
+
+<!-- 4. 场景诊断建议 -->
+<section id="scenes" style="background:#fff"><div class="wrap">
+  <h2 class="sec-title"><span class="sec-num">4</span>场景诊断建议</h2>
+  <p class="sec-sub">点开你的方向,看同行在用什么 AI;3 个问题生成专属落地路径</p>
   <div class="scene-grid" id="sceneGrid"></div>
   <div class="scene-detail" id="sceneDetail"></div>
 </div></section>
 
-<!-- 场景诊断 -->
-<section id="diag" style="background:#fff"><div class="wrap">
-  <h2 class="sec-title">🧭 生命科学 AI 场景诊断</h2>
-  <p class="sec-sub">3 个问题，生成你的专属《生命科学 AI 落地路径》</p>
+<section id="diag"><div class="wrap">
+  <h2 class="sec-title"><span class="sec-num">4</span>🧭 生命科学 AI 场景诊断</h2>
+  <p class="sec-sub">3 个问题,生成你的专属《生命科学 AI 落地路径》</p>
   <div class="diag">
-    <div class="q"><label><span class="num">Q1</span>你的研究方向最接近哪个场景？</label>
-      <div class="opts" data-q="场景">
-        <div class="opt" data-v="protein">🧬 蛋白质工程</div>
-        <div class="opt" data-v="drug">💊 药物发现</div>
-        <div class="opt" data-v="genomics">🧫 基因与组学</div>
-        <div class="opt" data-v="imaging">🔬 医学影像/投稿</div>
-      </div></div>
-    <div class="q"><label><span class="num">Q2</span>当前最大的卡点？</label>
-      <div class="opts" data-q="卡点">
-        <div class="opt">筛选/试错太慢</div><div class="opt">数据库检索低效</div>
-        <div class="opt">计算资源不足</div><div class="opt">缺AI方法/人才</div>
-      </div></div>
-    <div class="q"><label><span class="num">Q3</span>你的年龄（青年专项匹配）？</label>
+    <div class="q"><label><span class="num">Q1</span>你的研究方向最接近哪个场景?</label>
+      <div class="opts" data-q="场景"><div class="opt" data-v="protein">🧬 蛋白质工程</div><div class="opt" data-v="drug">💊 药物发现</div><div class="opt" data-v="genomics">🧫 基因与组学</div><div class="opt" data-v="imaging">🔬 医学影像与论文治理</div></div></div>
+    <div class="q"><label><span class="num">Q2</span>当前最大的卡点?</label>
+      <div class="opts" data-q="卡点"><div class="opt">筛选/试错太慢</div><div class="opt">数据库检索低效</div><div class="opt">计算资源不足</div><div class="opt">缺AI方法/人才</div></div></div>
+    <div class="q"><label><span class="num">Q3</span>你的年龄(青年专项匹配)?</label>
       <div class="opts" data-q="年龄">
         <div class="opt" data-v="35">≤35岁</div><div class="opt" data-v="38">36-40岁</div><div class="opt" data-v="45">41岁以上</div>
       </div></div>
     <button class="diag-btn" id="genBtn" disabled>生成我的落地路径</button>
-
     <div class="report" id="report">
       <div class="rep-pain" id="repPain"></div>
       <div class="rep-block"><h4>🛠️ 你的场景推荐工具</h4><div id="repTools"></div></div>
-      <div class="rep-block"><h4>💰 可申报政策（生命科学方向）</h4><div id="repPols"></div></div>
+      <div class="rep-block"><h4>💰 可申报政策</h4><div id="repPols"></div></div>
       <div id="repWarn"></div>
       <div class="lead">
         <h3>📄 获取完整版 + 百团百项自检清单</h3>
-        <p>留下邮箱，发送《生命科学 AI 落地完整报告》《百团百项申报自检清单》《政策申报日历》</p>
+        <p>留下邮箱,发送《生命科学 AI 落地完整报告》《百团百项申报自检清单》</p>
         <form id="leadForm">
           <input type="email" id="leadEmail" placeholder="你的邮箱" required>
           <input type="text" id="leadName" placeholder="姓名/单位(选填)">
           <button type="submit">发送完整报告</button>
         </form>
-        <div class="lead-ok" id="leadOk">✓ 已收到！完整报告将发送至你的邮箱。</div>
+        <div class="lead-ok" id="leadOk">✓ 已收到!完整报告将发送至你的邮箱。</div>
       </div>
     </div>
   </div>
 </div></section>
 
-<!-- 标杆 -->
-<section><div class="wrap">
-  <h2 class="sec-title">🏆 生命科学标杆实践</h2>
-  <p class="sec-sub">AI 已在生物医药真实落地</p>
-  <div class="scene-grid" id="caseGrid" style="grid-template-columns:repeat(auto-fill,minmax(320px,1fr))"></div>
+<!-- 5. 政策扶持指引 -->
+<section id="policy" style="background:#fff"><div class="wrap">
+  <h2 class="sec-title"><span class="sec-num">5</span>政策扶持指引</h2>
+  <p class="sec-sub">生命科学方向可申报的经费政策(以官方通知为准)</p>
+  <div style="max-width:820px;margin:0 auto"><div class="pol-row"><div class="pol-name">2026年度上海市"人工智能+"及科学智能"百团百项"项目申报<span class="pol-tag">已截止 · 2026-05-12 ~ 2026-06-01</span></div><div class="pol-amt">百团百项专项经费（具体额度按项目评审）</div></div><div class="pol-row"><div class="pol-name">2025年度科学智能"百团百项"专项申报<span class="pol-tag">已截止 · 2025年度批次</span></div><div class="pol-amt">百团百项专项经费</div></div></div>
+</div></section>
+
+<!-- 6. 适用工具 -->
+<section id="tools"><div class="wrap">
+  <h2 class="sec-title"><span class="sec-num">6</span>适用工具</h2>
+  <p class="sec-sub">该学科适用的科研技能包工具 + 平台资产 + 流程/数据集/模型/算力指导</p>
+  <div class="guide-box"><h4>🔧 科研流程规划</h4><p>假设(SciGraph/InternAgent)-> 检索(Origene 多库)-> 计算(Uni-Fold/VenusFactory/浑天绫)-> 实验(ToursynClaw 闭环)-> 合规(图像体检)</p></div>
+  <div class="guide-box"><h4>📊 数据集采纳</h4><p>ChEMBL(药物)、UniProt(蛋白)、KEGG(通路)、TCGA(癌症)、OpenTargets(靶点),均经 Origene 即查即用</p></div>
+  <div class="guide-box"><h4>🤖 模型与算力选择</h4><p>Uni-Fold(结构)、ESM2/ProSST(蛋白语言模型)、女娲(基因/影像)、HEp2(细胞分类) ｜ 算力:蛋白结构预测/对接需 GPU;VenusFactory 支持云端训练部署;轻量任务(检索/注释)CPU 即可</p></div>
+  <h4 style="color:var(--deep);margin:24px 0 10px;font-size:15px">开源技能(skills 包,66 个)</h4>
+  <div><div class="tool-chip" data-href="skills.html"><span class="tc-name">networkx</span><span class="tc-disc">文献调研</span><span class="tc-lic">3-clause BSD license</span></div><div class="tool-chip" data-href="skills.html"><span class="tc-name">paper-lookup</span><span class="tc-disc">文献调研</span></div><div class="tool-chip" data-href="skills.html"><span class="tc-name">hypothesis-generation</span><span class="tc-disc">假设生成</span></div><div class="tool-chip" data-href="skills.html"><span class="tc-name">scientific-brainstorming</span><span class="tc-disc">假设生成</span></div><div class="tool-chip" data-href="skills.html"><span class="tc-name">admet_genetic</span><span class="tc-disc">实验与计算</span></div><div class="tool-chip" data-href="skills.html"><span class="tc-name">alphafold2</span><span class="tc-disc">实验与计算</span><span class="tc-lic">Apache-2.0</span></div><div class="tool-chip" data-href="skills.html"><span class="tc-name">anndata</span><span class="tc-disc">实验与计算</span><span class="tc-lic">BSD-3-Clause license</span></div><div class="tool-chip" data-href="skills.html"><span class="tc-name">arboreto</span><span class="tc-disc">实验与计算</span><span class="tc-lic">BSD-3-Clause license</span></div><div class="tool-chip" data-href="skills.html"><span class="tc-name">bids</span><span class="tc-disc">实验与计算</span><span class="tc-lic">https://creativecommons.org/licenses/by/4.0/</span></div><div class="tool-chip" data-href="skills.html"><span class="tc-name">biopython</span><span class="tc-disc">实验与计算</span><span class="tc-lic">Biopython License Agreement</span></div><div class="tool-chip" data-href="skills.html"><span class="tc-name">bioservices</span><span class="tc-disc">实验与计算</span><span class="tc-lic">GPLv3 license</span></div><div class="tool-chip" data-href="skills.html"><span class="tc-name">boltz</span><span class="tc-disc">实验与计算</span><span class="tc-lic">Apache-2.0</span></div></div>
+  <h4 style="color:var(--deep);margin:24px 0 10px;font-size:15px">平台资产(58 项)</h4>
+  <div><div class="tool-chip"><span class="tc-name">ToursynClaw</span><span class="tc-disc">智能体</span></div><div class="tool-chip"><span class="tc-name">蛋白质认知引擎 CoKE</span><span class="tc-disc">智能体</span></div><div class="tool-chip"><span class="tc-name">超级科研合伙人 大圣</span><span class="tc-disc">智能体</span></div><div class="tool-chip"><span class="tc-name">VenusFactory</span><span class="tc-disc">智能体</span></div><div class="tool-chip"><span class="tc-name">图像真实性校验助手</span><span class="tc-disc">智能体</span></div><div class="tool-chip"><span class="tc-name">DrugSDA-Tool</span><span class="tc-disc">工具</span></div><div class="tool-chip"><span class="tc-name">DrugSDA-Model</span><span class="tc-disc">工具</span></div><div class="tool-chip"><span class="tc-name">VenusFactory</span><span class="tc-disc">工具</span></div><div class="tool-chip"><span class="tc-name">SciGraph</span><span class="tc-disc">工具</span></div><div class="tool-chip"><span class="tc-name">SciToolAgent-Bio</span><span class="tc-disc">工具</span></div></div>
+</div></section>
+
+<!-- 7. 使用案例(课程) -->
+<section id="cases" style="background:#fff"><div class="wrap">
+  <h2 class="sec-title"><span class="sec-num">7</span>使用案例</h2>
+  <p class="sec-sub">智爱赛思百家讲坛课程--生命科学方向的 AI 实践</p>
+  <div class="grid2"><p class="empty">该学科暂无对应课程案例,可参考标杆实践与资产介绍。</p></div>
 </div></section>
 
 <footer>
-  生命科学 × AI 工具箱 · 数据来源于智爱赛思公开知识库 · 政策以官方通知为准
+  生命科学 × AI 工具箱 · 数据来源于智爱赛思公开知识库 · 政策以官方通知为准 · <a href="index.html">返回门户</a>
 </footer>
 
-<script src="data/policies.js"></script>
-<script src="data/life_scenes.js"></script>
+<script>var VERTICALS={"life":{"学科":"生命科学","主题色":"#0e9f6e","主题深":"#065f46","主题浅":"#ecfdf5","图标":"🧬","受众":"生命 / 生物医药教授","资产数":"58","构成":"5 智能体 / 8 工具链 / 45 模型","Hero标题":"从蛋白到药物<br>AI 已让生命科学研究提速一个数量级","Hero副":"蛋白质工程 · 药物发现 · 基因组学 · 医学影像--58 项生命科学专属 AI 资产，按你的研究场景精准匹配，附政策经费导航。","统计":[["58","生命科学AI资产"],["45","垂类模型"],["74万","VenusFactory调用"],["52万","图像校验调用"]],"AI4S范畴":[{"标题":"蛋白质工程","内容":"从定向进化到理性设计:结构预测(Uni-Fold 对标 AlphaFold)、功能注释(CoKE 免微调)、序列设计(ProSST/ESM2 蛋白质语言模型)。突变筛选从月级压缩到周级。"},{"标题":"药物发现","内容":"多智能体打通全链路:靶点发现(女娲基因导航)->分子设计(浑天绫)->对接模拟(DrugSDA)->ADMET 预测。虚拟筛选效率提升一个数量级。"},{"标题":"基因组学","内容":"一个入口查遍全球权威库:Origene 覆盖 NCBI/UniProt/KEGG/Ensembl 等 12+ 库;SciGraph 跨科知识图谱串联基因-疾病-药物-表型。"},{"标题":"医学影像与投稿合规","内容":"AI 读片(女娲多模态影像)+ 投稿前图像体检(52.5 万次调用,识别 Western Blot/显微图不当处理),效率与合规双保障。"}],"基础技巧":[{"工具":"VenusFactory","步骤":"蛋白质工程 AI 基础设施:npx 启动 -> 选任务(突变/功能/位点预测)-> 输入序列 -> 获取预测+训练部署,代码/Notebook/GUI 全形态。"},{"工具":"Origene 数据库群","步骤":"免切换多库检索:输入基因/蛋白/药物名 -> 自动查 NCBI/UniProt/KEGG/ChEMBL 等 -> 结构化返回,检索时间从小时级到分钟级。"},{"工具":"图像真实性校验","步骤":"投稿前合规:上传论文图像 -> 自动识别 Western Blot 条带异常/显微图处理痕迹 -> 生成体检报告,防撤稿。"}],"科研设计":[{"阶段":"假设生成","要点":"用 SciGraph 知识图谱扫清领域全貌,定位基因-疾病-药物空白;InternAgent 拆解科研问题并生成综述。"},{"阶段":"计算验证","要点":"蛋白结构先 Uni-Fold 预测,再 VenusFactory 做功能/位点预测;药物用浑天绫全链路模拟,ADMET 提前评估。"},{"阶段":"实验闭环","要点":"干实验筛选候选 -> 湿实验验证(ToursynClaw 编排 protocol)-> 数据回流再训练,形成主动学习闭环。"},{"阶段":"投稿合规","要点":"投稿前跑图像体检 + 代码复现审查官审查代码可复现性,双保险防撤稿。"}],"适用工具指导":{"流程":"假设(SciGraph/InternAgent)-> 检索(Origene 多库)-> 计算(Uni-Fold/VenusFactory/浑天绫)-> 实验(ToursynClaw 闭环)-> 合规(图像体检)","数据集":"ChEMBL(药物)、UniProt(蛋白)、KEGG(通路)、TCGA(癌症)、OpenTargets(靶点),均经 Origene 即查即用","模型":"Uni-Fold(结构)、ESM2/ProSST(蛋白语言模型)、女娲(基因/影像)、HEp2(细胞分类)","算力":"蛋白结构预测/对接需 GPU;VenusFactory 支持云端训练部署;轻量任务(检索/注释)CPU 即可"},"场景":[{"id":"protein","名称":"蛋白质工程","图标":"🧬","一句话":"从定向进化到理性设计,AI 让蛋白质改造从月级到周级","痛点":"突变筛选靠试错、功能预测靠实验、结构解析靠排队","适合谁":"酶工程/抗体/合成生物学/结构生物学课题组","代表工具":[{"名称":"VenusFactory","类型":"智能体/工具","热度":"740.3k","价值":"蛋白质工程AI基础设施:突变/功能/位点预测+训练部署,代码/Notebook/GUI全形态","机构":"上海天鹜科技"},{"名称":"ToursynClaw","类型":"智能体","价值":"蛋白质工程一站式工作台:理解-分析-设计-实验闭环","机构":"上海途深智越"},{"名称":"蛋白质认知引擎 CoKE","类型":"智能体","价值":"免微调蛋白质功能注释,知识增强Prompt即超专用大模型(EC号/GO)","机构":"上海创智学院(庄凯)"},{"名称":"Uni-Fold 系列","类型":"模型","热度":"↓28","价值":"开源蛋白质单体/复合物结构预测(对标AlphaFold)","机构":"深势科技"},{"名称":"ProSST / ESM2 / VenusPLM","类型":"模型","价值":"蛋白质语言模型全家桶(洪亮团队):序列-结构-功能表征","机构":"上海天鹜科技"},{"名称":"SciToolAgent-Bio","类型":"工具","热度":"73.2k","价值":"蛋白质组/基因组/生物分子设计全套计算","机构":"浙大/SCP"}],"营销钩子":"全球同行已用 VenusFactory 调用 74 万次--你的蛋白还在靠试错筛突变吗?"},{"id":"drug","名称":"药物发现","图标":"💊","一句话":"从靶点到分子优化,多智能体打通药物研发全链路","痛点":"虚拟筛选慢、ADMET预测难、对接模拟分散","适合谁":"药物化学/药理/CADD/天然产物课题组","代表工具":[{"名称":"浑天绫","类型":"工具","价值":"智能药物研发多智能体体系:靶点->设计->对接->模拟->FEP 全自动衔接","机构":"上智院"},{"名称":"DrugSDA-Tool","类型":"工具","价值":"药物分子筛选设计分析(Open Babel/RDKit/BioPython)","机构":"北大/SCP"},{"名称":"DrugSDA-Model","类型":"工具","价值":"分子对接/亲和力/ADMET/蛋白结构预测/疾病逆转预测","机构":"北大/SCP"},{"名称":"Origene 数据库群","类型":"工具","价值":"ChEMBL/FDADrug/OpenTargets/TCGA 等12+权威医药库即查即用","机构":"临港实验室/SCP"},{"名称":"女娲基因导航 SCRIPT","类型":"模型","热度":"↓2","价值":"基因导航大模型,靶点发现与机制解析","机构":"星河启智"},{"名称":"超级科研合伙人 大圣","类型":"智能体","价值":"高能动性智能体,推理决策+实验闭环,主动组织研发流程","机构":"星河启智"}],"营销钩子":"多模态 RNA 药物设计已落地(标杆案例)--AI 让药物设计从经验走向数据驱动"},{"id":"genomics","名称":"基因与组学","图标":"🧫","一句话":"一键检索全球权威数据库,知识图谱串联碎片信息","痛点":"数据库散落、检索低效、跨库关联难","适合谁":"基因组/转录组/生物信息/系统生物学课题组","代表工具":[{"名称":"Origene 全家桶","类型":"工具","价值":"NCBI/UniProt/KEGG/Ensembl/UCSC/STRING/Monarch 等即查即用","机构":"临港实验室/SCP"},{"名称":"SciGraph","类型":"工具","价值":"跨科知识图谱查询与问答,串联基因-疾病-药物-表型","机构":"上海AI实验室/SCP"},{"名称":"BioInfo-Tools","类型":"工具","价值":"蛋白质序列分析(InterProScan/BLAST)","机构":"SCP"},{"名称":"SciToolAgent-Bio","类型":"工具","热度":"73.2k","价值":"基因组/蛋白质组全套生信计算","机构":"浙大/SCP"},{"名称":"InternAgent","类型":"工具","价值":"DeepResearch 拆解科研问题->并行探索->生成综述报告","机构":"上海AI实验室/SCP"}],"营销钩子":"还在逐个开 NCBI/UniProt/KEGG 网页?一个入口查遍全球权威库"},{"id":"imaging","名称":"医学影像与论文治理","图标":"🔬","一句话":"AI 读片 + 投稿前图像体检,效率与合规双保障","痛点":"影像分析靠肉眼、图像合规怕撤稿、Western Blot 易踩坑","适合谁":"病理/影像/细胞生物/任何要投稿的实验学科","代表工具":[{"名称":"图像真实性校验助手","类型":"智能体","热度":"525.5k","价值":"投稿前论文图像体检报告,识别 Western Blot/显微图不当处理痕迹,防撤稿","机构":"中科院文献情报中心"},{"名称":"女娲多模态医学影像","类型":"模型","热度":"↓2","价值":"医学影像基础模型,多模态影像理解","机构":"星河启智"},{"名称":"HEp2 细胞图像分类","类型":"模型","热度":"↓295","价值":"人喉表皮样癌细胞图像分类(下载量最高的生命科学模型)","机构":"天才俱乐部"},{"名称":"代码复现审查官","类型":"智能体","价值":"审查论文代码可复现性并出改进报告,提升可信度","机构":"ACM可重现研究SIG"}],"营销钩子":"52.5 万次调用--投稿前给论文图像做个'体检',别等审稿人发现问题"}],"卡点":["筛选/试错太慢","数据库检索低效","计算资源不足","缺AI方法/人才"]}};var POLICIES_JSON={"政策":[{"标题":"2026年度上海市\"人工智能+\"及科学智能\"百团百项\"项目申报","状态":"已截止","申报时间窗":"2026-05-12 ~ 2026-06-01","资助强度":"百团百项专项经费（具体额度按项目评审）","重点领域":["生命科学","物质科学","地球环境","数学量子","工程技术"],"匹配标签":["青年科学家","40岁以下","百团百项","科学智能","团队申报","五大学科","成果共享"]},{"标题":"2025年度科学智能\"百团百项\"专项申报","状态":"已截止","申报时间窗":"2025年度批次","资助强度":"百团百项专项经费","重点领域":["生命科学","物质科学","地球环境","数学量子","工程技术"],"匹配标签":["百团百项","青年科学家","科学智能","首年"]}]};</script>
 <script>
-/* ===== 渲染四大场景 ===== */
-const S=LIFE_SCENES.场景;
+
+const V=VERTICALS["life"],S=V.场景,POL=POLICIES_JSON;
 const grid=document.getElementById('sceneGrid'),detail=document.getElementById('sceneDetail');
-S.forEach(s=>{
-  grid.insertAdjacentHTML('beforeend',`
-    <div class="scene" data-id="${s.id}">
-      <div class="ic">${s.图标}</div>
-      <h3>${s.名称}</h3>
-      <div class="one">${s.一句话}</div>
-      <div class="who">👥 ${s.适合谁}</div>
-      <div class="tools-count">▸ ${s.代表工具.length} 类核心工具/模型</div>
-      <div class="hook">"${s.营销钩子}"</div>
-    </div>`);
-});
-grid.addEventListener('click',e=>{
-  const card=e.target.closest('.scene');if(!card)return;
+S.forEach(s=>{grid.insertAdjacentHTML('beforeend',
+  '<div class="scene" data-id="'+s.id+'"><div class="ic">'+s.图标+'</div><h3>'+s.名称+'</h3>'+
+  '<div class="one">'+s.一句话+'</div><div class="who">👥 '+s.适合谁+'</div>'+
+  '<div class="tools-count">▸ '+s.代表工具.length+' 类核心工具/模型</div>'+
+  '<div class="hook">"'+s.营销钩子+'"</div></div>');});
+grid.addEventListener('click',e=>{const card=e.target.closest('.scene');if(!card)return;
   const s=S.find(x=>x.id===card.dataset.id);
-  detail.innerHTML=`
-    <div class="sd-head"><h3>${s.图标} ${s.名称}</h3><button class="sd-close">收起</button></div>
-    <div style="color:#6b7280;font-size:15px">${s.一句话}</div>
-    <div class="sd-pain">😖 <b>典型痛点：</b>${s.痛点}</div>
-    ${s.代表工具.map(t=>`
-      <div class="tool-row">
-        <div class="nm">${t.名称}<span class="tag">${t.类型} · ${t.机构}</span></div>
-        <div class="val">${t.价值}</div>
-        ${t.热度?`<div class="heat">${t.热度}</div>`:'<div class="heat"></div>'}
-      </div>`).join('')}
-    <div class="sd-hook">💬 ${s.营销钩子}</div>`;
-  detail.classList.add('open');
-  detail.scrollIntoView({behavior:'smooth',block:'nearest'});
-});
+  const rows=s.代表工具.map(t=>'<div class="tool-row">'+
+    '<div class="nm">'+t.名称+'<span class="tag">'+t.类型+' · '+t.机构+'</span></div>'+
+    '<div class="val">'+t.价值+'</div>'+(t.热度?'<div class="heat">'+t.热度+'</div>':'<div class="heat"></div>')+'</div>').join('');
+  detail.innerHTML='<div class="sd-head"><h3>'+s.图标+' '+s.名称+'</h3><button class="sd-close">收起</button></div>'+
+    '<div style="color:#6b7280;font-size:15px">'+s.一句话+'</div>'+
+    '<div class="sd-pain">😖 <b>典型痛点：</b>'+s.痛点+'</div>'+rows+
+    '<div class="sd-hook">💬 '+s.营销钩子+'</div>';
+  detail.classList.add('open');detail.scrollIntoView({behavior:'smooth',block:'nearest'});});
 detail.addEventListener('click',e=>{if(e.target.classList.contains('sd-close'))detail.classList.remove('open')});
-
-/* ===== 标杆 ===== */
-const cg=document.getElementById('caseGrid');
-POLICIES.标杆实践.filter(b=>/生物|医药|生命|化学|能源/.test(b["领域"])).forEach(b=>{
-  cg.insertAdjacentHTML('beforeend',`
-    <div class="scene" style="cursor:default">
-      <div class="who" style="background:#e1effe;color:#1e429f">${b["领域"]}</div>
-      <h3 style="font-size:16px;margin:10px 0 8px">${b["标题"]}</h3>
-      <div style="color:#0e9f6e;font-weight:600;font-size:14px">✓ ${b["效果"]}</div>
-    </div>`);
-});
-
-/* ===== 诊断 ===== */
 const answers={};
-document.querySelectorAll('.opts').forEach(box=>{
-  box.addEventListener('click',e=>{
-    if(!e.target.classList.contains('opt'))return;
-    box.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
-    e.target.classList.add('sel');
-    answers[box.dataset.q]=e.target.dataset.v||e.target.textContent;
-    document.getElementById('genBtn').disabled=Object.keys(answers).length<3;
-  });
-});
-const CARD2ADVICE={
- "筛选/试错太慢":"引入 AI 主动学习/贝叶斯优化，把盲目试错变成定向搜索，实验量可降一个数量级",
- "数据库检索低效":"用 Origene/SciGraph 一个入口查遍全球权威库，检索时间从小时级到分钟级",
- "计算资源不足":"对接上海'科学智能开放社区算力支持计划'(免费/补贴算力)，或'AI+制造'算力补贴(最高4000万)",
- "缺AI方法/人才":"申报'百团百项'需 AI+领域+工程 三人组——平台可帮你对接 AI 科学家与工程师"
-};
+document.querySelectorAll('.opts').forEach(box=>{box.addEventListener('click',e=>{
+  if(!e.target.classList.contains('opt'))return;
+  box.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+  e.target.classList.add('sel');answers[box.dataset.q]=e.target.dataset.v||e.target.textContent;
+  document.getElementById('genBtn').disabled=Object.keys(answers).length<3;});});
+const DISCKW=["生命科学","生命","生物","医药","蛋白","药物","基因"];
+function advice(stuck){
+  if(/AI|人才/.test(stuck))return "申报'百团百项'需 AI+领域+工程 三人组--平台可帮你对接";
+  if(/计算|资源|性能|算力/.test(stuck))return "对接'科学智能开放社区算力支持计划'(免费/补贴算力)或'AI+制造'算力补贴";
+  if(/试错|数据|检索|处理/.test(stuck))return "用AI主动学习/数据库工具,把盲目试错变成定向搜索";
+  return "引入对应AI工具,逐步替换低效环节";}
 document.getElementById('genBtn').addEventListener('click',()=>{
-  const sc=S.find(x=>x.id===answers["场景"]);
+  const sc=S.find(x=>x.id===answers["场景"])||S[0];
   const stuck=answers["卡点"],age=parseInt(answers["年龄"]);
   document.getElementById('repPain').innerHTML=
-    `<b>🎯 你的场景：${sc.名称}</b><br>😖 痛点:${sc.痛点}<br>💡 针对"${stuck}"：${CARD2ADVICE[stuck]}`;
+    '<b>🎯 你的场景：'+sc.名称+'</b><br>😖 痛点:'+sc.痛点+'<br>💡 针对"'+stuck+'"：'+advice(stuck);
   document.getElementById('repTools').innerHTML=sc.代表工具.map(t=>
-    `<div class="tool-row">
-       <div class="nm">${t.名称}<span class="tag">${t.类型} · ${t.机构}</span></div>
-       <div class="val">${t.价值}</div>
-       ${t.热度?`<div class="heat">${t.热度}</div>`:'<div class="heat"></div>'}
-     </div>`).join('');
-  // 政策(生命科学+年龄)
-  const pols=POLICIES.政策.map(p=>{
-    let s=0;const blob=p["标题"]+p["重点领域"].join("")+p["对科研人员的价值"]+p["匹配标签"].join("");
+    '<div class="tool-row"><div class="nm">'+t.名称+'<span class="tag">'+t.类型+' · '+t.机构+'</span></div>'+
+    '<div class="val">'+t.价值+'</div>'+(t.热度?'<div class="heat">'+t.热度+'</div>':'<div class="heat"></div>')+'</div>').join('');
+  const pols=POL.政策.map(p=>{let s=0;const blob=(p["重点领域"]||[]).join("")+p["标题"]+(p["匹配标签"]||[]).join("");
     if(p["状态"]==="申报中")s+=5;else if(p["状态"]==="已截止")s-=2;
-    if(blob.includes("生命")||blob.includes("生物")||blob.includes("医药"))s+=6;
+    if(DISCKW.some(k=>blob.includes(k)))s+=6;
     if(age<=40&&(blob.includes("青年")||blob.includes("百团百项")))s+=6;
-    if(p["资助强度"].includes("4000万"))s+=2;
-    return {s,p};
-  }).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).slice(0,3);
+    return {s,p};}).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).slice(0,3);
   document.getElementById('repPols').innerHTML=pols.map(({p})=>
-    `<div class="tool-row"><div class="nm" style="min-width:0;flex:1">${p["标题"]}
-       <span class="tag">${p["状态"]} · ${p["申报时间窗"]}</span></div>
-       <div class="val" style="color:#0e9f6e;font-weight:600">${p["资助强度"].slice(0,36)}</div></div>`).join('');
-  let warn=age<=40?`💡 你是青年科学家(≤40岁)：优先准备每年5月'百团百项'（生命科学是5大领域之首），需AI+领域+工程三人组。`:"";
-  document.getElementById('repWarn').innerHTML=warn?`<div class="warntip">${warn}</div>`:"";
+    '<div class="tool-row"><div class="nm" style="min-width:0;flex:1">'+p["标题"]+
+    '<span class="tag">'+p["状态"]+' · '+p["申报时间窗"]+'</span></div>'+
+    '<div class="val" style="color:var(--pri);font-weight:600">'+(p["资助强度"]||"").slice(0,36)+'</div></div>').join('');
+  let warn=age<=40?'💡 你是青年科学家(≤40岁)：优先准备每年5月"百团百项"，需AI+领域+工程三人组。':"";
+  document.getElementById('repWarn').innerHTML=warn?'<div class="warntip">'+warn+'</div>':"";
   const rep=document.getElementById('report');rep.style.display='block';
-  rep.scrollIntoView({behavior:'smooth',block:'start'});
-});
+  rep.scrollIntoView({behavior:'smooth',block:'start'});});
 document.getElementById('leadForm').addEventListener('submit',e=>{
   e.preventDefault();
   const leads=JSON.parse(localStorage.getItem('ai4s_leads_life')||'[]');
   leads.push({email:leadEmail.value,name:leadName.value,answers,time:new Date().toISOString()});
   localStorage.setItem('ai4s_leads_life',JSON.stringify(leads));
   document.getElementById('leadOk').style.display='block';
-  e.target.querySelector('button').disabled=true;
-});
+  e.target.querySelector('button').disabled=true;});
+
 </script>
 </body>
 </html>

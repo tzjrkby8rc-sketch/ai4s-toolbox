@@ -1,14 +1,49 @@
 #!/usr/bin/env node
-// 五学科垂直版批量生成器: 读 verticals.js → 渲染统一模板 → 输出5个HTML
-// 客户端脚本用 String.raw 原样注入,避免三层模板字符串嵌套冲突
+// 六学科垂直版批量生成器: 读 verticals/courses/policies/assets/skills -> 渲染8板块模板 -> 输出6个HTML
+// 8板块: Hero / AI4S范畴 / 基础技巧 / 科研设计 / 场景诊断 / 政策指引 / 适用工具 / 课程案例
 const fs=require('fs'),path=require('path');
 const DIR=__dirname;
-global.VERTICALS=undefined;
-eval(fs.readFileSync(path.join(DIR,'data/verticals.js'),'utf8').replace('const VERTICALS','global.VERTICALS')); // 注入 VERTICALS 到全局
+// eval 注入数据到全局
+function load(file,varName){
+  const txt=fs.readFileSync(path.join(DIR,'data/'+file),'utf-8');
+  global[varName]=undefined;
+  eval(txt.replace('const '+varName,'global.'+varName));
+}
+load('verticals.js','VERTICALS');
+load('policies.js','POLICIES');
+load('courses.js','COURSES');
+load('assets.js','ASSETS');
+load('skills.js','SKILLS_DB');
 
-// 客户端脚本(原样,含其自身的模板字符串),__KEY__/__DISCKW__ 之后替换
+// 学科 key -> 学科名(skills/assets 的学科标签)
+const KEY2DISC={life:"生命科学",material:"物质科学",engineering:"工程技术",earth:"地球环境",math:"数学量子",cross:"交叉通用"};
+// 学科关键词(政策匹配)
+const DISCKW={life:["生命科学","生命","生物","医药","蛋白","药物","基因"],material:["物质科学","材料","化学","能源","分子"],engineering:["工程技术","制造","工程","工业","光学"],earth:["地球环境","气象","海洋","地球","环境","地震"],math:["数学量子","数学","量子","计算","算力"],cross:[]};
+// 课程标签 -> 学科 key
+const TAG2KEY={"材料":"material","计算化学":"material","EDA":"engineering","气象":"earth","DrClaw":"cross","教学":"cross","产学研沙龙":"cross"};
+
+function skillsFor(disc){
+  return SKILLS_DB.skills.filter(s=>s.学科===disc||(disc==="交叉通用"&&(s.学科==="交叉通用"||s.学科==="其他")));
+}
+function assetsFor(disc){
+  const all=[...(ASSETS.智能体||[]),...(ASSETS.工具链||[]),...(ASSETS.模型||[])];
+  return all.filter(a=>a.学科===disc||(disc==="交叉通用"&&(a.学科==="通用"||a.学科==="其他")));
+}
+function coursesFor(key){
+  return COURSES.filter(c=>TAG2KEY[c.标签]===key);
+}
+function policiesFor(disc){
+  const kws=DISCKW[Object.keys(KEY2DISC).find(k=>KEY2DISC[k]===disc)]||[];
+  if(kws.length===0) return POLICIES.政策.slice(0,4); // 交叉通用取通用政策
+  return POLICIES.政策.filter(p=>{
+    const blob=((p.重点领域||[]).join(""))+p.标题+((p.匹配标签||[]).join(""));
+    return kws.some(k=>blob.includes(k));
+  });
+}
+
+// 客户端脚本(场景卡 + 诊断交互), __KEY__ 替换
 const CLIENT=String.raw`
-const V=VERTICALS["__KEY__"],S=V.场景;
+const V=VERTICALS["__KEY__"],S=V.场景,POL=POLICIES_JSON;
 const grid=document.getElementById('sceneGrid'),detail=document.getElementById('sceneDetail');
 S.forEach(s=>{grid.insertAdjacentHTML('beforeend',
   '<div class="scene" data-id="'+s.id+'"><div class="ic">'+s.图标+'</div><h3>'+s.名称+'</h3>'+
@@ -32,157 +67,281 @@ document.querySelectorAll('.opts').forEach(box=>{box.addEventListener('click',e=
   box.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
   e.target.classList.add('sel');answers[box.dataset.q]=e.target.dataset.v||e.target.textContent;
   document.getElementById('genBtn').disabled=Object.keys(answers).length<3;});});
-const DISCKW="__DISCKW__";
+const DISCKW=__DISCKW_JSON__;
 function advice(stuck){
-  if(/AI|人才/.test(stuck))return "申报'百团百项'需 AI+领域+工程 三人组——平台可帮你对接";
-  if(/计算|资源|性能/.test(stuck))return "对接'科学智能开放社区算力支持计划'(免费/补贴算力)";
+  if(/AI|人才/.test(stuck))return "申报'百团百项'需 AI+领域+工程 三人组--平台可帮你对接";
+  if(/计算|资源|性能|算力/.test(stuck))return "对接'科学智能开放社区算力支持计划'(免费/补贴算力)或'AI+制造'算力补贴";
   if(/试错|数据|检索|处理/.test(stuck))return "用AI主动学习/数据库工具,把盲目试错变成定向搜索";
   return "引入对应AI工具,逐步替换低效环节";}
 document.getElementById('genBtn').addEventListener('click',()=>{
-  const sc=S.find(x=>x.id===answers["场景"]);const stuck=answers["卡点"],age=parseInt(answers["年龄"]);
-  document.getElementById('repPain').innerHTML='<b>🎯 你的场景：'+sc.名称+'</b><br>😖 痛点:'+sc.痛点+'<br>💡 针对"'+stuck+'"：'+advice(stuck);
-  document.getElementById('repTools').innerHTML=sc.代表工具.map(t=>'<div class="tool-row">'+
-    '<div class="nm">'+t.名称+'<span class="tag">'+t.类型+' · '+t.机构+'</span></div>'+
+  const sc=S.find(x=>x.id===answers["场景"])||S[0];
+  const stuck=answers["卡点"],age=parseInt(answers["年龄"]);
+  document.getElementById('repPain').innerHTML=
+    '<b>🎯 你的场景：'+sc.名称+'</b><br>😖 痛点:'+sc.痛点+'<br>💡 针对"'+stuck+'"：'+advice(stuck);
+  document.getElementById('repTools').innerHTML=sc.代表工具.map(t=>
+    '<div class="tool-row"><div class="nm">'+t.名称+'<span class="tag">'+t.类型+' · '+t.机构+'</span></div>'+
     '<div class="val">'+t.价值+'</div>'+(t.热度?'<div class="heat">'+t.热度+'</div>':'<div class="heat"></div>')+'</div>').join('');
-  const pols=POLICIES.政策.map(p=>{let s=0;const blob=p["标题"]+p["重点领域"].join("")+p["对科研人员的价值"]+p["匹配标签"].join("");
+  const pols=POL.政策.map(p=>{let s=0;const blob=(p["重点领域"]||[]).join("")+p["标题"]+(p["匹配标签"]||[]).join("");
     if(p["状态"]==="申报中")s+=5;else if(p["状态"]==="已截止")s-=2;
-    if(blob.includes(DISCKW))s+=6;if(blob.includes("百团百项")||blob.includes("科学智能"))s+=3;
+    if(DISCKW.some(k=>blob.includes(k)))s+=6;
     if(age<=40&&(blob.includes("青年")||blob.includes("百团百项")))s+=6;
-    if(p["资助强度"].includes("4000万"))s+=2;return {s,p};
-  }).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).slice(0,3);
-  document.getElementById('repPols').innerHTML=pols.map(x=>'<div class="tool-row">'+
-    '<div class="nm" style="min-width:0;flex:1">'+x.p["标题"]+'<span class="tag">'+x.p["状态"]+' · '+x.p["申报时间窗"]+'</span></div>'+
-    '<div class="val" style="color:'+V.主题色+';font-weight:600">'+x.p["资助强度"].slice(0,36)+'</div></div>').join('');
-  const warn=age<=40?"💡 你是青年科学家(≤40岁)：优先准备每年5月'百团百项'，需AI+领域+工程三人组。":"";
+    return {s,p};}).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).slice(0,3);
+  document.getElementById('repPols').innerHTML=pols.map(({p})=>
+    '<div class="tool-row"><div class="nm" style="min-width:0;flex:1">'+p["标题"]+
+    '<span class="tag">'+p["状态"]+' · '+p["申报时间窗"]+'</span></div>'+
+    '<div class="val" style="color:var(--pri);font-weight:600">'+(p["资助强度"]||"").slice(0,36)+'</div></div>').join('');
+  let warn=age<=40?'💡 你是青年科学家(≤40岁)：优先准备每年5月"百团百项"，需AI+领域+工程三人组。':"";
   document.getElementById('repWarn').innerHTML=warn?'<div class="warntip">'+warn+'</div>':"";
-  const rep=document.getElementById('report');rep.style.display='block';rep.scrollIntoView({behavior:'smooth',block:'start'});
-});
-document.getElementById('leadForm').addEventListener('submit',e=>{e.preventDefault();
+  const rep=document.getElementById('report');rep.style.display='block';
+  rep.scrollIntoView({behavior:'smooth',block:'start'});});
+document.getElementById('leadForm').addEventListener('submit',e=>{
+  e.preventDefault();
   const leads=JSON.parse(localStorage.getItem('ai4s_leads___KEY__')||'[]');
   leads.push({email:leadEmail.value,name:leadName.value,answers,time:new Date().toISOString()});
   localStorage.setItem('ai4s_leads___KEY__',JSON.stringify(leads));
-  document.getElementById('leadOk').style.display='block';e.target.querySelector('button').disabled=true;});
+  document.getElementById('leadOk').style.display='block';
+  e.target.querySelector('button').disabled=true;});
 `;
 
-const TPL=(key,v)=>`<!DOCTYPE html>
-<html lang="zh-CN"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>${v.学科} × AI · 科研智能工具箱</title>
+function gen(key){
+  const v=VERTICALS[key];
+  const disc=KEY2DISC[key];
+  const kws=DISCKW[key];
+  const skills=skillsFor(disc),assets=assetsFor(disc),courses=coursesFor(key),pols=policiesFor(disc);
+  const discJson=JSON.stringify(kws);
+  const polJson=JSON.stringify({政策:pols.map(p=>({标题:p.标题,状态:p.状态,申报时间窗:p.申报时间窗,资助强度:p.资助强度,重点领域:p.重点领域,匹配标签:p.匹配标签}))});
+
+  // AI4S范畴板块
+  const scopeHTML=v.AI4S范畴.map((x,i)=>`<div class="info-card"><h3>${x.标题}</h3><p>${x.内容}</p></div>`).join('');
+  // 基础技巧
+  const basicsHTML=v.基础技巧.map(x=>`<div class="info-card"><h3>${x.工具}</h3><p>${x.步骤}</p></div>`).join('');
+  // 科研设计
+  const designHTML=v.科研设计.map(x=>`<div class="step-card"><div class="step-no">${x.阶段}</div><p>${x.要点}</p></div>`).join('');
+  // 政策
+  const polHTML=pols.length?pols.map(p=>`<div class="pol-row"><div class="pol-name">${p.标题}<span class="pol-tag">${p.状态} · ${p.申报时间窗||''}</span></div><div class="pol-amt">${(p.资助强度||'').slice(0,40)}</div></div>`).join(''):'<p class="empty">该学科暂无精准匹配政策,可关注通用类(百团百项/AI+制造等)。</p>';
+  // 适用工具-技能
+  const skillHTML=skills.slice(0,12).map(s=>`<div class="tool-chip" data-href="skills.html"><span class="tc-name">${s.id}</span><span class="tc-disc">${s.环节}</span>${s.license&&s.license!=="MIT"?`<span class="tc-lic">${s.license.replace('CC-BY-NC-SA-4.0','NC-SA').replace('CC-BY-4.0','BY')}</span>`:''}</div>`).join('');
+  // 适用工具-资产
+  const assetHTML=assets.slice(0,10).map(a=>`<div class="tool-chip"><span class="tc-name">${a.名称}</span><span class="tc-disc">${a.类型}</span></div>`).join('');
+  // 课程案例
+  const caseHTML=courses.length?courses.map(c=>`<div class="case-card"><div class="case-no">课程 ${c.编号}</div><h3>${c.标题}</h3><p class="case-one">${c.一句话}</p><div class="case-meta">讲师: ${c.讲师} · 标签: ${c.标签}</div></div>`).join(''):'<p class="empty">该学科暂无对应课程案例,可参考标杆实践与资产介绍。</p>';
+  // 场景卡选项(诊断Q1)
+  const sceneOpts=v.场景.map(s=>`<div class="opt" data-v="${s.id}">${s.图标} ${s.名称}</div>`).join('');
+  const stuckOpts=v.卡点.map(k=>`<div class="opt">${k}</div>`).join('');
+
+  const html=`<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>${v.学科} × AI · 科研工具箱</title>
 <style>
-:root{--pri:${v.主题色};--deep:${v.主题深};--ink:#111827;--sub:#6b7280;--line:#e5e7eb;--bg:#f9fafb;--card:#fff}
+:root{--pri:${v.主题色};--pri2:${v.主题深};--deep:${v.主题深};--acc:#1a56db;--ink:#111827;--sub:#6b7280;--line:#e5e7eb;--bg:${v.主题浅};--card:#fff;}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:var(--bg);line-height:1.6}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:#fafafa;line-height:1.7}
 .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
 nav{position:sticky;top:0;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:50}
 nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
-.logo{font-weight:800;font-size:19px;color:var(--deep)}
-.logo span{color:var(--pri)}
+.logo{font-weight:800;font-size:19px;color:var(--deep)}.logo span{color:var(--pri)}
 nav a.btn{background:var(--pri);color:#fff;padding:9px 18px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:600}
-.hero{background:linear-gradient(135deg,var(--deep) 0%,var(--pri) 130%);color:#fff;padding:66px 0 58px}
+.hero{background:linear-gradient(135deg,var(--deep) 0%,var(--pri) 60%);color:#fff;padding:70px 0 60px}
 .hero .kick{display:inline-block;background:rgba(255,255,255,.15);padding:5px 14px;border-radius:20px;font-size:13px;margin-bottom:18px;font-weight:600}
-.hero h1{font-size:36px;line-height:1.25;font-weight:800;margin-bottom:16px}
-.hero p{font-size:17px;opacity:.94;max-width:680px;margin-bottom:26px}
+.hero h1{font-size:38px;line-height:1.25;font-weight:800;margin-bottom:16px}
+.hero p{font-size:17px;opacity:.94;max-width:680px;margin-bottom:28px}
 .hero .cta{display:inline-block;background:#fff;color:var(--deep);padding:14px 32px;border-radius:10px;font-weight:700;font-size:17px;text-decoration:none;box-shadow:0 6px 20px rgba(0,0,0,.18)}
-.hero .cta2{display:inline-block;margin-left:14px;color:#fff;border:2px solid rgba(255,255,255,.5);padding:12px 26px;border-radius:10px;font-weight:600;text-decoration:none}
-.badges{display:flex;gap:26px;margin-top:36px;flex-wrap:wrap}
-.badges div{font-size:13px;opacity:.92}.badges b{display:block;font-size:24px;font-weight:800}
-section{padding:52px 0}
-.sec-title{font-size:26px;font-weight:800;text-align:center;margin-bottom:8px}
-.sec-sub{text-align:center;color:var(--sub);margin-bottom:32px;font-size:15px}
-.scene-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(480px,1fr));gap:20px}
-@media(max-width:640px){.scene-grid{grid-template-columns:1fr}}
-.scene{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px;transition:.2s;cursor:pointer}
-.scene:hover{box-shadow:0 10px 28px rgba(0,0,0,.1);transform:translateY(-3px);border-color:var(--pri)}
-.scene .ic{font-size:32px;margin-bottom:12px}
-.scene h3{font-size:20px;margin-bottom:6px;color:var(--deep)}
-.scene .one{font-size:14px;color:var(--sub);margin-bottom:14px}
-.scene .who{font-size:12.5px;background:${v.主题浅};color:var(--deep);padding:6px 12px;border-radius:8px;display:inline-block;margin-bottom:12px}
-.scene .tools-count{font-size:13px;color:var(--pri);font-weight:700}
-.scene .hook{margin-top:14px;padding-top:14px;border-top:1px dashed var(--line);font-size:13px;color:#92400e;font-style:italic}
-.scene-detail{display:none;background:#fff;border:1px solid var(--line);border-radius:14px;padding:30px;margin-top:20px}
+.badges{display:flex;gap:26px;margin-top:38px;flex-wrap:wrap}
+.badges div{font-size:13px;opacity:.92}.badges b{display:block;font-size:25px;font-weight:800}
+section{padding:54px 0}
+.sec-title{font-size:27px;font-weight:800;text-align:center;margin-bottom:8px;color:var(--deep)}
+.sec-sub{text-align:center;color:var(--sub);margin-bottom:34px;font-size:15px}
+.sec-num{display:inline-block;background:var(--pri);color:#fff;width:32px;height:32px;border-radius:50%;line-height:32px;text-align:center;font-size:15px;font-weight:700;margin-right:10px;vertical-align:middle}
+.grid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}
+.info-card{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--pri);border-radius:12px;padding:22px}
+.info-card h3{color:var(--deep);font-size:18px;margin-bottom:8px}
+.info-card p{font-size:14px;color:#374151;line-height:1.6}
+.step-card{display:flex;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 22px;align-items:flex-start}
+.step-no{background:var(--bg);color:var(--deep);font-weight:700;font-size:14px;padding:6px 14px;border-radius:8px;white-space:nowrap;border:1px solid var(--pri)}
+.step-card p{font-size:14px;color:#374151;flex:1}
+.scene-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:18px}
+.scene{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;transition:.2s;cursor:pointer}
+.scene:hover{box-shadow:0 10px 28px rgba(0,0,0,.08);transform:translateY(-3px);border-color:var(--pri)}
+.scene .ic{font-size:32px;margin-bottom:10px}
+.scene h3{font-size:19px;margin-bottom:6px;color:var(--deep)}
+.scene .one{font-size:13.5px;color:var(--sub);margin-bottom:12px;line-height:1.5}
+.scene .who{font-size:12px;background:var(--bg);color:var(--deep);padding:5px 11px;border-radius:8px;display:inline-block;margin-bottom:12px}
+.scene .tools-count{font-size:12.5px;color:var(--pri);font-weight:700}
+.scene .hook{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);font-size:12.5px;color:#92400e;font-style:italic}
+.scene-detail{display:none;background:#fff;border:1px solid var(--line);border-radius:14px;padding:28px;margin-top:18px}
 .scene-detail.open{display:block}
 .sd-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .sd-head h3{font-size:22px;color:var(--deep)}
 .sd-close{background:none;border:1px solid var(--line);border-radius:8px;padding:6px 14px;cursor:pointer;color:var(--sub)}
 .sd-pain{background:#fff7ed;border-left:4px solid #f59e0b;padding:12px 16px;border-radius:8px;font-size:14px;margin:14px 0}
-.tool-row{display:flex;gap:14px;padding:14px 0;border-bottom:1px dashed var(--line);align-items:flex-start}
+.tool-row{display:flex;gap:14px;padding:13px 0;border-bottom:1px dashed var(--line);align-items:flex-start}
 .tool-row:last-child{border:none}
-.tool-row .nm{font-weight:700;min-width:170px;font-size:15px}
+.tool-row .nm{font-weight:700;min-width:170px;font-size:14.5px}
 .tool-row .nm .tag{display:block;font-size:11px;color:var(--pri);font-weight:600;margin-top:2px}
-.tool-row .val{flex:1;font-size:14px;color:#374151}
-.tool-row .heat{color:var(--pri);font-weight:700;font-size:13px;white-space:nowrap}
-.sd-hook{margin-top:16px;background:linear-gradient(135deg,var(--deep),var(--pri));color:#fff;padding:16px 20px;border-radius:10px;font-size:15px;font-weight:600}
-.diag{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:34px;max-width:780px;margin:0 auto}
-.q{margin-bottom:24px}.q label{display:block;font-weight:700;margin-bottom:12px;font-size:16px}
+.tool-row .val{flex:1;font-size:13.5px;color:#374151}
+.tool-row .heat{color:var(--pri);font-weight:700;font-size:12.5px;white-space:nowrap}
+.sd-hook{margin-top:16px;background:linear-gradient(135deg,var(--deep),var(--pri));color:#fff;padding:14px 18px;border-radius:10px;font-size:14.5px;font-weight:600}
+.diag{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:32px;max-width:780px;margin:0 auto}
+.q{margin-bottom:22px}.q label{display:block;font-weight:700;margin-bottom:11px;font-size:15.5px}
 .q .num{color:var(--pri);margin-right:6px}
-.opts{display:flex;flex-wrap:wrap;gap:10px}
-.opt{border:1.5px solid var(--line);background:#fff;padding:10px 18px;border-radius:9px;cursor:pointer;font-size:14px;transition:.15s}
+.opts{display:flex;flex-wrap:wrap;gap:9px}
+.opt{border:1.5px solid var(--line);background:#fff;padding:9px 16px;border-radius:9px;cursor:pointer;font-size:13.5px;transition:.15s}
 .opt:hover{border-color:var(--pri)}.opt.sel{background:var(--pri);color:#fff;border-color:var(--pri)}
-.diag-btn{width:100%;background:var(--deep);color:#fff;border:none;padding:15px;border-radius:10px;font-size:17px;font-weight:700;cursor:pointer;margin-top:6px}
+.diag-btn{width:100%;background:var(--deep);color:#fff;border:none;padding:14px;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;margin-top:6px}
 .diag-btn:disabled{background:#9ca3af;cursor:not-allowed}
 .report{display:none;margin-top:10px}
-.rep-block{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px;margin-bottom:16px}
-.rep-block h4{color:var(--deep);margin-bottom:12px;font-size:16px}
-.rep-pain{background:#fff7ed;border-left:4px solid #f59e0b;padding:14px 18px;border-radius:8px;margin-bottom:16px;font-size:14.5px}
-.warntip{background:#fef2f2;border-left:4px solid #e02424;padding:12px 16px;border-radius:8px;font-size:14px;margin-top:10px}
-.lead{background:linear-gradient(135deg,var(--deep),var(--pri));border-radius:14px;padding:32px;color:#fff;text-align:center;margin-top:20px}
-.lead h3{font-size:22px;margin-bottom:8px}.lead p{opacity:.92;margin-bottom:20px;font-size:14px}
-.lead form{display:flex;gap:10px;max-width:540px;margin:0 auto;flex-wrap:wrap;justify-content:center}
-.lead input{flex:1;min-width:170px;padding:13px 16px;border-radius:9px;border:none;font-size:15px}
-.lead button{background:#fff;color:var(--deep);border:none;padding:13px 26px;border-radius:9px;font-weight:700;cursor:pointer}
-.lead-ok{display:none;margin-top:14px;font-weight:600}
-footer{background:var(--deep);color:#d1d5db;text-align:center;padding:30px 0;font-size:13px;margin-top:40px}
-</style></head><body>
-<nav><div class="wrap"><div class="logo">${v.图标} ${v.学科}<span>×</span>AI 工具箱</div><a class="btn" href="#diag">免费场景诊断</a></div></nav>
+.rep-block{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:14px}
+.rep-block h4{color:var(--deep);margin-bottom:11px;font-size:15.5px}
+.rep-pain{background:#fff7ed;border-left:4px solid #f59e0b;padding:13px 17px;border-radius:8px;margin-bottom:14px;font-size:14px}
+.warntip{background:#fef2f2;border-left:4px solid #e02424;padding:11px 15px;border-radius:8px;font-size:13.5px;margin-top:10px}
+.lead{background:linear-gradient(135deg,var(--deep),var(--pri));border-radius:14px;padding:30px;color:#fff;text-align:center;margin-top:18px}
+.lead h3{font-size:20px;margin-bottom:8px}.lead p{opacity:.92;margin-bottom:18px;font-size:13.5px}
+.lead form{display:flex;gap:10px;max-width:520px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+.lead input{flex:1;min-width:160px;padding:12px 15px;border-radius:9px;border:none;font-size:14.5px}
+.lead button{background:#fff;color:var(--deep);border:none;padding:12px 24px;border-radius:9px;font-weight:700;cursor:pointer}
+.lead-ok{display:none;margin-top:12px;font-weight:600}
+.pol-row{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px dashed var(--line);gap:14px}
+.pol-row:last-child{border:none}
+.pol-name{font-weight:600;font-size:14.5px;flex:1}.pol-name .pol-tag{display:block;font-size:11px;color:var(--pri);font-weight:600;margin-top:2px}
+.pol-amt{color:var(--pri);font-weight:700;font-size:13.5px;white-space:nowrap}
+.tool-chip{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:7px 12px;margin:4px;font-size:13px;cursor:pointer;transition:.15s}
+.tool-chip:hover{border-color:var(--pri);background:var(--bg)}
+.tc-name{font-weight:600;color:var(--deep)}.tc-disc{font-size:11px;color:var(--sub)}
+.tc-lic{font-size:10px;background:#fef3c7;color:#92400e;padding:1px 6px;border-radius:4px}
+.case-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;border-top:3px solid var(--pri)}
+.case-no{font-size:12px;color:var(--pri);font-weight:600;margin-bottom:6px}
+.case-card h3{font-size:16px;color:var(--deep);margin-bottom:6px}
+.case-one{font-size:13.5px;color:var(--sub);margin-bottom:8px}
+.case-meta{font-size:12px;color:var(--sub)}
+.empty{color:var(--sub);font-size:14px;text-align:center;padding:20px}
+.guide-box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;margin-bottom:14px}
+.guide-box h4{color:var(--deep);font-size:15px;margin-bottom:8px}
+.guide-box p{font-size:13.5px;color:#374151}
+footer{background:var(--deep);color:rgba(255,255,255,.8);text-align:center;padding:28px 0;font-size:13px;margin-top:40px}
+footer a{color:#fff}
+@media(max-width:640px){.grid2,.scene-grid{grid-template-columns:1fr}.hero h1{font-size:28px}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <div class="logo">${v.学科}<span>×</span>AI 工具箱</div>
+  <a class="btn" href="#diag">场景诊断</a>
+</div></nav>
+
 <header class="hero"><div class="wrap">
   <div class="kick">${v.图标} 专为${v.受众}打造</div>
   <h1>${v.Hero标题}</h1>
   <p>${v.Hero副}</p>
   <a class="cta" href="#diag">找到我的研究场景 →</a>
-  <a class="cta2" href="#scenes">浏览场景</a>
-  <div class="badges">${v.统计.map(s=>`<div><b>${s[0]}</b>${s[1]}</div>`).join('')}</div>
+  <div class="badges">
+    ${v.统计.map(s=>`<div><b>${s[0]}</b>${s[1]}</div>`).join('')}
+  </div>
 </div></header>
-<section id="scenes"><div class="wrap">
-  <h2 class="sec-title">研究场景 · 对号入座</h2>
-  <p class="sec-sub">点开你的方向，看同行在用什么 AI、解决什么痛点</p>
+
+<!-- 1. AI4S 使用范畴 -->
+<section id="scope"><div class="wrap">
+  <h2 class="sec-title"><span class="sec-num">1</span>AI4S 使用范畴</h2>
+  <p class="sec-sub">AI 在${v.学科}领域能做什么--四个核心方向</p>
+  <div class="grid2">${scopeHTML}</div>
+</div></section>
+
+<!-- 2. 基础使用技巧 -->
+<section id="basics" style="background:#fff"><div class="wrap">
+  <h2 class="sec-title"><span class="sec-num">2</span>基础使用技巧</h2>
+  <p class="sec-sub">从零上手--核心工具的使用路径</p>
+  <div class="grid2">${basicsHTML}</div>
+</div></section>
+
+<!-- 3. 科研设计指南 -->
+<section id="design"><div class="wrap">
+  <h2 class="sec-title"><span class="sec-num">3</span>科研设计指南</h2>
+  <p class="sec-sub">如何设计 AI 辅助的${v.学科}研究--分阶段要点</p>
+  <div style="max-width:820px;margin:0 auto">${designHTML}</div>
+</div></section>
+
+<!-- 4. 场景诊断建议 -->
+<section id="scenes" style="background:#fff"><div class="wrap">
+  <h2 class="sec-title"><span class="sec-num">4</span>场景诊断建议</h2>
+  <p class="sec-sub">点开你的方向,看同行在用什么 AI;3 个问题生成专属落地路径</p>
   <div class="scene-grid" id="sceneGrid"></div>
   <div class="scene-detail" id="sceneDetail"></div>
 </div></section>
-<section id="diag" style="background:#fff"><div class="wrap">
-  <h2 class="sec-title">🧭 ${v.学科} AI 场景诊断</h2>
-  <p class="sec-sub">3 个问题，生成你的专属《${v.学科} AI 落地路径》</p>
+
+<section id="diag"><div class="wrap">
+  <h2 class="sec-title"><span class="sec-num">4</span>🧭 ${v.学科} AI 场景诊断</h2>
+  <p class="sec-sub">3 个问题,生成你的专属《${v.学科} AI 落地路径》</p>
   <div class="diag">
-    <div class="q"><label><span class="num">Q1</span>你的研究方向最接近哪个场景？</label>
-      <div class="opts" data-q="场景">${v.场景.map(s=>`<div class="opt" data-v="${s.id}">${s.图标} ${s.名称}</div>`).join('')}</div></div>
-    <div class="q"><label><span class="num">Q2</span>当前最大的卡点？</label>
-      <div class="opts" data-q="卡点">${v.卡点.map(c=>`<div class="opt">${c}</div>`).join('')}</div></div>
-    <div class="q"><label><span class="num">Q3</span>你的年龄（青年专项匹配）？</label>
-      <div class="opts" data-q="年龄"><div class="opt" data-v="35">≤35岁</div><div class="opt" data-v="38">36-40岁</div><div class="opt" data-v="45">41岁以上</div></div></div>
+    <div class="q"><label><span class="num">Q1</span>你的研究方向最接近哪个场景?</label>
+      <div class="opts" data-q="场景">${sceneOpts}</div></div>
+    <div class="q"><label><span class="num">Q2</span>当前最大的卡点?</label>
+      <div class="opts" data-q="卡点">${stuckOpts}</div></div>
+    <div class="q"><label><span class="num">Q3</span>你的年龄(青年专项匹配)?</label>
+      <div class="opts" data-q="年龄">
+        <div class="opt" data-v="35">≤35岁</div><div class="opt" data-v="38">36-40岁</div><div class="opt" data-v="45">41岁以上</div>
+      </div></div>
     <button class="diag-btn" id="genBtn" disabled>生成我的落地路径</button>
     <div class="report" id="report">
       <div class="rep-pain" id="repPain"></div>
       <div class="rep-block"><h4>🛠️ 你的场景推荐工具</h4><div id="repTools"></div></div>
-      <div class="rep-block"><h4>💰 可申报政策（${v.学科}方向）</h4><div id="repPols"></div></div>
+      <div class="rep-block"><h4>💰 可申报政策</h4><div id="repPols"></div></div>
       <div id="repWarn"></div>
-      <div class="lead"><h3>📄 获取完整版 + 百团百项自检清单</h3>
-        <p>留下邮箱，发送《${v.学科} AI 落地完整报告》《百团百项申报自检清单》《政策申报日历》</p>
-        <form id="leadForm"><input type="email" id="leadEmail" placeholder="你的邮箱" required><input type="text" id="leadName" placeholder="姓名/单位(选填)"><button type="submit">发送完整报告</button></form>
-        <div class="lead-ok" id="leadOk">✓ 已收到！完整报告将发送至你的邮箱。</div></div>
+      <div class="lead">
+        <h3>📄 获取完整版 + 百团百项自检清单</h3>
+        <p>留下邮箱,发送《${v.学科} AI 落地完整报告》《百团百项申报自检清单》</p>
+        <form id="leadForm">
+          <input type="email" id="leadEmail" placeholder="你的邮箱" required>
+          <input type="text" id="leadName" placeholder="姓名/单位(选填)">
+          <button type="submit">发送完整报告</button>
+        </form>
+        <div class="lead-ok" id="leadOk">✓ 已收到!完整报告将发送至你的邮箱。</div>
+      </div>
     </div>
   </div>
 </div></section>
-<footer>${v.学科} × AI 工具箱 · 数据来源于智爱赛思公开知识库 · 政策以官方通知为准</footer>
-<script src="data/policies.js"></script>
-<script src="data/verticals.js"></script>
-<script>__CLIENT__</script>
-</body></html>`;
 
-const DISCKW={"material":"材料","engineering":"工程","earth":"地球","math":"数学","cross":"化学"};
-let n=0;
-for(const key of Object.keys(VERTICALS)){
-  const client=CLIENT.replaceAll('__KEY__',key).replaceAll('__DISCKW__',DISCKW[key]||VERTICALS[key].学科);
-  const html=TPL(key,VERTICALS[key]).replace('__CLIENT__',client);
-  fs.writeFileSync(path.join(DIR,key+'.html'),html,'utf8');
-  console.log('✓',key+'.html');n++;
+<!-- 5. 政策扶持指引 -->
+<section id="policy" style="background:#fff"><div class="wrap">
+  <h2 class="sec-title"><span class="sec-num">5</span>政策扶持指引</h2>
+  <p class="sec-sub">${v.学科}方向可申报的经费政策(以官方通知为准)</p>
+  <div style="max-width:820px;margin:0 auto">${polHTML}</div>
+</div></section>
+
+<!-- 6. 适用工具 -->
+<section id="tools"><div class="wrap">
+  <h2 class="sec-title"><span class="sec-num">6</span>适用工具</h2>
+  <p class="sec-sub">该学科适用的科研技能包工具 + 平台资产 + 流程/数据集/模型/算力指导</p>
+  <div class="guide-box"><h4>🔧 科研流程规划</h4><p>${v.适用工具指导.流程}</p></div>
+  <div class="guide-box"><h4>📊 数据集采纳</h4><p>${v.适用工具指导.数据集}</p></div>
+  <div class="guide-box"><h4>🤖 模型与算力选择</h4><p>${v.适用工具指导.模型} ｜ 算力:${v.适用工具指导.算力}</p></div>
+  <h4 style="color:var(--deep);margin:24px 0 10px;font-size:15px">开源技能(skills 包,${skills.length} 个)</h4>
+  <div>${skillHTML||'<p class="empty">该学科暂无匹配开源技能</p>'}</div>
+  <h4 style="color:var(--deep);margin:24px 0 10px;font-size:15px">平台资产(${assets.length} 项)</h4>
+  <div>${assetHTML||'<p class="empty">该学科暂无匹配平台资产</p>'}</div>
+</div></section>
+
+<!-- 7. 使用案例(课程) -->
+<section id="cases" style="background:#fff"><div class="wrap">
+  <h2 class="sec-title"><span class="sec-num">7</span>使用案例</h2>
+  <p class="sec-sub">智爱赛思百家讲坛课程--${v.学科}方向的 AI 实践</p>
+  <div class="grid2">${caseHTML}</div>
+</div></section>
+
+<footer>
+  ${v.学科} × AI 工具箱 · 数据来源于智爱赛思公开知识库 · 政策以官方通知为准 · <a href="index.html">返回门户</a>
+</footer>
+
+<script>var VERTICALS=${JSON.stringify({[key]:v})};var POLICIES_JSON=${polJson};</script>
+<script>
+${CLIENT.replace(/__KEY__/g,key).replace(/__DISCKW_JSON__/g,discJson)}
+</script>
+</body>
+</html>`;
+  fs.writeFileSync(path.join(DIR,key+'.html'),html,'utf-8');
+  console.log(`✓ ${key}.html (场景${v.场景.length}/技能${skills.length}/资产${assets.length}/课程${courses.length}/政策${pols.length})`);
 }
-console.log('共生成',n,'个学科垂直页');
+
+['life','material','engineering','earth','math','cross'].forEach(gen);
+console.log('\n✓ 6 学科页生成完成');

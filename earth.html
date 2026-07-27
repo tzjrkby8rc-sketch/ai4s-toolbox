@@ -1,115 +1,211 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>地球环境 × AI · 科研智能工具箱</title>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>地球环境 × AI · 科研工具箱</title>
 <style>
-:root{--pri:#0284c7;--deep:#075985;--ink:#111827;--sub:#6b7280;--line:#e5e7eb;--bg:#f9fafb;--card:#fff}
+:root{--pri:#0284c7;--pri2:#075985;--deep:#075985;--acc:#1a56db;--ink:#111827;--sub:#6b7280;--line:#e5e7eb;--bg:#e0f2fe;--card:#fff;}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:var(--bg);line-height:1.6}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:#fafafa;line-height:1.7}
 .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
 nav{position:sticky;top:0;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:50}
 nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
-.logo{font-weight:800;font-size:19px;color:var(--deep)}
-.logo span{color:var(--pri)}
+.logo{font-weight:800;font-size:19px;color:var(--deep)}.logo span{color:var(--pri)}
 nav a.btn{background:var(--pri);color:#fff;padding:9px 18px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:600}
-.hero{background:linear-gradient(135deg,var(--deep) 0%,var(--pri) 130%);color:#fff;padding:66px 0 58px}
+.hero{background:linear-gradient(135deg,var(--deep) 0%,var(--pri) 60%);color:#fff;padding:70px 0 60px}
 .hero .kick{display:inline-block;background:rgba(255,255,255,.15);padding:5px 14px;border-radius:20px;font-size:13px;margin-bottom:18px;font-weight:600}
-.hero h1{font-size:36px;line-height:1.25;font-weight:800;margin-bottom:16px}
-.hero p{font-size:17px;opacity:.94;max-width:680px;margin-bottom:26px}
+.hero h1{font-size:38px;line-height:1.25;font-weight:800;margin-bottom:16px}
+.hero p{font-size:17px;opacity:.94;max-width:680px;margin-bottom:28px}
 .hero .cta{display:inline-block;background:#fff;color:var(--deep);padding:14px 32px;border-radius:10px;font-weight:700;font-size:17px;text-decoration:none;box-shadow:0 6px 20px rgba(0,0,0,.18)}
-.hero .cta2{display:inline-block;margin-left:14px;color:#fff;border:2px solid rgba(255,255,255,.5);padding:12px 26px;border-radius:10px;font-weight:600;text-decoration:none}
-.badges{display:flex;gap:26px;margin-top:36px;flex-wrap:wrap}
-.badges div{font-size:13px;opacity:.92}.badges b{display:block;font-size:24px;font-weight:800}
-section{padding:52px 0}
-.sec-title{font-size:26px;font-weight:800;text-align:center;margin-bottom:8px}
-.sec-sub{text-align:center;color:var(--sub);margin-bottom:32px;font-size:15px}
-.scene-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(480px,1fr));gap:20px}
-@media(max-width:640px){.scene-grid{grid-template-columns:1fr}}
-.scene{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px;transition:.2s;cursor:pointer}
-.scene:hover{box-shadow:0 10px 28px rgba(0,0,0,.1);transform:translateY(-3px);border-color:var(--pri)}
-.scene .ic{font-size:32px;margin-bottom:12px}
-.scene h3{font-size:20px;margin-bottom:6px;color:var(--deep)}
-.scene .one{font-size:14px;color:var(--sub);margin-bottom:14px}
-.scene .who{font-size:12.5px;background:#e0f2fe;color:var(--deep);padding:6px 12px;border-radius:8px;display:inline-block;margin-bottom:12px}
-.scene .tools-count{font-size:13px;color:var(--pri);font-weight:700}
-.scene .hook{margin-top:14px;padding-top:14px;border-top:1px dashed var(--line);font-size:13px;color:#92400e;font-style:italic}
-.scene-detail{display:none;background:#fff;border:1px solid var(--line);border-radius:14px;padding:30px;margin-top:20px}
+.badges{display:flex;gap:26px;margin-top:38px;flex-wrap:wrap}
+.badges div{font-size:13px;opacity:.92}.badges b{display:block;font-size:25px;font-weight:800}
+section{padding:54px 0}
+.sec-title{font-size:27px;font-weight:800;text-align:center;margin-bottom:8px;color:var(--deep)}
+.sec-sub{text-align:center;color:var(--sub);margin-bottom:34px;font-size:15px}
+.sec-num{display:inline-block;background:var(--pri);color:#fff;width:32px;height:32px;border-radius:50%;line-height:32px;text-align:center;font-size:15px;font-weight:700;margin-right:10px;vertical-align:middle}
+.grid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}
+.info-card{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--pri);border-radius:12px;padding:22px}
+.info-card h3{color:var(--deep);font-size:18px;margin-bottom:8px}
+.info-card p{font-size:14px;color:#374151;line-height:1.6}
+.step-card{display:flex;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 22px;align-items:flex-start}
+.step-no{background:var(--bg);color:var(--deep);font-weight:700;font-size:14px;padding:6px 14px;border-radius:8px;white-space:nowrap;border:1px solid var(--pri)}
+.step-card p{font-size:14px;color:#374151;flex:1}
+.scene-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:18px}
+.scene{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;transition:.2s;cursor:pointer}
+.scene:hover{box-shadow:0 10px 28px rgba(0,0,0,.08);transform:translateY(-3px);border-color:var(--pri)}
+.scene .ic{font-size:32px;margin-bottom:10px}
+.scene h3{font-size:19px;margin-bottom:6px;color:var(--deep)}
+.scene .one{font-size:13.5px;color:var(--sub);margin-bottom:12px;line-height:1.5}
+.scene .who{font-size:12px;background:var(--bg);color:var(--deep);padding:5px 11px;border-radius:8px;display:inline-block;margin-bottom:12px}
+.scene .tools-count{font-size:12.5px;color:var(--pri);font-weight:700}
+.scene .hook{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);font-size:12.5px;color:#92400e;font-style:italic}
+.scene-detail{display:none;background:#fff;border:1px solid var(--line);border-radius:14px;padding:28px;margin-top:18px}
 .scene-detail.open{display:block}
 .sd-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .sd-head h3{font-size:22px;color:var(--deep)}
 .sd-close{background:none;border:1px solid var(--line);border-radius:8px;padding:6px 14px;cursor:pointer;color:var(--sub)}
 .sd-pain{background:#fff7ed;border-left:4px solid #f59e0b;padding:12px 16px;border-radius:8px;font-size:14px;margin:14px 0}
-.tool-row{display:flex;gap:14px;padding:14px 0;border-bottom:1px dashed var(--line);align-items:flex-start}
+.tool-row{display:flex;gap:14px;padding:13px 0;border-bottom:1px dashed var(--line);align-items:flex-start}
 .tool-row:last-child{border:none}
-.tool-row .nm{font-weight:700;min-width:170px;font-size:15px}
+.tool-row .nm{font-weight:700;min-width:170px;font-size:14.5px}
 .tool-row .nm .tag{display:block;font-size:11px;color:var(--pri);font-weight:600;margin-top:2px}
-.tool-row .val{flex:1;font-size:14px;color:#374151}
-.tool-row .heat{color:var(--pri);font-weight:700;font-size:13px;white-space:nowrap}
-.sd-hook{margin-top:16px;background:linear-gradient(135deg,var(--deep),var(--pri));color:#fff;padding:16px 20px;border-radius:10px;font-size:15px;font-weight:600}
-.diag{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:34px;max-width:780px;margin:0 auto}
-.q{margin-bottom:24px}.q label{display:block;font-weight:700;margin-bottom:12px;font-size:16px}
+.tool-row .val{flex:1;font-size:13.5px;color:#374151}
+.tool-row .heat{color:var(--pri);font-weight:700;font-size:12.5px;white-space:nowrap}
+.sd-hook{margin-top:16px;background:linear-gradient(135deg,var(--deep),var(--pri));color:#fff;padding:14px 18px;border-radius:10px;font-size:14.5px;font-weight:600}
+.diag{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:32px;max-width:780px;margin:0 auto}
+.q{margin-bottom:22px}.q label{display:block;font-weight:700;margin-bottom:11px;font-size:15.5px}
 .q .num{color:var(--pri);margin-right:6px}
-.opts{display:flex;flex-wrap:wrap;gap:10px}
-.opt{border:1.5px solid var(--line);background:#fff;padding:10px 18px;border-radius:9px;cursor:pointer;font-size:14px;transition:.15s}
+.opts{display:flex;flex-wrap:wrap;gap:9px}
+.opt{border:1.5px solid var(--line);background:#fff;padding:9px 16px;border-radius:9px;cursor:pointer;font-size:13.5px;transition:.15s}
 .opt:hover{border-color:var(--pri)}.opt.sel{background:var(--pri);color:#fff;border-color:var(--pri)}
-.diag-btn{width:100%;background:var(--deep);color:#fff;border:none;padding:15px;border-radius:10px;font-size:17px;font-weight:700;cursor:pointer;margin-top:6px}
+.diag-btn{width:100%;background:var(--deep);color:#fff;border:none;padding:14px;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;margin-top:6px}
 .diag-btn:disabled{background:#9ca3af;cursor:not-allowed}
 .report{display:none;margin-top:10px}
-.rep-block{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px;margin-bottom:16px}
-.rep-block h4{color:var(--deep);margin-bottom:12px;font-size:16px}
-.rep-pain{background:#fff7ed;border-left:4px solid #f59e0b;padding:14px 18px;border-radius:8px;margin-bottom:16px;font-size:14.5px}
-.warntip{background:#fef2f2;border-left:4px solid #e02424;padding:12px 16px;border-radius:8px;font-size:14px;margin-top:10px}
-.lead{background:linear-gradient(135deg,var(--deep),var(--pri));border-radius:14px;padding:32px;color:#fff;text-align:center;margin-top:20px}
-.lead h3{font-size:22px;margin-bottom:8px}.lead p{opacity:.92;margin-bottom:20px;font-size:14px}
-.lead form{display:flex;gap:10px;max-width:540px;margin:0 auto;flex-wrap:wrap;justify-content:center}
-.lead input{flex:1;min-width:170px;padding:13px 16px;border-radius:9px;border:none;font-size:15px}
-.lead button{background:#fff;color:var(--deep);border:none;padding:13px 26px;border-radius:9px;font-weight:700;cursor:pointer}
-.lead-ok{display:none;margin-top:14px;font-weight:600}
-footer{background:var(--deep);color:#d1d5db;text-align:center;padding:30px 0;font-size:13px;margin-top:40px}
-</style></head><body>
-<nav><div class="wrap"><div class="logo">🌍 地球环境<span>×</span>AI 工具箱</div><a class="btn" href="#diag">免费场景诊断</a></div></nav>
+.rep-block{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:14px}
+.rep-block h4{color:var(--deep);margin-bottom:11px;font-size:15.5px}
+.rep-pain{background:#fff7ed;border-left:4px solid #f59e0b;padding:13px 17px;border-radius:8px;margin-bottom:14px;font-size:14px}
+.warntip{background:#fef2f2;border-left:4px solid #e02424;padding:11px 15px;border-radius:8px;font-size:13.5px;margin-top:10px}
+.lead{background:linear-gradient(135deg,var(--deep),var(--pri));border-radius:14px;padding:30px;color:#fff;text-align:center;margin-top:18px}
+.lead h3{font-size:20px;margin-bottom:8px}.lead p{opacity:.92;margin-bottom:18px;font-size:13.5px}
+.lead form{display:flex;gap:10px;max-width:520px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+.lead input{flex:1;min-width:160px;padding:12px 15px;border-radius:9px;border:none;font-size:14.5px}
+.lead button{background:#fff;color:var(--deep);border:none;padding:12px 24px;border-radius:9px;font-weight:700;cursor:pointer}
+.lead-ok{display:none;margin-top:12px;font-weight:600}
+.pol-row{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px dashed var(--line);gap:14px}
+.pol-row:last-child{border:none}
+.pol-name{font-weight:600;font-size:14.5px;flex:1}.pol-name .pol-tag{display:block;font-size:11px;color:var(--pri);font-weight:600;margin-top:2px}
+.pol-amt{color:var(--pri);font-weight:700;font-size:13.5px;white-space:nowrap}
+.tool-chip{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:7px 12px;margin:4px;font-size:13px;cursor:pointer;transition:.15s}
+.tool-chip:hover{border-color:var(--pri);background:var(--bg)}
+.tc-name{font-weight:600;color:var(--deep)}.tc-disc{font-size:11px;color:var(--sub)}
+.tc-lic{font-size:10px;background:#fef3c7;color:#92400e;padding:1px 6px;border-radius:4px}
+.case-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;border-top:3px solid var(--pri)}
+.case-no{font-size:12px;color:var(--pri);font-weight:600;margin-bottom:6px}
+.case-card h3{font-size:16px;color:var(--deep);margin-bottom:6px}
+.case-one{font-size:13.5px;color:var(--sub);margin-bottom:8px}
+.case-meta{font-size:12px;color:var(--sub)}
+.empty{color:var(--sub);font-size:14px;text-align:center;padding:20px}
+.guide-box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;margin-bottom:14px}
+.guide-box h4{color:var(--deep);font-size:15px;margin-bottom:8px}
+.guide-box p{font-size:13.5px;color:#374151}
+footer{background:var(--deep);color:rgba(255,255,255,.8);text-align:center;padding:28px 0;font-size:13px;margin-top:40px}
+footer a{color:#fff}
+@media(max-width:640px){.grid2,.scene-grid{grid-template-columns:1fr}.hero h1{font-size:28px}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <div class="logo">地球环境<span>×</span>AI 工具箱</div>
+  <a class="btn" href="#diag">场景诊断</a>
+</div></nav>
+
 <header class="hero"><div class="wrap">
   <div class="kick">🌍 专为气象 / 海洋 / 地质 / 环境教授打造</div>
   <h1>从极端天气到深海地震<br>AI 大模型读懂地球系统</h1>
-  <p>气象预测 · 海洋计算 · 地震监测——伏羲气象大模型 + 三大专业工具链，地球与环境科学研究新范式。</p>
+  <p>气象预测 · 海洋计算 · 地震监测--伏羲气象大模型 + 三大专业工具链，地球与环境科学研究新范式。</p>
   <a class="cta" href="#diag">找到我的研究场景 →</a>
-  <a class="cta2" href="#scenes">浏览场景</a>
-  <div class="badges"><div><b>7</b>地球环境AI资产</div><div><b>4</b>垂类模型</div><div><b>3</b>专业工具链</div><div><b>伏羲</b>气象大模型</div></div>
+  <div class="badges">
+    <div><b>7</b>地球环境AI资产</div><div><b>4</b>垂类模型</div><div><b>3</b>专业工具链</div><div><b>伏羲</b>气象大模型</div>
+  </div>
 </div></header>
-<section id="scenes"><div class="wrap">
-  <h2 class="sec-title">研究场景 · 对号入座</h2>
-  <p class="sec-sub">点开你的方向，看同行在用什么 AI、解决什么痛点</p>
+
+<!-- 1. AI4S 使用范畴 -->
+<section id="scope"><div class="wrap">
+  <h2 class="sec-title"><span class="sec-num">1</span>AI4S 使用范畴</h2>
+  <p class="sec-sub">AI 在地球环境领域能做什么--四个核心方向</p>
+  <div class="grid2"><div class="info-card"><h3>气象与大气</h3><p>伏羲中期气象大模型数据驱动天气预报(对标国际领先);伏羲超分模型气象场超分辨率重建,驱动新能源与多行业决策。</p></div><div class="info-card"><h3>海洋计算</h3><p>OceanGSW-Tool 海洋学计算(TEOS-10/gsw-python),海洋环流/温盐计算开箱即用。</p></div><div class="info-card"><h3>地震监测</h3><p>SeisOBS-Tool 地震监测(ObsPy/DASPy),含光纤地震;地震推文意图模型识别应急社交媒体信息。</p></div><div class="info-card"><h3>极端天气预测</h3><p>数据集重点方向,12 公里沙尘数据让风光预测从被动应对到主动防御。</p></div></div>
+</div></section>
+
+<!-- 2. 基础使用技巧 -->
+<section id="basics" style="background:#fff"><div class="wrap">
+  <h2 class="sec-title"><span class="sec-num">2</span>基础使用技巧</h2>
+  <p class="sec-sub">从零上手--核心工具的使用路径</p>
+  <div class="grid2"><div class="info-card"><h3>伏羲气象大模型</h3><p>数据驱动中期预报:输入气象初始场 -> 模型推理 -> 输出全球中期天气预报,对标国际领先水平。</p></div><div class="info-card"><h3>AtmSci-Tool</h3><p>大气/气象计算(MetPy):安装 -> 输入气象数据 -> 计算热力学/动力学参数,Python API。</p></div><div class="info-card"><h3>OceanGSW-Tool</h3><p>海洋学计算(TEOS-10):输入温盐深数据 -> 计算 GSW 海洋学参数(密度/位温/盐度)。</p></div></div>
+</div></section>
+
+<!-- 3. 科研设计指南 -->
+<section id="design"><div class="wrap">
+  <h2 class="sec-title"><span class="sec-num">3</span>科研设计指南</h2>
+  <p class="sec-sub">如何设计 AI 辅助的地球环境研究--分阶段要点</p>
+  <div style="max-width:820px;margin:0 auto"><div class="step-card"><div class="step-no">数据获取</div><p>气象场数据接入伏羲大模型;海洋观测数据经 OceanGSW-Tool 标准化;地震波形用 SeisOBS-Tool 处理。</p></div><div class="step-card"><div class="step-no">模型推理</div><p>伏羲大模型做中期预报/超分重建;传统物理方法与 AI 结合,降尺度与极端事件分析。</p></div><div class="step-card"><div class="step-no">决策应用</div><p>预报结果驱动新能源调度/灾害预警;多行业决策闭环。</p></div><div class="step-card"><div class="step-no">验证迭代</div><p>预报结果与实测对比;模型持续优化。</p></div></div>
+</div></section>
+
+<!-- 4. 场景诊断建议 -->
+<section id="scenes" style="background:#fff"><div class="wrap">
+  <h2 class="sec-title"><span class="sec-num">4</span>场景诊断建议</h2>
+  <p class="sec-sub">点开你的方向,看同行在用什么 AI;3 个问题生成专属落地路径</p>
   <div class="scene-grid" id="sceneGrid"></div>
   <div class="scene-detail" id="sceneDetail"></div>
 </div></section>
-<section id="diag" style="background:#fff"><div class="wrap">
-  <h2 class="sec-title">🧭 地球环境 AI 场景诊断</h2>
-  <p class="sec-sub">3 个问题，生成你的专属《地球环境 AI 落地路径》</p>
+
+<section id="diag"><div class="wrap">
+  <h2 class="sec-title"><span class="sec-num">4</span>🧭 地球环境 AI 场景诊断</h2>
+  <p class="sec-sub">3 个问题,生成你的专属《地球环境 AI 落地路径》</p>
   <div class="diag">
-    <div class="q"><label><span class="num">Q1</span>你的研究方向最接近哪个场景？</label>
+    <div class="q"><label><span class="num">Q1</span>你的研究方向最接近哪个场景?</label>
       <div class="opts" data-q="场景"><div class="opt" data-v="meteo">🌦️ 气象与大气</div><div class="opt" data-v="ocean">🌊 海洋与地震</div></div></div>
-    <div class="q"><label><span class="num">Q2</span>当前最大的卡点？</label>
+    <div class="q"><label><span class="num">Q2</span>当前最大的卡点?</label>
       <div class="opts" data-q="卡点"><div class="opt">数据处理太慢</div><div class="opt">预测精度不够</div><div class="opt">专业工具难上手</div><div class="opt">缺AI方法/人才</div></div></div>
-    <div class="q"><label><span class="num">Q3</span>你的年龄（青年专项匹配）？</label>
-      <div class="opts" data-q="年龄"><div class="opt" data-v="35">≤35岁</div><div class="opt" data-v="38">36-40岁</div><div class="opt" data-v="45">41岁以上</div></div></div>
+    <div class="q"><label><span class="num">Q3</span>你的年龄(青年专项匹配)?</label>
+      <div class="opts" data-q="年龄">
+        <div class="opt" data-v="35">≤35岁</div><div class="opt" data-v="38">36-40岁</div><div class="opt" data-v="45">41岁以上</div>
+      </div></div>
     <button class="diag-btn" id="genBtn" disabled>生成我的落地路径</button>
     <div class="report" id="report">
       <div class="rep-pain" id="repPain"></div>
       <div class="rep-block"><h4>🛠️ 你的场景推荐工具</h4><div id="repTools"></div></div>
-      <div class="rep-block"><h4>💰 可申报政策（地球环境方向）</h4><div id="repPols"></div></div>
+      <div class="rep-block"><h4>💰 可申报政策</h4><div id="repPols"></div></div>
       <div id="repWarn"></div>
-      <div class="lead"><h3>📄 获取完整版 + 百团百项自检清单</h3>
-        <p>留下邮箱，发送《地球环境 AI 落地完整报告》《百团百项申报自检清单》《政策申报日历》</p>
-        <form id="leadForm"><input type="email" id="leadEmail" placeholder="你的邮箱" required><input type="text" id="leadName" placeholder="姓名/单位(选填)"><button type="submit">发送完整报告</button></form>
-        <div class="lead-ok" id="leadOk">✓ 已收到！完整报告将发送至你的邮箱。</div></div>
+      <div class="lead">
+        <h3>📄 获取完整版 + 百团百项自检清单</h3>
+        <p>留下邮箱,发送《地球环境 AI 落地完整报告》《百团百项申报自检清单》</p>
+        <form id="leadForm">
+          <input type="email" id="leadEmail" placeholder="你的邮箱" required>
+          <input type="text" id="leadName" placeholder="姓名/单位(选填)">
+          <button type="submit">发送完整报告</button>
+        </form>
+        <div class="lead-ok" id="leadOk">✓ 已收到!完整报告将发送至你的邮箱。</div>
+      </div>
     </div>
   </div>
 </div></section>
-<footer>地球环境 × AI 工具箱 · 数据来源于智爱赛思公开知识库 · 政策以官方通知为准</footer>
-<script src="data/policies.js"></script>
-<script src="data/verticals.js"></script>
+
+<!-- 5. 政策扶持指引 -->
+<section id="policy" style="background:#fff"><div class="wrap">
+  <h2 class="sec-title"><span class="sec-num">5</span>政策扶持指引</h2>
+  <p class="sec-sub">地球环境方向可申报的经费政策(以官方通知为准)</p>
+  <div style="max-width:820px;margin:0 auto"><div class="pol-row"><div class="pol-name">2026年度上海市"人工智能+"及科学智能"百团百项"项目申报<span class="pol-tag">已截止 · 2026-05-12 ~ 2026-06-01</span></div><div class="pol-amt">百团百项专项经费（具体额度按项目评审）</div></div><div class="pol-row"><div class="pol-name">2025年度科学智能"百团百项"专项申报<span class="pol-tag">已截止 · 2025年度批次</span></div><div class="pol-amt">百团百项专项经费</div></div></div>
+</div></section>
+
+<!-- 6. 适用工具 -->
+<section id="tools"><div class="wrap">
+  <h2 class="sec-title"><span class="sec-num">6</span>适用工具</h2>
+  <p class="sec-sub">该学科适用的科研技能包工具 + 平台资产 + 流程/数据集/模型/算力指导</p>
+  <div class="guide-box"><h4>🔧 科研流程规划</h4><p>数据(气象场/海洋观测/地震波形)-> 推理(伏羲/ObsPy)-> 应用(新能源/灾害预警)-> 验证</p></div>
+  <div class="guide-box"><h4>📊 数据集采纳</h4><p>气象场数据、12 公里沙尘数据、海洋观测(TEOS-10)、地震波形(DASPy 光纤)</p></div>
+  <div class="guide-box"><h4>🤖 模型与算力选择</h4><p>伏羲中期气象大模型、伏羲超分模型、地震推文意图模型 ｜ 算力:气象大模型推理需 GPU;海洋/地震工具链 CPU 即可;伏羲模型云端调用</p></div>
+  <h4 style="color:var(--deep);margin:24px 0 10px;font-size:15px">开源技能(skills 包,1 个)</h4>
+  <div><div class="tool-chip" data-href="skills.html"><span class="tc-name">geopandas</span><span class="tc-disc">数据分析</span></div></div>
+  <h4 style="color:var(--deep);margin:24px 0 10px;font-size:15px">平台资产(7 项)</h4>
+  <div><div class="tool-chip"><span class="tc-name">AtmSci-Tool</span><span class="tc-disc">工具</span></div><div class="tool-chip"><span class="tc-name">OceanGSW-Tool</span><span class="tc-disc">工具</span></div><div class="tool-chip"><span class="tc-name">SeisOBS-Tool</span><span class="tc-disc">工具</span></div><div class="tool-chip"><span class="tc-name">伏羲超分模型</span><span class="tc-disc">模型</span></div><div class="tool-chip"><span class="tc-name">伏羲天气预报：伏羲中期气象大模型</span><span class="tc-disc">模型</span></div><div class="tool-chip"><span class="tc-name">UGranite-3.1-Earthen-v0.3-3B-A800M-GGUF</span><span class="tc-disc">模型</span></div><div class="tool-chip"><span class="tc-name">multilabel_earthquake_tweet_intent_bert_base_turkish_cased</span><span class="tc-disc">模型</span></div></div>
+</div></section>
+
+<!-- 7. 使用案例(课程) -->
+<section id="cases" style="background:#fff"><div class="wrap">
+  <h2 class="sec-title"><span class="sec-num">7</span>使用案例</h2>
+  <p class="sec-sub">智爱赛思百家讲坛课程--地球环境方向的 AI 实践</p>
+  <div class="grid2"><div class="case-card"><div class="case-no">课程 06</div><h3>气象数据驱动新能源与多行业决策</h3><p class="case-one">12公里沙尘数据，让风光预测从被动应对到主动防御。</p><div class="case-meta">讲师: 刘旗洋,王雪宜,司马坤杰 · 标签: 气象</div></div></div>
+</div></section>
+
+<footer>
+  地球环境 × AI 工具箱 · 数据来源于智爱赛思公开知识库 · 政策以官方通知为准 · <a href="index.html">返回门户</a>
+</footer>
+
+<script>var VERTICALS={"earth":{"学科":"地球环境","主题色":"#0284c7","主题深":"#075985","主题浅":"#e0f2fe","图标":"🌍","受众":"气象 / 海洋 / 地质 / 环境教授","资产数":"7","构成":"3 工具链 / 4 模型","Hero标题":"从极端天气到深海地震<br>AI 大模型读懂地球系统","Hero副":"气象预测 · 海洋计算 · 地震监测--伏羲气象大模型 + 三大专业工具链，地球与环境科学研究新范式。","统计":[["7","地球环境AI资产"],["4","垂类模型"],["3","专业工具链"],["伏羲","气象大模型"]],"AI4S范畴":[{"标题":"气象与大气","内容":"伏羲中期气象大模型数据驱动天气预报(对标国际领先);伏羲超分模型气象场超分辨率重建,驱动新能源与多行业决策。"},{"标题":"海洋计算","内容":"OceanGSW-Tool 海洋学计算(TEOS-10/gsw-python),海洋环流/温盐计算开箱即用。"},{"标题":"地震监测","内容":"SeisOBS-Tool 地震监测(ObsPy/DASPy),含光纤地震;地震推文意图模型识别应急社交媒体信息。"},{"标题":"极端天气预测","内容":"数据集重点方向,12 公里沙尘数据让风光预测从被动应对到主动防御。"}],"基础技巧":[{"工具":"伏羲气象大模型","步骤":"数据驱动中期预报:输入气象初始场 -> 模型推理 -> 输出全球中期天气预报,对标国际领先水平。"},{"工具":"AtmSci-Tool","步骤":"大气/气象计算(MetPy):安装 -> 输入气象数据 -> 计算热力学/动力学参数,Python API。"},{"工具":"OceanGSW-Tool","步骤":"海洋学计算(TEOS-10):输入温盐深数据 -> 计算 GSW 海洋学参数(密度/位温/盐度)。"}],"科研设计":[{"阶段":"数据获取","要点":"气象场数据接入伏羲大模型;海洋观测数据经 OceanGSW-Tool 标准化;地震波形用 SeisOBS-Tool 处理。"},{"阶段":"模型推理","要点":"伏羲大模型做中期预报/超分重建;传统物理方法与 AI 结合,降尺度与极端事件分析。"},{"阶段":"决策应用","要点":"预报结果驱动新能源调度/灾害预警;多行业决策闭环。"},{"阶段":"验证迭代","要点":"预报结果与实测对比;模型持续优化。"}],"适用工具指导":{"流程":"数据(气象场/海洋观测/地震波形)-> 推理(伏羲/ObsPy)-> 应用(新能源/灾害预警)-> 验证","数据集":"气象场数据、12 公里沙尘数据、海洋观测(TEOS-10)、地震波形(DASPy 光纤)","模型":"伏羲中期气象大模型、伏羲超分模型、地震推文意图模型","算力":"气象大模型推理需 GPU;海洋/地震工具链 CPU 即可;伏羲模型云端调用"},"场景":[{"id":"meteo","名称":"气象与大气","图标":"🌦️","一句话":"伏羲气象大模型,数据驱动新能源与多行业决策","痛点":"气象数据海量难用、极端天气预测难、降尺度靠传统方法","适合谁":"气象/大气科学/新能源/气候课题组","代表工具":[{"名称":"伏羲中期气象大模型","类型":"模型","热度":"↓2","价值":"数据驱动中期天气预报(对标国际领先水平)","机构":"星河启智"},{"名称":"伏羲超分模型","类型":"模型","热度":"↓5","价值":"气象场超分辨率重建","机构":"星河启智"},{"名称":"AtmSci-Tool","类型":"工具","价值":"大气/气象计算(MetPy)","机构":"上海AI实验室/SCP"}],"营销钩子":"气象数据驱动新能源决策(公开课)--伏羲大模型让天气预报进入AI时代"},{"id":"ocean","名称":"海洋与地震","图标":"🌊","一句话":"从海洋环流到地震监测,专业计算工具链开箱即用","痛点":"海洋数据处理专业门槛高、地震信号分析复杂","适合谁":"物理海洋/海洋地质/固体地球物理课题组","代表工具":[{"名称":"OceanGSW-Tool","类型":"工具","价值":"海洋学计算(TEOS-10/gsw-python)","机构":"上海AI实验室/SCP"},{"名称":"SeisOBS-Tool","类型":"工具","价值":"地震监测(ObsPy/DASPy),含光纤地震","机构":"上海AI实验室/SCP"},{"名称":"地震推文意图模型","类型":"模型","热度":"↓3","价值":"地震应急社交媒体意图识别","机构":"deprem-ml"}],"营销钩子":"极端天气预测是数据集重点方向--地球环境正被AI重塑"}],"卡点":["数据处理太慢","预测精度不够","专业工具难上手","缺AI方法/人才"]}};var POLICIES_JSON={"政策":[{"标题":"2026年度上海市\"人工智能+\"及科学智能\"百团百项\"项目申报","状态":"已截止","申报时间窗":"2026-05-12 ~ 2026-06-01","资助强度":"百团百项专项经费（具体额度按项目评审）","重点领域":["生命科学","物质科学","地球环境","数学量子","工程技术"],"匹配标签":["青年科学家","40岁以下","百团百项","科学智能","团队申报","五大学科","成果共享"]},{"标题":"2025年度科学智能\"百团百项\"专项申报","状态":"已截止","申报时间窗":"2025年度批次","资助强度":"百团百项专项经费","重点领域":["生命科学","物质科学","地球环境","数学量子","工程技术"],"匹配标签":["百团百项","青年科学家","科学智能","首年"]}]};</script>
 <script>
-const V=VERTICALS["earth"],S=V.场景;
+
+const V=VERTICALS["earth"],S=V.场景,POL=POLICIES_JSON;
 const grid=document.getElementById('sceneGrid'),detail=document.getElementById('sceneDetail');
 S.forEach(s=>{grid.insertAdjacentHTML('beforeend',
   '<div class="scene" data-id="'+s.id+'"><div class="ic">'+s.图标+'</div><h3>'+s.名称+'</h3>'+
@@ -133,35 +229,41 @@ document.querySelectorAll('.opts').forEach(box=>{box.addEventListener('click',e=
   box.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
   e.target.classList.add('sel');answers[box.dataset.q]=e.target.dataset.v||e.target.textContent;
   document.getElementById('genBtn').disabled=Object.keys(answers).length<3;});});
-const DISCKW="地球";
+const DISCKW=["地球环境","气象","海洋","地球","环境","地震"];
 function advice(stuck){
-  if(/AI|人才/.test(stuck))return "申报'百团百项'需 AI+领域+工程 三人组——平台可帮你对接";
-  if(/计算|资源|性能/.test(stuck))return "对接'科学智能开放社区算力支持计划'(免费/补贴算力)";
+  if(/AI|人才/.test(stuck))return "申报'百团百项'需 AI+领域+工程 三人组--平台可帮你对接";
+  if(/计算|资源|性能|算力/.test(stuck))return "对接'科学智能开放社区算力支持计划'(免费/补贴算力)或'AI+制造'算力补贴";
   if(/试错|数据|检索|处理/.test(stuck))return "用AI主动学习/数据库工具,把盲目试错变成定向搜索";
   return "引入对应AI工具,逐步替换低效环节";}
 document.getElementById('genBtn').addEventListener('click',()=>{
-  const sc=S.find(x=>x.id===answers["场景"]);const stuck=answers["卡点"],age=parseInt(answers["年龄"]);
-  document.getElementById('repPain').innerHTML='<b>🎯 你的场景：'+sc.名称+'</b><br>😖 痛点:'+sc.痛点+'<br>💡 针对"'+stuck+'"：'+advice(stuck);
-  document.getElementById('repTools').innerHTML=sc.代表工具.map(t=>'<div class="tool-row">'+
-    '<div class="nm">'+t.名称+'<span class="tag">'+t.类型+' · '+t.机构+'</span></div>'+
+  const sc=S.find(x=>x.id===answers["场景"])||S[0];
+  const stuck=answers["卡点"],age=parseInt(answers["年龄"]);
+  document.getElementById('repPain').innerHTML=
+    '<b>🎯 你的场景：'+sc.名称+'</b><br>😖 痛点:'+sc.痛点+'<br>💡 针对"'+stuck+'"：'+advice(stuck);
+  document.getElementById('repTools').innerHTML=sc.代表工具.map(t=>
+    '<div class="tool-row"><div class="nm">'+t.名称+'<span class="tag">'+t.类型+' · '+t.机构+'</span></div>'+
     '<div class="val">'+t.价值+'</div>'+(t.热度?'<div class="heat">'+t.热度+'</div>':'<div class="heat"></div>')+'</div>').join('');
-  const pols=POLICIES.政策.map(p=>{let s=0;const blob=p["标题"]+p["重点领域"].join("")+p["对科研人员的价值"]+p["匹配标签"].join("");
+  const pols=POL.政策.map(p=>{let s=0;const blob=(p["重点领域"]||[]).join("")+p["标题"]+(p["匹配标签"]||[]).join("");
     if(p["状态"]==="申报中")s+=5;else if(p["状态"]==="已截止")s-=2;
-    if(blob.includes(DISCKW))s+=6;if(blob.includes("百团百项")||blob.includes("科学智能"))s+=3;
+    if(DISCKW.some(k=>blob.includes(k)))s+=6;
     if(age<=40&&(blob.includes("青年")||blob.includes("百团百项")))s+=6;
-    if(p["资助强度"].includes("4000万"))s+=2;return {s,p};
-  }).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).slice(0,3);
-  document.getElementById('repPols').innerHTML=pols.map(x=>'<div class="tool-row">'+
-    '<div class="nm" style="min-width:0;flex:1">'+x.p["标题"]+'<span class="tag">'+x.p["状态"]+' · '+x.p["申报时间窗"]+'</span></div>'+
-    '<div class="val" style="color:'+V.主题色+';font-weight:600">'+x.p["资助强度"].slice(0,36)+'</div></div>').join('');
-  const warn=age<=40?"💡 你是青年科学家(≤40岁)：优先准备每年5月'百团百项'，需AI+领域+工程三人组。":"";
+    return {s,p};}).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).slice(0,3);
+  document.getElementById('repPols').innerHTML=pols.map(({p})=>
+    '<div class="tool-row"><div class="nm" style="min-width:0;flex:1">'+p["标题"]+
+    '<span class="tag">'+p["状态"]+' · '+p["申报时间窗"]+'</span></div>'+
+    '<div class="val" style="color:var(--pri);font-weight:600">'+(p["资助强度"]||"").slice(0,36)+'</div></div>').join('');
+  let warn=age<=40?'💡 你是青年科学家(≤40岁)：优先准备每年5月"百团百项"，需AI+领域+工程三人组。':"";
   document.getElementById('repWarn').innerHTML=warn?'<div class="warntip">'+warn+'</div>':"";
-  const rep=document.getElementById('report');rep.style.display='block';rep.scrollIntoView({behavior:'smooth',block:'start'});
-});
-document.getElementById('leadForm').addEventListener('submit',e=>{e.preventDefault();
+  const rep=document.getElementById('report');rep.style.display='block';
+  rep.scrollIntoView({behavior:'smooth',block:'start'});});
+document.getElementById('leadForm').addEventListener('submit',e=>{
+  e.preventDefault();
   const leads=JSON.parse(localStorage.getItem('ai4s_leads_earth')||'[]');
   leads.push({email:leadEmail.value,name:leadName.value,answers,time:new Date().toISOString()});
   localStorage.setItem('ai4s_leads_earth',JSON.stringify(leads));
-  document.getElementById('leadOk').style.display='block';e.target.querySelector('button').disabled=true;});
+  document.getElementById('leadOk').style.display='block';
+  e.target.querySelector('button').disabled=true;});
+
 </script>
-</body></html>
+</body>
+</html>

@@ -1,115 +1,211 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>物质科学 × AI · 科研智能工具箱</title>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>物质科学 × AI · 科研工具箱</title>
 <style>
-:root{--pri:#b45309;--deep:#78350f;--ink:#111827;--sub:#6b7280;--line:#e5e7eb;--bg:#f9fafb;--card:#fff}
+:root{--pri:#b45309;--pri2:#78350f;--deep:#78350f;--acc:#1a56db;--ink:#111827;--sub:#6b7280;--line:#e5e7eb;--bg:#fef3c7;--card:#fff;}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:var(--bg);line-height:1.6}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:#fafafa;line-height:1.7}
 .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
 nav{position:sticky;top:0;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:50}
 nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
-.logo{font-weight:800;font-size:19px;color:var(--deep)}
-.logo span{color:var(--pri)}
+.logo{font-weight:800;font-size:19px;color:var(--deep)}.logo span{color:var(--pri)}
 nav a.btn{background:var(--pri);color:#fff;padding:9px 18px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:600}
-.hero{background:linear-gradient(135deg,var(--deep) 0%,var(--pri) 130%);color:#fff;padding:66px 0 58px}
+.hero{background:linear-gradient(135deg,var(--deep) 0%,var(--pri) 60%);color:#fff;padding:70px 0 60px}
 .hero .kick{display:inline-block;background:rgba(255,255,255,.15);padding:5px 14px;border-radius:20px;font-size:13px;margin-bottom:18px;font-weight:600}
-.hero h1{font-size:36px;line-height:1.25;font-weight:800;margin-bottom:16px}
-.hero p{font-size:17px;opacity:.94;max-width:680px;margin-bottom:26px}
+.hero h1{font-size:38px;line-height:1.25;font-weight:800;margin-bottom:16px}
+.hero p{font-size:17px;opacity:.94;max-width:680px;margin-bottom:28px}
 .hero .cta{display:inline-block;background:#fff;color:var(--deep);padding:14px 32px;border-radius:10px;font-weight:700;font-size:17px;text-decoration:none;box-shadow:0 6px 20px rgba(0,0,0,.18)}
-.hero .cta2{display:inline-block;margin-left:14px;color:#fff;border:2px solid rgba(255,255,255,.5);padding:12px 26px;border-radius:10px;font-weight:600;text-decoration:none}
-.badges{display:flex;gap:26px;margin-top:36px;flex-wrap:wrap}
-.badges div{font-size:13px;opacity:.92}.badges b{display:block;font-size:24px;font-weight:800}
-section{padding:52px 0}
-.sec-title{font-size:26px;font-weight:800;text-align:center;margin-bottom:8px}
-.sec-sub{text-align:center;color:var(--sub);margin-bottom:32px;font-size:15px}
-.scene-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(480px,1fr));gap:20px}
-@media(max-width:640px){.scene-grid{grid-template-columns:1fr}}
-.scene{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px;transition:.2s;cursor:pointer}
-.scene:hover{box-shadow:0 10px 28px rgba(0,0,0,.1);transform:translateY(-3px);border-color:var(--pri)}
-.scene .ic{font-size:32px;margin-bottom:12px}
-.scene h3{font-size:20px;margin-bottom:6px;color:var(--deep)}
-.scene .one{font-size:14px;color:var(--sub);margin-bottom:14px}
-.scene .who{font-size:12.5px;background:#fef3c7;color:var(--deep);padding:6px 12px;border-radius:8px;display:inline-block;margin-bottom:12px}
-.scene .tools-count{font-size:13px;color:var(--pri);font-weight:700}
-.scene .hook{margin-top:14px;padding-top:14px;border-top:1px dashed var(--line);font-size:13px;color:#92400e;font-style:italic}
-.scene-detail{display:none;background:#fff;border:1px solid var(--line);border-radius:14px;padding:30px;margin-top:20px}
+.badges{display:flex;gap:26px;margin-top:38px;flex-wrap:wrap}
+.badges div{font-size:13px;opacity:.92}.badges b{display:block;font-size:25px;font-weight:800}
+section{padding:54px 0}
+.sec-title{font-size:27px;font-weight:800;text-align:center;margin-bottom:8px;color:var(--deep)}
+.sec-sub{text-align:center;color:var(--sub);margin-bottom:34px;font-size:15px}
+.sec-num{display:inline-block;background:var(--pri);color:#fff;width:32px;height:32px;border-radius:50%;line-height:32px;text-align:center;font-size:15px;font-weight:700;margin-right:10px;vertical-align:middle}
+.grid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}
+.info-card{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--pri);border-radius:12px;padding:22px}
+.info-card h3{color:var(--deep);font-size:18px;margin-bottom:8px}
+.info-card p{font-size:14px;color:#374151;line-height:1.6}
+.step-card{display:flex;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 22px;align-items:flex-start}
+.step-no{background:var(--bg);color:var(--deep);font-weight:700;font-size:14px;padding:6px 14px;border-radius:8px;white-space:nowrap;border:1px solid var(--pri)}
+.step-card p{font-size:14px;color:#374151;flex:1}
+.scene-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:18px}
+.scene{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;transition:.2s;cursor:pointer}
+.scene:hover{box-shadow:0 10px 28px rgba(0,0,0,.08);transform:translateY(-3px);border-color:var(--pri)}
+.scene .ic{font-size:32px;margin-bottom:10px}
+.scene h3{font-size:19px;margin-bottom:6px;color:var(--deep)}
+.scene .one{font-size:13.5px;color:var(--sub);margin-bottom:12px;line-height:1.5}
+.scene .who{font-size:12px;background:var(--bg);color:var(--deep);padding:5px 11px;border-radius:8px;display:inline-block;margin-bottom:12px}
+.scene .tools-count{font-size:12.5px;color:var(--pri);font-weight:700}
+.scene .hook{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);font-size:12.5px;color:#92400e;font-style:italic}
+.scene-detail{display:none;background:#fff;border:1px solid var(--line);border-radius:14px;padding:28px;margin-top:18px}
 .scene-detail.open{display:block}
 .sd-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .sd-head h3{font-size:22px;color:var(--deep)}
 .sd-close{background:none;border:1px solid var(--line);border-radius:8px;padding:6px 14px;cursor:pointer;color:var(--sub)}
 .sd-pain{background:#fff7ed;border-left:4px solid #f59e0b;padding:12px 16px;border-radius:8px;font-size:14px;margin:14px 0}
-.tool-row{display:flex;gap:14px;padding:14px 0;border-bottom:1px dashed var(--line);align-items:flex-start}
+.tool-row{display:flex;gap:14px;padding:13px 0;border-bottom:1px dashed var(--line);align-items:flex-start}
 .tool-row:last-child{border:none}
-.tool-row .nm{font-weight:700;min-width:170px;font-size:15px}
+.tool-row .nm{font-weight:700;min-width:170px;font-size:14.5px}
 .tool-row .nm .tag{display:block;font-size:11px;color:var(--pri);font-weight:600;margin-top:2px}
-.tool-row .val{flex:1;font-size:14px;color:#374151}
-.tool-row .heat{color:var(--pri);font-weight:700;font-size:13px;white-space:nowrap}
-.sd-hook{margin-top:16px;background:linear-gradient(135deg,var(--deep),var(--pri));color:#fff;padding:16px 20px;border-radius:10px;font-size:15px;font-weight:600}
-.diag{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:34px;max-width:780px;margin:0 auto}
-.q{margin-bottom:24px}.q label{display:block;font-weight:700;margin-bottom:12px;font-size:16px}
+.tool-row .val{flex:1;font-size:13.5px;color:#374151}
+.tool-row .heat{color:var(--pri);font-weight:700;font-size:12.5px;white-space:nowrap}
+.sd-hook{margin-top:16px;background:linear-gradient(135deg,var(--deep),var(--pri));color:#fff;padding:14px 18px;border-radius:10px;font-size:14.5px;font-weight:600}
+.diag{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:32px;max-width:780px;margin:0 auto}
+.q{margin-bottom:22px}.q label{display:block;font-weight:700;margin-bottom:11px;font-size:15.5px}
 .q .num{color:var(--pri);margin-right:6px}
-.opts{display:flex;flex-wrap:wrap;gap:10px}
-.opt{border:1.5px solid var(--line);background:#fff;padding:10px 18px;border-radius:9px;cursor:pointer;font-size:14px;transition:.15s}
+.opts{display:flex;flex-wrap:wrap;gap:9px}
+.opt{border:1.5px solid var(--line);background:#fff;padding:9px 16px;border-radius:9px;cursor:pointer;font-size:13.5px;transition:.15s}
 .opt:hover{border-color:var(--pri)}.opt.sel{background:var(--pri);color:#fff;border-color:var(--pri)}
-.diag-btn{width:100%;background:var(--deep);color:#fff;border:none;padding:15px;border-radius:10px;font-size:17px;font-weight:700;cursor:pointer;margin-top:6px}
+.diag-btn{width:100%;background:var(--deep);color:#fff;border:none;padding:14px;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;margin-top:6px}
 .diag-btn:disabled{background:#9ca3af;cursor:not-allowed}
 .report{display:none;margin-top:10px}
-.rep-block{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px;margin-bottom:16px}
-.rep-block h4{color:var(--deep);margin-bottom:12px;font-size:16px}
-.rep-pain{background:#fff7ed;border-left:4px solid #f59e0b;padding:14px 18px;border-radius:8px;margin-bottom:16px;font-size:14.5px}
-.warntip{background:#fef2f2;border-left:4px solid #e02424;padding:12px 16px;border-radius:8px;font-size:14px;margin-top:10px}
-.lead{background:linear-gradient(135deg,var(--deep),var(--pri));border-radius:14px;padding:32px;color:#fff;text-align:center;margin-top:20px}
-.lead h3{font-size:22px;margin-bottom:8px}.lead p{opacity:.92;margin-bottom:20px;font-size:14px}
-.lead form{display:flex;gap:10px;max-width:540px;margin:0 auto;flex-wrap:wrap;justify-content:center}
-.lead input{flex:1;min-width:170px;padding:13px 16px;border-radius:9px;border:none;font-size:15px}
-.lead button{background:#fff;color:var(--deep);border:none;padding:13px 26px;border-radius:9px;font-weight:700;cursor:pointer}
-.lead-ok{display:none;margin-top:14px;font-weight:600}
-footer{background:var(--deep);color:#d1d5db;text-align:center;padding:30px 0;font-size:13px;margin-top:40px}
-</style></head><body>
-<nav><div class="wrap"><div class="logo">⚛️ 物质科学<span>×</span>AI 工具箱</div><a class="btn" href="#diag">免费场景诊断</a></div></nav>
+.rep-block{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:14px}
+.rep-block h4{color:var(--deep);margin-bottom:11px;font-size:15.5px}
+.rep-pain{background:#fff7ed;border-left:4px solid #f59e0b;padding:13px 17px;border-radius:8px;margin-bottom:14px;font-size:14px}
+.warntip{background:#fef2f2;border-left:4px solid #e02424;padding:11px 15px;border-radius:8px;font-size:13.5px;margin-top:10px}
+.lead{background:linear-gradient(135deg,var(--deep),var(--pri));border-radius:14px;padding:30px;color:#fff;text-align:center;margin-top:18px}
+.lead h3{font-size:20px;margin-bottom:8px}.lead p{opacity:.92;margin-bottom:18px;font-size:13.5px}
+.lead form{display:flex;gap:10px;max-width:520px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+.lead input{flex:1;min-width:160px;padding:12px 15px;border-radius:9px;border:none;font-size:14.5px}
+.lead button{background:#fff;color:var(--deep);border:none;padding:12px 24px;border-radius:9px;font-weight:700;cursor:pointer}
+.lead-ok{display:none;margin-top:12px;font-weight:600}
+.pol-row{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px dashed var(--line);gap:14px}
+.pol-row:last-child{border:none}
+.pol-name{font-weight:600;font-size:14.5px;flex:1}.pol-name .pol-tag{display:block;font-size:11px;color:var(--pri);font-weight:600;margin-top:2px}
+.pol-amt{color:var(--pri);font-weight:700;font-size:13.5px;white-space:nowrap}
+.tool-chip{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:7px 12px;margin:4px;font-size:13px;cursor:pointer;transition:.15s}
+.tool-chip:hover{border-color:var(--pri);background:var(--bg)}
+.tc-name{font-weight:600;color:var(--deep)}.tc-disc{font-size:11px;color:var(--sub)}
+.tc-lic{font-size:10px;background:#fef3c7;color:#92400e;padding:1px 6px;border-radius:4px}
+.case-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;border-top:3px solid var(--pri)}
+.case-no{font-size:12px;color:var(--pri);font-weight:600;margin-bottom:6px}
+.case-card h3{font-size:16px;color:var(--deep);margin-bottom:6px}
+.case-one{font-size:13.5px;color:var(--sub);margin-bottom:8px}
+.case-meta{font-size:12px;color:var(--sub)}
+.empty{color:var(--sub);font-size:14px;text-align:center;padding:20px}
+.guide-box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;margin-bottom:14px}
+.guide-box h4{color:var(--deep);font-size:15px;margin-bottom:8px}
+.guide-box p{font-size:13.5px;color:#374151}
+footer{background:var(--deep);color:rgba(255,255,255,.8);text-align:center;padding:28px 0;font-size:13px;margin-top:40px}
+footer a{color:#fff}
+@media(max-width:640px){.grid2,.scene-grid{grid-template-columns:1fr}.hero h1{font-size:28px}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <div class="logo">物质科学<span>×</span>AI 工具箱</div>
+  <a class="btn" href="#diag">场景诊断</a>
+</div></nav>
+
 <header class="hero"><div class="wrap">
   <div class="kick">⚛️ 专为材料 / 化学 / 化工 / 能源教授打造</div>
   <h1>从经验试错到数据驱动<br>AI 正在重构材料与化学研发</h1>
-  <p>计算化学 · 新材料发现 · 结构解析 · 性质预测——33 项物质科学 AI 资产，让'十年磨一剑'变成'一键通关'。</p>
+  <p>计算化学 · 新材料发现 · 结构解析 · 性质预测--33 项物质科学 AI 资产，让'十年磨一剑'变成'一键通关'。</p>
   <a class="cta" href="#diag">找到我的研究场景 →</a>
-  <a class="cta2" href="#scenes">浏览场景</a>
-  <div class="badges"><div><b>33</b>物质科学AI资产</div><div><b>19</b>垂类模型</div><div><b>10235</b>电解液数据集</div><div><b>一键</b>半导体研发通关</div></div>
+  <div class="badges">
+    <div><b>33</b>物质科学AI资产</div><div><b>19</b>垂类模型</div><div><b>10235</b>电解液数据集</div><div><b>一键</b>半导体研发通关</div>
+  </div>
 </div></header>
-<section id="scenes"><div class="wrap">
-  <h2 class="sec-title">研究场景 · 对号入座</h2>
-  <p class="sec-sub">点开你的方向，看同行在用什么 AI、解决什么痛点</p>
+
+<!-- 1. AI4S 使用范畴 -->
+<section id="scope"><div class="wrap">
+  <h2 class="sec-title"><span class="sec-num">1</span>AI4S 使用范畴</h2>
+  <p class="sec-sub">AI 在物质科学领域能做什么--四个核心方向</p>
+  <div class="grid2"><div class="info-card"><h3>计算化学</h3><p>LLM 副驾驶(MolPilot)接管计算化学全流程,自动生成科学假设;ECNU-ChemGPT2 化学大模型支持逆合成路线规划;反应/性质/逆合成预测一站式。</p></div><div class="info-card"><h3>新材料发现</h3><p>主动学习(Bgolearn)+ 生成模型,少样本高效发现新材料;SciToolAgent-Mat 对接 Materials Project,电池/MOF 评估开箱即用;LASP 神经网络势函数大尺度原子模拟。</p></div><div class="info-card"><h3>结构与解析</h3><p>X 射线衍射 -> 电子密度图 -> 原子模型精修,晶体结构解析加速器 + DPA 深度势能原子模拟,结构解析周期数量级缩短。</p></div><div class="info-card"><h3>性质预测</h3><p>燧人系列模型预测热膨胀/临界密度/蒸气压/粘度等材料物性,替代昂贵实验测定。</p></div></div>
+</div></section>
+
+<!-- 2. 基础使用技巧 -->
+<section id="basics" style="background:#fff"><div class="wrap">
+  <h2 class="sec-title"><span class="sec-num">2</span>基础使用技巧</h2>
+  <p class="sec-sub">从零上手--核心工具的使用路径</p>
+  <div class="grid2"><div class="info-card"><h3>MolPilot</h3><p>计算化学副驾驶:输入研究问题 -> 自动生成假设 -> 调用结构互转/性质/反应预测/逆合成工具 -> 返回完整分析。</p></div><div class="info-card"><h3>Bgolearn</h3><p>国产开源贝叶斯优化:npx 启动 -> 输入已有实验数据(少样本)-> 主动学习推荐下一组实验参数,替代盲目 DOE。</p></div><div class="info-card"><h3>SciToolAgent-Mat</h3><p>材料计算工具:MOF 解析 / Materials Project 对接 / 电池评估,72.4k 调用,Web 端即用。</p></div></div>
+</div></section>
+
+<!-- 3. 科研设计指南 -->
+<section id="design"><div class="wrap">
+  <h2 class="sec-title"><span class="sec-num">3</span>科研设计指南</h2>
+  <p class="sec-sub">如何设计 AI 辅助的物质科学研究--分阶段要点</p>
+  <div style="max-width:820px;margin:0 auto"><div class="step-card"><div class="step-no">假设与检索</div><p>ECNU-ChemGPT2 生成逆合成路线假设;Origene-PubChem 查全球最大开放化学库定位已知化合物。</p></div><div class="step-card"><div class="step-no">计算筛选</div><p>MolPilot 预测反应/性质;Bgolearn 主动学习在少样本下推荐最优配方;LASP 大尺度原子模拟验证机理。</p></div><div class="step-card"><div class="step-no">实验验证</div><p>计算筛选 top 候选 -> 湿实验合成验证 -> 数据回流再训练 Bgolearn,迭代优化。</p></div><div class="step-card"><div class="step-no">结构表征</div><p>晶体结构解析加速器处理 XRD 数据;DPA 深度势能模拟确认原子级结构。</p></div></div>
+</div></section>
+
+<!-- 4. 场景诊断建议 -->
+<section id="scenes" style="background:#fff"><div class="wrap">
+  <h2 class="sec-title"><span class="sec-num">4</span>场景诊断建议</h2>
+  <p class="sec-sub">点开你的方向,看同行在用什么 AI;3 个问题生成专属落地路径</p>
   <div class="scene-grid" id="sceneGrid"></div>
   <div class="scene-detail" id="sceneDetail"></div>
 </div></section>
-<section id="diag" style="background:#fff"><div class="wrap">
-  <h2 class="sec-title">🧭 物质科学 AI 场景诊断</h2>
-  <p class="sec-sub">3 个问题，生成你的专属《物质科学 AI 落地路径》</p>
+
+<section id="diag"><div class="wrap">
+  <h2 class="sec-title"><span class="sec-num">4</span>🧭 物质科学 AI 场景诊断</h2>
+  <p class="sec-sub">3 个问题,生成你的专属《物质科学 AI 落地路径》</p>
   <div class="diag">
-    <div class="q"><label><span class="num">Q1</span>你的研究方向最接近哪个场景？</label>
+    <div class="q"><label><span class="num">Q1</span>你的研究方向最接近哪个场景?</label>
       <div class="opts" data-q="场景"><div class="opt" data-v="chem">🧪 计算化学</div><div class="opt" data-v="newmat">🔋 新材料发现</div><div class="opt" data-v="struct">💎 结构与解析</div></div></div>
-    <div class="q"><label><span class="num">Q2</span>当前最大的卡点？</label>
+    <div class="q"><label><span class="num">Q2</span>当前最大的卡点?</label>
       <div class="opts" data-q="卡点"><div class="opt">计算门槛太高</div><div class="opt">配方试错太慢</div><div class="opt">结构解析太难</div><div class="opt">缺AI方法/人才</div></div></div>
-    <div class="q"><label><span class="num">Q3</span>你的年龄（青年专项匹配）？</label>
-      <div class="opts" data-q="年龄"><div class="opt" data-v="35">≤35岁</div><div class="opt" data-v="38">36-40岁</div><div class="opt" data-v="45">41岁以上</div></div></div>
+    <div class="q"><label><span class="num">Q3</span>你的年龄(青年专项匹配)?</label>
+      <div class="opts" data-q="年龄">
+        <div class="opt" data-v="35">≤35岁</div><div class="opt" data-v="38">36-40岁</div><div class="opt" data-v="45">41岁以上</div>
+      </div></div>
     <button class="diag-btn" id="genBtn" disabled>生成我的落地路径</button>
     <div class="report" id="report">
       <div class="rep-pain" id="repPain"></div>
       <div class="rep-block"><h4>🛠️ 你的场景推荐工具</h4><div id="repTools"></div></div>
-      <div class="rep-block"><h4>💰 可申报政策（物质科学方向）</h4><div id="repPols"></div></div>
+      <div class="rep-block"><h4>💰 可申报政策</h4><div id="repPols"></div></div>
       <div id="repWarn"></div>
-      <div class="lead"><h3>📄 获取完整版 + 百团百项自检清单</h3>
-        <p>留下邮箱，发送《物质科学 AI 落地完整报告》《百团百项申报自检清单》《政策申报日历》</p>
-        <form id="leadForm"><input type="email" id="leadEmail" placeholder="你的邮箱" required><input type="text" id="leadName" placeholder="姓名/单位(选填)"><button type="submit">发送完整报告</button></form>
-        <div class="lead-ok" id="leadOk">✓ 已收到！完整报告将发送至你的邮箱。</div></div>
+      <div class="lead">
+        <h3>📄 获取完整版 + 百团百项自检清单</h3>
+        <p>留下邮箱,发送《物质科学 AI 落地完整报告》《百团百项申报自检清单》</p>
+        <form id="leadForm">
+          <input type="email" id="leadEmail" placeholder="你的邮箱" required>
+          <input type="text" id="leadName" placeholder="姓名/单位(选填)">
+          <button type="submit">发送完整报告</button>
+        </form>
+        <div class="lead-ok" id="leadOk">✓ 已收到!完整报告将发送至你的邮箱。</div>
+      </div>
     </div>
   </div>
 </div></section>
-<footer>物质科学 × AI 工具箱 · 数据来源于智爱赛思公开知识库 · 政策以官方通知为准</footer>
-<script src="data/policies.js"></script>
-<script src="data/verticals.js"></script>
+
+<!-- 5. 政策扶持指引 -->
+<section id="policy" style="background:#fff"><div class="wrap">
+  <h2 class="sec-title"><span class="sec-num">5</span>政策扶持指引</h2>
+  <p class="sec-sub">物质科学方向可申报的经费政策(以官方通知为准)</p>
+  <div style="max-width:820px;margin:0 auto"><div class="pol-row"><div class="pol-name">2026年度上海市"人工智能+"及科学智能"百团百项"项目申报<span class="pol-tag">已截止 · 2026-05-12 ~ 2026-06-01</span></div><div class="pol-amt">百团百项专项经费（具体额度按项目评审）</div></div><div class="pol-row"><div class="pol-name">2025年度科学智能"百团百项"专项申报<span class="pol-tag">已截止 · 2025年度批次</span></div><div class="pol-amt">百团百项专项经费</div></div></div>
+</div></section>
+
+<!-- 6. 适用工具 -->
+<section id="tools"><div class="wrap">
+  <h2 class="sec-title"><span class="sec-num">6</span>适用工具</h2>
+  <p class="sec-sub">该学科适用的科研技能包工具 + 平台资产 + 流程/数据集/模型/算力指导</p>
+  <div class="guide-box"><h4>🔧 科研流程规划</h4><p>假设(ECNU-ChemGPT2)-> 检索(PubChem)-> 计算(MolPilot/Bgolearn/LASP)-> 验证(湿实验)-> 表征(晶体解析)</p></div>
+  <div class="guide-box"><h4>📊 数据集采纳</h4><p>PubChem(化学库)、Materials Project(材料数据)、电解液数据集(10235 条)、MOF 数据</p></div>
+  <div class="guide-box"><h4>🤖 模型与算力选择</h4><p>ECNU-ChemGPT2(化学大模型)、DPA(深度势能)、燧人系列(物性预测)、LASP(神经网络势函数) ｜ 算力:LASP/DPA 大尺度原子模拟需 GPU;Bgolearn 少样本优化 CPU 即可;轻量性质预测云端 API</p></div>
+  <h4 style="color:var(--deep);margin:24px 0 10px;font-size:15px">开源技能(skills 包,9 个)</h4>
+  <div><div class="tool-chip" data-href="skills.html"><span class="tc-name">astropy</span><span class="tc-disc">实验与计算</span><span class="tc-lic">BSD-3-Clause license</span></div><div class="tool-chip" data-href="skills.html"><span class="tc-name">catalyst_sar_screening</span><span class="tc-disc">实验与计算</span></div><div class="tool-chip" data-href="skills.html"><span class="tc-name">datamol</span><span class="tc-disc">实验与计算</span><span class="tc-lic">Apache-2.0 license</span></div><div class="tool-chip" data-href="skills.html"><span class="tc-name">deepchem</span><span class="tc-disc">实验与计算</span><span class="tc-lic">MIT license</span></div><div class="tool-chip" data-href="skills.html"><span class="tc-name">molfeat</span><span class="tc-disc">实验与计算</span><span class="tc-lic">Apache-2.0 license</span></div><div class="tool-chip" data-href="skills.html"><span class="tc-name">pymatgen</span><span class="tc-disc">实验与计算</span></div><div class="tool-chip" data-href="skills.html"><span class="tc-name">qiskit</span><span class="tc-disc">实验与计算</span><span class="tc-lic">Apache-2.0</span></div><div class="tool-chip" data-href="skills.html"><span class="tc-name">qutip</span><span class="tc-disc">实验与计算</span></div><div class="tool-chip" data-href="skills.html"><span class="tc-name">rdkit</span><span class="tc-disc">实验与计算</span><span class="tc-lic">BSD-3-Clause license</span></div></div>
+  <h4 style="color:var(--deep);margin:24px 0 10px;font-size:15px">平台资产(33 项)</h4>
+  <div><div class="tool-chip"><span class="tc-name">计算化学智能体 MolPilot</span><span class="tc-disc">智能体</span></div><div class="tool-chip"><span class="tc-name">晶体结构解析加速器</span><span class="tc-disc">智能体</span></div><div class="tool-chip"><span class="tc-name">SciToolAgent-Chem</span><span class="tc-disc">工具</span></div><div class="tool-chip"><span class="tc-name">化学与反应计算</span><span class="tc-disc">工具</span></div><div class="tool-chip"><span class="tc-name">Origene-PubChem</span><span class="tc-disc">工具</span></div><div class="tool-chip"><span class="tc-name">Origene-ChEMBL</span><span class="tc-disc">工具</span></div><div class="tool-chip"><span class="tc-name">材料力学与断裂分析</span><span class="tc-disc">工具</span></div><div class="tool-chip"><span class="tc-name">光学与电磁学</span><span class="tc-disc">工具</span></div><div class="tool-chip"><span class="tc-name">电学与电路计算</span><span class="tc-disc">工具</span></div><div class="tool-chip"><span class="tc-name">SciToolAgent-Mat</span><span class="tc-disc">工具</span></div></div>
+</div></section>
+
+<!-- 7. 使用案例(课程) -->
+<section id="cases" style="background:#fff"><div class="wrap">
+  <h2 class="sec-title"><span class="sec-num">7</span>使用案例</h2>
+  <p class="sec-sub">智爱赛思百家讲坛课程--物质科学方向的 AI 实践</p>
+  <div class="grid2"><div class="case-card"><div class="case-no">课程 01</div><h3>解码原子世界:新材料研发超级加速器</h3><p class="case-one">AI让材料模拟提速万倍，诺奖级方法触手可及</p><div class="case-meta">讲师: 商城;赵天琦 · 标签: 材料</div></div><div class="case-card"><div class="case-no">课程 02</div><h3>AI会怎样帮助我们发明新纤维</h3><p class="case-one">从试错到闭环：AI重构纤维研发范式</p><div class="case-meta">讲师: 朱丽萍;阙文戈 · 标签: 材料</div></div><div class="case-card"><div class="case-no">课程 03</div><h3>AI赋能能源材料研发及干湿实验室升级</h3><p class="case-one">AI重构材料研发范式，让实验周期压缩80%</p><div class="case-meta">讲师: 杨孟昊,韩阳洋 · 标签: 材料</div></div><div class="case-card"><div class="case-no">课程 05</div><h3>计算化学智能体MolPilot如何练成</h3><p class="case-one">让AI接管计算化学的脏活累活，教授专注科研创新</p><div class="case-meta">讲师: 许晓虎,王晓坤 · 标签: 计算化学</div></div></div>
+</div></section>
+
+<footer>
+  物质科学 × AI 工具箱 · 数据来源于智爱赛思公开知识库 · 政策以官方通知为准 · <a href="index.html">返回门户</a>
+</footer>
+
+<script>var VERTICALS={"material":{"学科":"物质科学","主题色":"#b45309","主题深":"#78350f","主题浅":"#fef3c7","图标":"⚛️","受众":"材料 / 化学 / 化工 / 能源教授","资产数":"33","构成":"2 智能体 / 12 工具链 / 19 模型","Hero标题":"从经验试错到数据驱动<br>AI 正在重构材料与化学研发","Hero副":"计算化学 · 新材料发现 · 结构解析 · 性质预测--33 项物质科学 AI 资产，让'十年磨一剑'变成'一键通关'。","统计":[["33","物质科学AI资产"],["19","垂类模型"],["10235","电解液数据集"],["一键","半导体研发通关"]],"AI4S范畴":[{"标题":"计算化学","内容":"LLM 副驾驶(MolPilot)接管计算化学全流程,自动生成科学假设;ECNU-ChemGPT2 化学大模型支持逆合成路线规划;反应/性质/逆合成预测一站式。"},{"标题":"新材料发现","内容":"主动学习(Bgolearn)+ 生成模型,少样本高效发现新材料;SciToolAgent-Mat 对接 Materials Project,电池/MOF 评估开箱即用;LASP 神经网络势函数大尺度原子模拟。"},{"标题":"结构与解析","内容":"X 射线衍射 -> 电子密度图 -> 原子模型精修,晶体结构解析加速器 + DPA 深度势能原子模拟,结构解析周期数量级缩短。"},{"标题":"性质预测","内容":"燧人系列模型预测热膨胀/临界密度/蒸气压/粘度等材料物性,替代昂贵实验测定。"}],"基础技巧":[{"工具":"MolPilot","步骤":"计算化学副驾驶:输入研究问题 -> 自动生成假设 -> 调用结构互转/性质/反应预测/逆合成工具 -> 返回完整分析。"},{"工具":"Bgolearn","步骤":"国产开源贝叶斯优化:npx 启动 -> 输入已有实验数据(少样本)-> 主动学习推荐下一组实验参数,替代盲目 DOE。"},{"工具":"SciToolAgent-Mat","步骤":"材料计算工具:MOF 解析 / Materials Project 对接 / 电池评估,72.4k 调用,Web 端即用。"}],"科研设计":[{"阶段":"假设与检索","要点":"ECNU-ChemGPT2 生成逆合成路线假设;Origene-PubChem 查全球最大开放化学库定位已知化合物。"},{"阶段":"计算筛选","要点":"MolPilot 预测反应/性质;Bgolearn 主动学习在少样本下推荐最优配方;LASP 大尺度原子模拟验证机理。"},{"阶段":"实验验证","要点":"计算筛选 top 候选 -> 湿实验合成验证 -> 数据回流再训练 Bgolearn,迭代优化。"},{"阶段":"结构表征","要点":"晶体结构解析加速器处理 XRD 数据;DPA 深度势能模拟确认原子级结构。"}],"适用工具指导":{"流程":"假设(ECNU-ChemGPT2)-> 检索(PubChem)-> 计算(MolPilot/Bgolearn/LASP)-> 验证(湿实验)-> 表征(晶体解析)","数据集":"PubChem(化学库)、Materials Project(材料数据)、电解液数据集(10235 条)、MOF 数据","模型":"ECNU-ChemGPT2(化学大模型)、DPA(深度势能)、燧人系列(物性预测)、LASP(神经网络势函数)","算力":"LASP/DPA 大尺度原子模拟需 GPU;Bgolearn 少样本优化 CPU 即可;轻量性质预测云端 API"},"场景":[{"id":"chem","名称":"计算化学","图标":"🧪","一句话":"LLM 副驾驶接管计算化学全流程，自动生成假设","痛点":"量化计算门槛高、反应路径靠经验、逆合成靠人工","适合谁":"计算化学/量子化学/理论化学课题组","代表工具":[{"名称":"MolPilot","类型":"智能体","价值":"基于LLM的计算化学副驾驶:自动化全流程+生成科学假设","机构":"华东师大/创智学院"},{"名称":"SciToolAgent-Chem","类型":"工具","价值":"化学结构互转/性质/反应预测/逆合成/ML分类","机构":"浙大/SCP"},{"名称":"化学与反应计算","类型":"工具","价值":"反应参数/浓度/速率/平衡/产率计算","机构":"上海AI实验室/SCP"},{"名称":"Origene-PubChem","类型":"工具","价值":"全球最大开放化学库即查即用","机构":"临港/SCP"},{"名称":"ECNU-ChemGPT2","类型":"模型","热度":"↓73","价值":"化学大模型:化学知识图谱+逆合成","机构":"华东师大(何晓)"}],"营销钩子":"化学大模型 ECNU-ChemGPT2 已被下载 73 次--你的逆合成还在手动画路线吗?"},{"id":"newmat","名称":"新材料发现","图标":"🔋","一句话":"主动学习+生成模型，少样本高效发现新材料","痛点":"配方摸索靠试错、实验数据零散、工艺优化靠经验","适合谁":"能源材料/电池/催化/高分子课题组","代表工具":[{"名称":"Bgolearn","类型":"工具","价值":"国产开源贝叶斯全局优化:少样本高效决策,替代盲目DOE","机构":"上海大学(熊杰)"},{"名称":"MatDesign","类型":"工具","价值":"Web端AI材料设计平台(主动学习/迁移学习)","机构":"上海大学(熊杰)"},{"名称":"SciToolAgent-Mat","类型":"工具","热度":"72.4k","价值":"MOF解析/Materials Project对接/电池评估","机构":"浙大/SCP"},{"名称":"LASP","类型":"平台","价值":"神经网络势函数大尺度原子模拟,能量计算提速3-4个数量级","机构":"复旦/复鞍智能"},{"名称":"燧人系列模型","类型":"模型","热度":"↓8+","价值":"热膨胀/临界密度/蒸气压/粘度等材料物性预测","机构":"星河启智"}],"营销钩子":"AI 辅助发现新分子突破电池寿命极限(标杆)--材料发现效率跃升"},{"id":"struct","名称":"结构与解析","图标":"💎","一句话":"X射线衍射到原子模型，AI 加速晶体结构解析","痛点":"结构解析靠人工、衍射数据处理慢、精修靠经验","适合谁":"晶体学/结构化学/材料表征课题组","代表工具":[{"名称":"晶体结构解析加速器","类型":"智能体","价值":"X射线衍射->电子密度图->原子模型精修建议","机构":"剑桥晶体学数据中心"},{"名称":"DPA-3.2-5M","类型":"模型","热度":"↓13","价值":"深度势能原子模拟(深势科技)","机构":"深势科技"},{"名称":"通用原子结构生成模型","类型":"模型","价值":"LASP团队:原子模拟驱动结构生成","机构":"复鞍智能(刘智攀)"}],"营销钩子":"半导体研发'十年磨一剑'->'一键通关'(标杆)--结构解析周期数量级缩短"}],"卡点":["计算门槛太高","配方试错太慢","结构解析太难","缺AI方法/人才"]}};var POLICIES_JSON={"政策":[{"标题":"2026年度上海市\"人工智能+\"及科学智能\"百团百项\"项目申报","状态":"已截止","申报时间窗":"2026-05-12 ~ 2026-06-01","资助强度":"百团百项专项经费（具体额度按项目评审）","重点领域":["生命科学","物质科学","地球环境","数学量子","工程技术"],"匹配标签":["青年科学家","40岁以下","百团百项","科学智能","团队申报","五大学科","成果共享"]},{"标题":"2025年度科学智能\"百团百项\"专项申报","状态":"已截止","申报时间窗":"2025年度批次","资助强度":"百团百项专项经费","重点领域":["生命科学","物质科学","地球环境","数学量子","工程技术"],"匹配标签":["百团百项","青年科学家","科学智能","首年"]}]};</script>
 <script>
-const V=VERTICALS["material"],S=V.场景;
+
+const V=VERTICALS["material"],S=V.场景,POL=POLICIES_JSON;
 const grid=document.getElementById('sceneGrid'),detail=document.getElementById('sceneDetail');
 S.forEach(s=>{grid.insertAdjacentHTML('beforeend',
   '<div class="scene" data-id="'+s.id+'"><div class="ic">'+s.图标+'</div><h3>'+s.名称+'</h3>'+
@@ -133,35 +229,41 @@ document.querySelectorAll('.opts').forEach(box=>{box.addEventListener('click',e=
   box.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
   e.target.classList.add('sel');answers[box.dataset.q]=e.target.dataset.v||e.target.textContent;
   document.getElementById('genBtn').disabled=Object.keys(answers).length<3;});});
-const DISCKW="材料";
+const DISCKW=["物质科学","材料","化学","能源","分子"];
 function advice(stuck){
-  if(/AI|人才/.test(stuck))return "申报'百团百项'需 AI+领域+工程 三人组——平台可帮你对接";
-  if(/计算|资源|性能/.test(stuck))return "对接'科学智能开放社区算力支持计划'(免费/补贴算力)";
+  if(/AI|人才/.test(stuck))return "申报'百团百项'需 AI+领域+工程 三人组--平台可帮你对接";
+  if(/计算|资源|性能|算力/.test(stuck))return "对接'科学智能开放社区算力支持计划'(免费/补贴算力)或'AI+制造'算力补贴";
   if(/试错|数据|检索|处理/.test(stuck))return "用AI主动学习/数据库工具,把盲目试错变成定向搜索";
   return "引入对应AI工具,逐步替换低效环节";}
 document.getElementById('genBtn').addEventListener('click',()=>{
-  const sc=S.find(x=>x.id===answers["场景"]);const stuck=answers["卡点"],age=parseInt(answers["年龄"]);
-  document.getElementById('repPain').innerHTML='<b>🎯 你的场景：'+sc.名称+'</b><br>😖 痛点:'+sc.痛点+'<br>💡 针对"'+stuck+'"：'+advice(stuck);
-  document.getElementById('repTools').innerHTML=sc.代表工具.map(t=>'<div class="tool-row">'+
-    '<div class="nm">'+t.名称+'<span class="tag">'+t.类型+' · '+t.机构+'</span></div>'+
+  const sc=S.find(x=>x.id===answers["场景"])||S[0];
+  const stuck=answers["卡点"],age=parseInt(answers["年龄"]);
+  document.getElementById('repPain').innerHTML=
+    '<b>🎯 你的场景：'+sc.名称+'</b><br>😖 痛点:'+sc.痛点+'<br>💡 针对"'+stuck+'"：'+advice(stuck);
+  document.getElementById('repTools').innerHTML=sc.代表工具.map(t=>
+    '<div class="tool-row"><div class="nm">'+t.名称+'<span class="tag">'+t.类型+' · '+t.机构+'</span></div>'+
     '<div class="val">'+t.价值+'</div>'+(t.热度?'<div class="heat">'+t.热度+'</div>':'<div class="heat"></div>')+'</div>').join('');
-  const pols=POLICIES.政策.map(p=>{let s=0;const blob=p["标题"]+p["重点领域"].join("")+p["对科研人员的价值"]+p["匹配标签"].join("");
+  const pols=POL.政策.map(p=>{let s=0;const blob=(p["重点领域"]||[]).join("")+p["标题"]+(p["匹配标签"]||[]).join("");
     if(p["状态"]==="申报中")s+=5;else if(p["状态"]==="已截止")s-=2;
-    if(blob.includes(DISCKW))s+=6;if(blob.includes("百团百项")||blob.includes("科学智能"))s+=3;
+    if(DISCKW.some(k=>blob.includes(k)))s+=6;
     if(age<=40&&(blob.includes("青年")||blob.includes("百团百项")))s+=6;
-    if(p["资助强度"].includes("4000万"))s+=2;return {s,p};
-  }).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).slice(0,3);
-  document.getElementById('repPols').innerHTML=pols.map(x=>'<div class="tool-row">'+
-    '<div class="nm" style="min-width:0;flex:1">'+x.p["标题"]+'<span class="tag">'+x.p["状态"]+' · '+x.p["申报时间窗"]+'</span></div>'+
-    '<div class="val" style="color:'+V.主题色+';font-weight:600">'+x.p["资助强度"].slice(0,36)+'</div></div>').join('');
-  const warn=age<=40?"💡 你是青年科学家(≤40岁)：优先准备每年5月'百团百项'，需AI+领域+工程三人组。":"";
+    return {s,p};}).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).slice(0,3);
+  document.getElementById('repPols').innerHTML=pols.map(({p})=>
+    '<div class="tool-row"><div class="nm" style="min-width:0;flex:1">'+p["标题"]+
+    '<span class="tag">'+p["状态"]+' · '+p["申报时间窗"]+'</span></div>'+
+    '<div class="val" style="color:var(--pri);font-weight:600">'+(p["资助强度"]||"").slice(0,36)+'</div></div>').join('');
+  let warn=age<=40?'💡 你是青年科学家(≤40岁)：优先准备每年5月"百团百项"，需AI+领域+工程三人组。':"";
   document.getElementById('repWarn').innerHTML=warn?'<div class="warntip">'+warn+'</div>':"";
-  const rep=document.getElementById('report');rep.style.display='block';rep.scrollIntoView({behavior:'smooth',block:'start'});
-});
-document.getElementById('leadForm').addEventListener('submit',e=>{e.preventDefault();
+  const rep=document.getElementById('report');rep.style.display='block';
+  rep.scrollIntoView({behavior:'smooth',block:'start'});});
+document.getElementById('leadForm').addEventListener('submit',e=>{
+  e.preventDefault();
   const leads=JSON.parse(localStorage.getItem('ai4s_leads_material')||'[]');
   leads.push({email:leadEmail.value,name:leadName.value,answers,time:new Date().toISOString()});
   localStorage.setItem('ai4s_leads_material',JSON.stringify(leads));
-  document.getElementById('leadOk').style.display='block';e.target.querySelector('button').disabled=true;});
+  document.getElementById('leadOk').style.display='block';
+  e.target.querySelector('button').disabled=true;});
+
 </script>
-</body></html>
+</body>
+</html>
