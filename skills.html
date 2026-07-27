@@ -82,17 +82,18 @@ footer{background:#115e59;color:#99f6e4;text-align:center;padding:26px 0;font-si
 
 <header class="hero"><div class="wrap">
   <h1>科研技能包 · 真实好用的 AI 工具</h1>
-  <p>从三大顶级开源项目精选 <b id="totalN">120</b> 个科研技能，按科研流程组织——装进 Claude Code / Cursor 即可用，帮科学家把文献、计算、分析、写作每个环节提速一个量级。</p>
+  <p>从四大开源项目精选 <b id="totalN">131</b> 个科研技能，按科研流程组织——装进 Claude Code / Cursor 即可用，帮科学家把文献、计算、分析、写作每个环节提速一个量级。</p>
   <div class="stats">
-    <div><b id="n1">120</b>精选技能</div>
+    <div><b id="n1">131</b>精选技能</div>
     <div><b id="n2">6</b>科研环节</div>
     <div><b id="n3">20</b>GPU重型武器</div>
     <div><b id="n4">10</b>数据连接器</div>
   </div>
-  <div class="src">来源项目（MIT 开源）：
-    <a href="https://github.com/K-Dense-AI/claude-scientific-skills" target="_blank">claude-scientific-skills</a> ·
-    <a href="https://github.com/PKU-YuanGroup/OpenAI4S" target="_blank">OpenAI4S</a> ·
-    <a href="https://github.com/ai4s-research/open-science" target="_blank">open-science</a>
+  <div class="src">来源项目：
+    <a href="https://github.com/K-Dense-AI/claude-scientific-skills" target="_blank">claude-scientific-skills</a>(MIT) ·
+    <a href="https://github.com/PKU-YuanGroup/OpenAI4S" target="_blank">OpenAI4S</a>(MIT) ·
+    <a href="https://github.com/ai4s-research/open-science" target="_blank">open-science</a>(MIT) ·
+    <a href="https://github.com/HKUSTDial/Supervisor-Skills" target="_blank">Supervisor-Skills</a>(CC-BY/NC-SA,非商业)
   </div>
 </div></header>
 
@@ -114,7 +115,7 @@ footer{background:#115e59;color:#99f6e4;text-align:center;padding:26px 0;font-si
   </main>
 </div></div>
 
-<footer>科研技能包 · 技能来自三大开源项目(MIT) · 由 AI4S 工具箱精选重组</footer>
+<footer>科研技能包 · 技能来自四大开源项目(MIT / CC-BY-NC-SA) · 由 AI4S 工具箱精选重组 · Supervisor-Skills 由骆昱宇(HKUST-GZ)贡献</footer>
 
 <script src="data/skills.js"></script>
 <script>
@@ -128,7 +129,7 @@ const STAGE_DESC={
  "论文写作":"写作、图表、海报、投稿，最后一公里的加速器",
  "诚信治理":"投稿前自查，数据可复现，远离撤稿风险"};
 const TYPE_BADGE={"即装即用":["b-ready","即装即用"],"需GPU/远程":["b-gpu","需GPU"],"数据连接器":["b-conn","数据连接"]};
-const SRC_SHORT={"claude-scientific-skills":"K-Dense","OpenAI4S":"OpenAI4S","open-science":"open-science"};
+const SRC_SHORT={"claude-scientific-skills":"K-Dense","OpenAI4S":"OpenAI4S","open-science":"open-science","supervisor-skills":"Supervisor"};
 
 // 统计
 document.getElementById('totalN').textContent=SKILLS.length;
@@ -160,12 +161,15 @@ function installCmd(s){
     return `<span class="cmt"># 装进 Claude Code / Cursor(推荐npx)</span>\nnpx skills add K-Dense-AI/claude-scientific-skills ${s.id}`;
   if(s.source.includes("OpenAI4S"))
     return `<span class="cmt"># OpenAI4S 技能, 克隆即用</span>\ngit clone https://github.com/PKU-YuanGroup/OpenAI4S\n<span class="cmt"># 技能位于 skills/${s.id}/</span>`;
+  if(s.source.includes("supervisor-skills"))
+    return `<span class="cmt"># Supervisor-Skills 技能, 克隆即用(非商业协议)</span>\ngit clone https://github.com/HKUSTDial/Supervisor-Skills\n<span class="cmt"># 技能位于 skills/${s.id}/</span>`;
   return `<span class="cmt"># open-science 技能, 桌面版内置</span>\ngit clone https://github.com/ai4s-research/open-science`;
 }
 function srcLink(s){
   const map={"claude-scientific-skills":"https://github.com/K-Dense-AI/claude-scientific-skills/tree/main/skills/"+s.id,
     "OpenAI4S":"https://github.com/PKU-YuanGroup/OpenAI4S/tree/main/skills/"+s.id,
-    "open-science":"https://github.com/ai4s-research/open-science"};
+    "open-science":"https://github.com/ai4s-research/open-science",
+    "supervisor-skills":"https://github.com/HKUSTDial/Supervisor-Skills/tree/main/skills/"+s.id};
   const base=s.source.split('+')[0];
   return map[base]||map["open-science"];
 }
@@ -177,7 +181,7 @@ function skCard(s,tutorials){
     <div class="sk-top"><span class="sk-name">${s.id}</span><span class="sk-badge ${bc}">${bt}</span></div>
     <div class="sk-cn">${cn}</div>
     <div class="sk-meta"><span class="disc">${s.学科}</span><span class="disc">${s.环节}</span></div>
-    <div class="sk-src">来源: ${s.source.split('+').map(x=>SRC_SHORT[x]||x).join(' + ')}</div>
+    <div class="sk-src">来源: ${s.source.split('+').map(x=>SRC_SHORT[x]||x).join(' + ')}${s.license&&s.license!=="MIT"?' · '+s.license:''}</div>
     <div class="sk-detail">
       <div class="en">${s.description}</div>
       <div class="install-box">${installCmd(s)}</div>
