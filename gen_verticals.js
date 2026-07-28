@@ -3,6 +3,12 @@
 // 8板块: Hero / AI4S范畴 / 基础技巧 / 科研设计 / 场景诊断 / 政策指引 / 适用工具 / 课程案例
 const fs=require('fs'),path=require('path');
 const DIR=__dirname;
+// hex颜色转rgba字符串
+function hex2rgba(hex,a){
+  const h=hex.replace('#','');
+  const r=parseInt(h.slice(0,2),16),g=parseInt(h.slice(2,4),16),b=parseInt(h.slice(4,6),16);
+  return `rgba(${r},${g},${b},${a})`;
+}
 // eval 注入数据到全局
 function load(file,varName){
   const txt=fs.readFileSync(path.join(DIR,'data/'+file),'utf-8');
@@ -154,7 +160,7 @@ function gen(key){
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>${v.学科} × AI · 科研工具箱</title>
 <style>
-:root{--pri:${v.主题色};--pri2:${v.主题深};--deep:${v.主题深};--acc:#1a56db;--ink:#111827;--sub:#6b7280;--line:#e5e7eb;--bg:${v.主题浅};--card:#fff;}
+:root{--pri:${v.主题色};--pri2:${v.主题深};--deep:${v.主题深};--veil:${hex2rgba(v.主题深,0.42)};--acc:#1a56db;--ink:#111827;--sub:#6b7280;--line:#e5e7eb;--bg:${v.主题浅};--card:#fff;}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:#fafafa;line-height:1.7}
 .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
@@ -162,7 +168,10 @@ nav{position:sticky;top:0;background:rgba(255,255,255,.95);backdrop-filter:blur(
 nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
 .logo{font-weight:800;font-size:19px;color:var(--deep)}.logo span{color:var(--pri)}
 nav a.btn{background:var(--pri);color:#fff;padding:9px 18px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:600}
-.hero{background:linear-gradient(135deg,var(--deep) 0%,var(--pri) 60%);color:#fff;padding:70px 0 60px}
+.hero{position:relative;color:#fff;padding:70px 0 60px;overflow:hidden}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.hero-veil{position:absolute;inset:0;z-index:1;background:linear-gradient(100deg,var(--veil) 0%,transparent 68%),linear-gradient(180deg,rgba(0,0,0,.08) 0%,rgba(0,0,0,0) 45%,rgba(0,0,0,.38) 100%)}
+.hero .wrap{position:relative;z-index:2}
 .hero .kick{display:inline-block;background:rgba(255,255,255,.15);padding:5px 14px;border-radius:20px;font-size:13px;margin-bottom:18px;font-weight:600}
 .hero h1{font-size:38px;line-height:1.25;font-weight:800;margin-bottom:16px}
 .hero p{font-size:17px;opacity:.94;max-width:680px;margin-bottom:28px}
@@ -267,7 +276,10 @@ footer a{color:#fff}
   <div class="logo">${v.学科}<span>×</span>AI 工具箱</div>
 </div></nav>
 
-<header class="hero"><div class="wrap">
+<header class="hero">
+  <video class="hero-video" autoplay muted loop playsinline><source src="assets/img/${v.视频||'rocket.mp4'}" type="video/mp4"></video>
+  <div class="hero-veil"></div>
+  <div class="wrap">
   <div class="kick">${v.图标} 专为${v.受众}打造</div>
   <h1>${v.Hero标题}</h1>
   <p>${v.Hero副}</p>

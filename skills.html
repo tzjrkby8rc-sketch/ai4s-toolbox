@@ -12,7 +12,10 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .logo{font-weight:800;font-size:18px;color:var(--deep);text-decoration:none}
 .back{font-size:14px;color:var(--sub);text-decoration:none}
 /* Hero */
-.hero{background:linear-gradient(135deg,#115e59 0%,#0d9488 60%,#14b8a6 130%);color:#fff;padding:56px 0 44px}
+.hero{position:relative;color:#fff;padding:56px 0 44px;overflow:hidden}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.hero-veil{position:absolute;inset:0;z-index:1;background:linear-gradient(100deg,rgba(17,94,89,.42) 0%,rgba(17,94,89,.12) 42%,rgba(17,94,89,0) 68%),linear-gradient(180deg,rgba(0,0,0,.08) 0%,rgba(0,0,0,0) 45%,rgba(0,0,0,.38) 100%);}
+.hero .wrap{position:relative;z-index:2}
 .hero h1{font-size:32px;font-weight:800;margin-bottom:12px}
 .hero p{font-size:16px;opacity:.94;max-width:720px;margin-bottom:22px}
 .hero .stats{display:flex;gap:24px;flex-wrap:wrap}
@@ -80,7 +83,10 @@ footer{background:#115e59;color:#99f6e4;text-align:center;padding:26px 0;font-si
   <a class="back" href="index.html">← 返回门户</a>
 </div></nav>
 
-<header class="hero"><div class="wrap">
+<header class="hero">
+  <video class="hero-video" autoplay muted loop playsinline><source src="assets/img/rocket-cloud.mp4" type="video/mp4"></video>
+  <div class="hero-veil"></div>
+  <div class="wrap">
   <h1>科研技能包 · 真实好用的 AI 工具</h1>
   <p>从四大开源项目精选 <b id="totalN">131</b> 个科研技能，按科研流程组织——装进 Claude Code / Cursor 即可用，帮科学家把文献、计算、分析、写作每个环节提速一个量级。</p>
   <div class="stats">
