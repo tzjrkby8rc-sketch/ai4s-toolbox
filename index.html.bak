@@ -6,60 +6,59 @@
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
   --navy:#0a2540;--navy2:#1665aa;--cyan:#38bdf8;--teal:#2dd4bf;--gold:#fbbf24;
-  --ink:#0f172a;--sub:#64748b;--line:#e2e8f0;--bg:#f8fafc;
+  --ink:#0f172a;--sub:#64748c;--line:#e2e8f0;--bg:#f8fafc;
 }
 body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:var(--navy);line-height:1.6}
 .wrap{max-width:1200px;margin:0 auto;padding:0 24px}
 
-/* ===== Hero: 深蓝航海 + 科研元素 ===== */
-.hero{position:relative;min-height:88vh;display:flex;align-items:center;overflow:hidden}
-.hero-bg{position:absolute;inset:0;
-  background:url('assets/img/sail.png') center/cover no-repeat;}
-.hero-veil{position:absolute;inset:0;
-  background:linear-gradient(120deg,rgba(10,37,64,.92) 0%,rgba(10,37,64,.72) 45%,rgba(22,101,170,.45) 80%,rgba(10,37,64,.55) 100%);}
-/* 科研元素纹理层: 公式/分子/数据 浮动 */
-.hero-sci{position:absolute;inset:0;pointer-events:none;overflow:hidden}
-.sci-el{position:absolute;color:rgba(56,189,248,.16);font-family:ui-monospace,'Courier New',monospace;font-weight:600;white-space:nowrap;animation:float 14s ease-in-out infinite}
-.sci-el.formula{font-size:15px;letter-spacing:1px}
-.sci-el.num{font-size:13px;color:rgba(45,212,191,.14)}
-.sci-el.hex{font-size:20px;color:rgba(251,191,36,.12)}
-@keyframes float{
-  0%,100%{transform:translateY(0) rotate(-2deg)}
-  50%{transform:translateY(-22px) rotate(2deg)}
-}
-/* 分子网格点阵 */
-.hero-grid{position:absolute;inset:0;
-  background-image:radial-gradient(rgba(56,189,248,.10) 1px,transparent 1px);
-  background-size:34px 34px;opacity:.5}
-.hero-inner{position:relative;z-index:3;padding:80px 0}
+/* ===== Hero: 火箭发射视频背景 ===== */
+.hero{position:relative;min-height:92vh;display:flex;align-items:center;overflow:hidden}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.hero-veil{position:absolute;inset:0;z-index:1;
+  background:linear-gradient(100deg,rgba(6,20,40,.55) 0%,rgba(6,20,40,.18) 40%,rgba(6,20,40,0) 65%,rgba(6,20,40,.22) 100%),
+             linear-gradient(180deg,rgba(6,20,40,.15) 0%,rgba(6,20,40,0) 40%,rgba(6,20,40,.5) 100%);}
+.hero-grid{position:absolute;inset:0;z-index:1;
+  background-image:radial-gradient(rgba(56,189,248,.08) 1px,transparent 1px);
+  background-size:34px 34px;opacity:.6}
+/* 科研元素浮动 */
+.hero-sci{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
+.sci-el{position:absolute;color:rgba(125,211,252,.15);font-family:ui-monospace,monospace;font-weight:600;white-space:nowrap;animation:float 15s ease-in-out infinite}
+.sci-el.f{font-size:15px;letter-spacing:1px}
+.sci-el.n{font-size:13px;color:rgba(45,212,191,.13)}
+.sci-el.h{font-size:19px;color:rgba(251,191,36,.12)}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-24px) rotate(2deg)}}
+.hero-inner{position:relative;z-index:4;padding:90px 0}
 .hero-kicker{display:inline-flex;align-items:center;gap:10px;
-  background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.3);
+  background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.32);
   color:#7dd3fc;padding:7px 18px;border-radius:24px;font-size:13.5px;font-weight:600;margin-bottom:26px;backdrop-filter:blur(4px)}
 .hero-kicker .dot{width:7px;height:7px;background:var(--teal);border-radius:50%;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.hero h1{font-size:56px;line-height:1.15;font-weight:800;color:#fff;margin-bottom:6px;letter-spacing:-1px}
+.hero h1{font-size:58px;line-height:1.13;font-weight:800;color:#fff;margin-bottom:6px;letter-spacing:-1px;text-shadow:0 4px 30px rgba(0,0,0,.4)}
 .hero h1 .accent{background:linear-gradient(90deg,#38bdf8,#2dd4bf,#fbbf24);
   -webkit-background-clip:text;background-clip:text;color:transparent}
-.hero .en{font-size:15px;color:#7dd3fc;font-weight:600;letter-spacing:4px;text-transform:uppercase;margin-bottom:22px;opacity:.9}
-.hero p{font-size:18px;color:#cbd5e1;max-width:640px;margin-bottom:36px;line-height:1.7}
+.hero .en{font-size:15px;color:#7dd3fc;font-weight:600;letter-spacing:4px;text-transform:uppercase;margin-bottom:22px;opacity:.92}
+.hero p{font-size:18px;color:#dbe4f0;max-width:620px;margin-bottom:36px;line-height:1.7;text-shadow:0 2px 12px rgba(0,0,0,.35)}
 .hero-cta{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
 .btn-primary{background:linear-gradient(135deg,#1665aa,#0d9488);color:#fff;padding:15px 36px;border-radius:12px;
-  font-weight:700;font-size:16px;text-decoration:none;box-shadow:0 8px 26px rgba(13,148,136,.35);transition:.2s;display:inline-block}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(13,148,136,.5)}
-.btn-ghost{color:#e2e8f0;border:1.5px solid rgba(226,232,240,.35);padding:13px 30px;border-radius:12px;
+  font-weight:700;font-size:16px;text-decoration:none;box-shadow:0 8px 26px rgba(13,148,136,.4);transition:.2s;display:inline-block}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 34px rgba(13,148,136,.55)}
+.btn-ghost{color:#e2e8f0;border:1.5px solid rgba(226,232,240,.4);padding:13px 30px;border-radius:12px;
   font-weight:600;font-size:15px;text-decoration:none;transition:.2s;backdrop-filter:blur(4px)}
 .btn-ghost:hover{border-color:#7dd3fc;color:#7dd3fc}
 .hero-stats{display:flex;gap:36px;margin-top:52px;flex-wrap:wrap}
-.hero-stats div{color:#94a3b8;font-size:13px}
+.hero-stats div{color:#a5b4c9;font-size:13px;text-shadow:0 1px 8px rgba(0,0,0,.3)}
 .hero-stats b{display:block;font-size:30px;font-weight:800;color:#fff;letter-spacing:-.5px}
 .hero-stats .hl{color:var(--gold)}
-/* 滚动提示 */
-.scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:3;
+.scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:4;
   color:#7dd3fc;font-size:12px;letter-spacing:2px;animation:bob 2s infinite}
 @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,8px)}}
 
-/* ===== 导航卡片区 ===== */
-.nav-sec{background:linear-gradient(180deg,var(--navy) 0%,#0d2f52 100%);padding:70px 0 80px}
+/* ===== 导航区 ===== */
+.nav-sec{position:relative;padding:72px 0 80px;overflow:hidden}
+.nav-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.nav-veil{position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,rgba(7,24,46,.88) 0%,rgba(10,37,64,.80) 50%,rgba(7,24,46,.88) 100%)}
+.nav-sec .wrap{position:relative;z-index:2}
 .sec-head{text-align:center;margin-bottom:46px}
 .sec-head .en{font-size:13px;color:#38bdf8;letter-spacing:4px;font-weight:600;text-transform:uppercase;margin-bottom:10px}
 .sec-head h2{font-size:32px;font-weight:800;color:#fff}
@@ -69,7 +68,7 @@ body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:
   border-radius:16px;padding:26px;text-decoration:none;color:#e2e8f0;transition:.22s;display:block;backdrop-filter:blur(6px);overflow:hidden}
 .card::before{content:"";position:absolute;inset:0;
   background:linear-gradient(135deg,var(--c,transparent) 0%,transparent 40%);opacity:0;transition:.22s}
-.card:hover{transform:translateY(-4px);border-color:var(--c);box-shadow:0 14px 34px rgba(0,0,0,.35)}
+.card:hover{transform:translateY(-4px);border-color:var(--c);box-shadow:0 14px 34px rgba(0,0,0,.4)}
 .card:hover::before{opacity:.08}
 .card .ic{font-size:34px;margin-bottom:14px;position:relative}
 .card .en{font-size:11px;color:var(--c);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;position:relative}
@@ -78,47 +77,39 @@ body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:
 .card .go{margin-top:14px;font-size:13px;color:var(--c);font-weight:700;position:relative}
 .card.hot::after{content:"主推";position:absolute;top:16px;right:16px;background:var(--c);color:#04263b;
   font-size:11px;font-weight:800;padding:3px 11px;border-radius:12px;z-index:2}
-/* 页脚(已去除声明文字) */
-footer{background:#071a2e;padding:34px 0;text-align:center}
+footer{background:#050f1d;padding:32px 0;text-align:center}
 footer .links{display:flex;justify-content:center;gap:22px;flex-wrap:wrap}
 footer a{color:#64748b;font-size:13px;text-decoration:none;transition:.15s}
 footer a:hover{color:#38bdf8}
-@media(max-width:640px){
-  .hero h1{font-size:36px}
-  .hero{min-height:78vh}
-  .hero-stats{gap:22px}
-}
+@media(max-width:640px){.hero h1{font-size:36px}.hero{min-height:80vh}.hero-stats{gap:22px}}
 </style></head><body>
 
-<!-- ===== HERO ===== -->
 <header class="hero">
-  <div class="hero-bg"></div>
+  <video class="hero-video" autoplay muted loop playsinline poster="assets/img/sail.png">
+    <source src="assets/img/rocket.mp4" type="video/mp4">
+  </video>
   <div class="hero-veil"></div>
   <div class="hero-grid"></div>
-  <!-- 科研元素浮动纹理 -->
   <div class="hero-sci">
-    <span class="sci-el formula" style="top:12%;left:6%">E = mc²</span>
-    <span class="sci-el formula" style="top:20%;right:10%;animation-delay:2s">ΔG = ΔH − TΔS</span>
-    <span class="sci-el num" style="top:38%;left:12%;animation-delay:4s">ATCG·GCTA·1101</span>
-    <span class="sci-el formula" style="top:55%;right:6%;animation-delay:1s">ψ(x,t) = Ae^(iκx−iωt)</span>
-    <span class="sci-el hex" style="top:68%;left:8%;animation-delay:3s">⬡ C₆H₁₂O₆</span>
-    <span class="sci-el num" style="top:78%;right:14%;animation-delay:5s">α-helix · β-sheet</span>
-    <span class="sci-el formula" style="top:30%;left:44%;animation-delay:2.5s">∇²φ = 0</span>
-    <span class="sci-el hex" style="top:60%;left:55%;animation-delay:4.5s">⬡</span>
-    <span class="sci-el num" style="top:15%;left:60%;animation-delay:3.5s">p &lt; 0.05 ✓</span>
+    <span class="sci-el f" style="top:12%;left:6%">E = mc²</span>
+    <span class="sci-el f" style="top:20%;right:9%;animation-delay:2s">ΔG = ΔH − TΔS</span>
+    <span class="sci-el n" style="top:36%;left:11%;animation-delay:4s">ATCG·GCTA·1101</span>
+    <span class="sci-el f" style="top:54%;right:6%;animation-delay:1s">ψ(x,t) = Ae^(iκx−iωt)</span>
+    <span class="sci-el h" style="top:70%;left:7%;animation-delay:3s">⬡ C₆H₁₂O₆</span>
+    <span class="sci-el n" style="top:80%;right:13%;animation-delay:5s">α-helix · β-sheet</span>
+    <span class="sci-el f" style="top:28%;left:46%;animation-delay:2.5s">∇²φ = 0</span>
+    <span class="sci-el n" style="top:15%;left:62%;animation-delay:3.5s">p &lt; 0.05 ✓</span>
   </div>
   <div class="hero-inner wrap">
-    <div class="hero-kicker"><span class="dot"></span>AI FOR SCIENCE · 科研智能工具箱</div>
     <h1>探索科学的<span class="accent">未知疆域</span><br>让 AI 成为你科研的远航之帆</h1>
     <div class="en">Beyond Horizons · Embrace the Journey</div>
-    <p>面向科学家 / 教授 / 高校教师 —— 政策经费匹配 · 能力诊断 · 137+ 平台工具 · 120 开源技能 · 10 门课程，一站式打通 AI4S 落地路径。</p>
+    <p>面向科学家 / 教授 / 高校教师 —— 政策经费匹配 · 能力诊断 · 137+ 平台工具 · 131 开源技能 · 10 门课程，一站式打通 AI4S 落地路径。</p>
     <div class="hero-cta">
       <a class="btn-primary" href="#nav">开始探索 →</a>
-      <a class="btn-ghost" href="home.html">免费能力诊断</a>
     </div>
     <div class="hero-stats">
       <div><b>137</b>平台工具·模型</div>
-      <div><b>120</b>开源科研技能</div>
+      <div><b>131</b>开源科研技能</div>
       <div><b>10</b>门课程卡片</div>
       <div><b class="hl">4000万</b>单项最高补贴</div>
     </div>
@@ -126,15 +117,19 @@ footer a:hover{color:#38bdf8}
   <div class="scroll-hint">SCROLL ▾</div>
 </header>
 
-<!-- ===== 导航区 ===== -->
-<section class="nav-sec" id="nav"><div class="wrap">
+<section class="nav-sec" id="nav">
+  <video class="nav-video" autoplay muted loop playsinline>
+    <source src="assets/img/sail.mp4" type="video/mp4">
+  </video>
+  <div class="nav-veil"></div>
+  <div class="wrap">
   <div class="sec-head">
     <div class="en">Navigate Your Research</div>
     <h2>选择你的科研航道</h2>
-    <p>六大学科垂直工具箱 + 通用诊断 + 课程 + 技能包，总有一条适合你</p>
+    <p>六大学科垂直工具箱 + 科研技能包，总有一条适合你</p>
   </div>
   <div class="grid">
-    <a class="card hot" style="--c:#2dd4bf" href="life.html">
+    <a class="card" style="--c:#2dd4bf" href="life.html">
       <div class="ic">🧬</div><div class="en">Life Science</div><h3>生命科学</h3>
       <p>蛋白质工程 · 药物发现 · 基因组学 · 医学影像 —— 58 项资产，45 个垂类模型</p>
       <div class="go">启航 →</div>
@@ -166,34 +161,13 @@ footer a:hover{color:#38bdf8}
     </a>
     <a class="card" style="--c:#14b8a6" href="skills.html">
       <div class="ic">🧰</div><div class="en">Skill Pack</div><h3>科研技能包</h3>
-      <p>真实好用的 AI 工具 —— 三大开源项目精选 120 技能，装进 Claude Code 即用</p>
-      <div class="go">启航 →</div>
-    </a>
-    <a class="card" style="--c:#fbbf24" href="courses.html">
-      <div class="ic">📚</div><div class="en">Courses</div><h3>课程学习中心</h3>
-      <p>AI 在科研中怎么用、效果如何 —— 百家讲坛课程结构化卡片（视觉+语音双路）</p>
-      <div class="go">启航 →</div>
-    </a>
-    <a class="card" style="--c:#c084fc" href="playbook.html">
-      <div class="ic">📖</div><div class="en">Playbook</div><h3>营销要点库</h3>
-      <p>6 学科成品话术 —— 痛点开场白 · 证据弹药 · 工具组合拳 · 朋友圈文案</p>
-      <div class="go">启航 →</div>
-    </a>
-    <a class="card" style="--c:#818cf8" href="home.html">
-      <div class="ic">🧭</div><div class="en">General</div><h3>通用诊断</h3>
-      <p>不限学科 —— 政策雷达 + 6 大痛点能力诊断 + 工具选型导航</p>
+      <p>真实好用的 AI 工具 —— 三大开源项目精选 131 技能，装进 Claude Code 即用</p>
       <div class="go">启航 →</div>
     </a>
   </div>
 </div></section>
 
 <footer>
-  <div class="links">
-    <a href="skills.html">科研技能包</a>
-    <a href="courses.html">课程中心</a>
-    <a href="home.html">能力诊断</a>
-    <a href="playbook.html">营销要点库</a>
-  </div>
 </footer>
 
 </body></html>
