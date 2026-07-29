@@ -165,7 +165,7 @@ function gen(key){
 body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:#081a30;line-height:1.7}
 .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
 .bg-video{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
-.bg-veil{position:fixed;inset:0;z-index:0;background:linear-gradient(180deg,rgba(5,15,29,.42) 0%,rgba(6,18,34,.70) 40%,rgba(5,15,29,.88) 100%)}
+.bg-veil{position:fixed;inset:0;z-index:0;background:linear-gradient(180deg,rgba(5,15,29,.30) 0%,rgba(6,18,34,.45) 40%,rgba(5,15,29,.72) 100%)}
 section,footer{position:relative;z-index:1}
 .info-card,.step-card,.scene,.diag,.scene-detail,.rep-block,.tool-card,.case-card,.guide-box{backdrop-filter:blur(10px)}
 nav{position:sticky;top:0;background:rgba(8,26,48,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);z-index:50}
