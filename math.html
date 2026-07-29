@@ -314,5 +314,6 @@ function findToolCard(name){var card=document.getElementById(name)||document.get
 document.addEventListener('click',function(e){var link=e.target.closest('.tool-link');if(link){var name=link.getAttribute('data-tool');var card=findToolCard(name);if(card){card.classList.add('open');card.scrollIntoView({behavior:'smooth',block:'center'});}}});
 
 </script>
+<script>(function(){var vs=document.querySelectorAll('video');function go(){vs.forEach(function(v){var p=v.play();if(p&&p.catch)p.catch(function(){})})}if(document.readyState!=='loading')go();else document.addEventListener('DOMContentLoaded',go);['touchstart','click','scroll','keydown'].forEach(function(e){document.addEventListener(e,go,{once:true,passive:true})})})();</script>
 </body>
 </html>

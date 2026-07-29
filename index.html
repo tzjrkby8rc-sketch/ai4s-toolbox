@@ -85,7 +85,7 @@ footer a:hover{color:#38bdf8}
 </style></head><body>
 
 <header class="hero">
-  <video class="hero-video" autoplay muted loop playsinline poster="assets/img/sail.png">
+  <video class="hero-video" autoplay muted loop playsinline>
     <source src="assets/img/rocket.mp4" type="video/mp4">
   </video>
   <div class="hero-veil"></div>
@@ -168,6 +168,10 @@ footer a:hover{color:#38bdf8}
 
 <footer>
 </footer>
+<script>
+// 动图播放兜底：自动播放被浏览器策略拦截时，首次交互即播放
+(function(){var vs=document.querySelectorAll('video');function go(){vs.forEach(function(v){var p=v.play();if(p&&p.catch)p.catch(function(){})})}if(document.readyState!=='loading')go();else document.addEventListener('DOMContentLoaded',go);['touchstart','click','scroll','keydown'].forEach(function(e){document.addEventListener(e,go,{once:true,passive:true})})})();
+</script>
 
 <!-- TGO AI 客服 Widget: apiBaseUrl 需改为公网/ngrok 地址(本机 localhost 仅开发环境可用) -->
 <script src="tgo-widget-sdk.js"></script>

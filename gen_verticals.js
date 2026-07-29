@@ -393,6 +393,7 @@ footer a{color:#fff}
 <script>
 ${CLIENT.replace(/__KEY__/g,key).replace(/__DISCKW_JSON__/g,discJson)}
 </script>
+<script>(function(){var vs=document.querySelectorAll('video');function go(){vs.forEach(function(v){var p=v.play();if(p&&p.catch)p.catch(function(){})})}if(document.readyState!=='loading')go();else document.addEventListener('DOMContentLoaded',go);['touchstart','click','scroll','keydown'].forEach(function(e){document.addEventListener(e,go,{once:true,passive:true})})})();</script>
 </body>
 </html>`;
   fs.writeFileSync(path.join(DIR,key+'.html'),html,'utf-8');
