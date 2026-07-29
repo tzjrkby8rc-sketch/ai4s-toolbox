@@ -4,12 +4,12 @@
 <title>科研技能包 · 真实好用的AI工具助力高效科研</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--pri:#0d9488;--deep:#115e59;--acc:#1a56db;--ink:#111827;--sub:#6b7280;--line:#e5e7eb;--bg:#f8fafc}
+:root{--pri:#0d9488;--deep:#115e59;--acc:#38bdf8;--ink:#e2e8f0;--sub:#94a3b8;--line:rgba(148,163,184,.18);--bg:#081a30}
 body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:var(--bg);line-height:1.6}
 .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
-nav{position:sticky;top:0;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:50}
+nav{position:sticky;top:0;background:rgba(8,26,48,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);z-index:50}
 nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
-.logo{font-weight:800;font-size:18px;color:var(--deep);text-decoration:none}
+.logo{font-weight:800;font-size:18px;color:#eef2f7;text-decoration:none}
 .back{font-size:14px;color:var(--sub);text-decoration:none}
 /* Hero */
 .hero{position:relative;color:#fff;padding:56px 0 44px;overflow:hidden}
@@ -23,36 +23,40 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .hero .src{margin-top:18px;font-size:13px;opacity:.85}
 .hero .src a{color:#a7f3d0;text-decoration:underline}
 /* 布局: 侧栏+主区 */
-.layout{display:grid;grid-template-columns:230px 1fr;gap:24px;padding:32px 0}
+.layout{display:grid;grid-template-columns:230px 1fr;gap:24px;padding:32px 0;position:relative;z-index:1}
+.bg-video{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.bg-veil{position:fixed;inset:0;z-index:0;background:linear-gradient(180deg,rgba(5,15,29,.42) 0%,rgba(6,18,34,.70) 40%,rgba(5,15,29,.88) 100%)}
+footer{position:relative;z-index:1}
+.sk,.sidebar,.db-flow{backdrop-filter:blur(10px)}
 @media(max-width:820px){.layout{grid-template-columns:1fr}}
 /* 侧栏筛选 */
-.sidebar{position:sticky;top:76px;align-self:start;background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px}
+.sidebar{position:sticky;top:76px;align-self:start;background:rgba(9,25,46,.55);border:1px solid var(--line);border-radius:12px;padding:18px}
 @media(max-width:820px){.sidebar{position:static}}
 .f-group{margin-bottom:18px}
 .f-group h4{font-size:13px;color:var(--sub);margin-bottom:8px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
 .f-opt{display:block;padding:7px 10px;border-radius:7px;cursor:pointer;font-size:14px;color:var(--ink)}
-.f-opt:hover{background:#f0fdfa}
+.f-opt:hover{background:rgba(13,148,136,.15)}
 .f-opt.sel{background:var(--pri);color:#fff;font-weight:600}
 .f-opt .cnt{float:right;font-size:12px;opacity:.7}
 /* 主区 */
 .section-head{display:flex;align-items:baseline;gap:10px;margin:26px 0 14px}
-.section-head h2{font-size:22px;font-weight:800;color:var(--deep)}
+.section-head h2{font-size:22px;font-weight:800;color:#eef2f7}
 .section-head .n{font-size:14px;color:var(--sub)}
 .section-head:first-child{margin-top:0}
 .stage-desc{font-size:14px;color:var(--sub);margin-bottom:14px}
 /* 技能卡网格 */
 .sk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px}
-.sk{background:#fff;border:1px solid var(--line);border-radius:11px;padding:16px;transition:.15s;cursor:pointer}
+.sk{background:rgba(9,25,46,.55);border:1px solid var(--line);border-radius:11px;padding:16px;transition:.15s;cursor:pointer}
 .sk:hover{box-shadow:0 6px 18px rgba(13,148,136,.12);transform:translateY(-2px);border-color:var(--pri)}
 .sk-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px}
-.sk-name{font-weight:700;font-size:15.5px;color:var(--deep)}
+.sk-name{font-weight:700;font-size:15.5px;color:#e8eef7}
 .sk-badge{font-size:11px;padding:2px 8px;border-radius:12px;white-space:nowrap;font-weight:600}
-.b-ready{background:#d1fae5;color:#065f46}
-.b-gpu{background:#fef3c7;color:#92400e}
-.b-conn{background:#dbeafe;color:#1e40af}
+.b-ready{background:rgba(16,185,129,.15);color:#6ee7b7}
+.b-gpu{background:rgba(253,230,138,.14);color:#fde68a}
+.b-conn{background:rgba(96,165,250,.15);color:#93c5fd}
 .sk-cn{font-size:13.5px;color:var(--ink);margin-bottom:8px;line-height:1.5}
 .sk-meta{font-size:12px;color:var(--sub);display:flex;gap:8px;flex-wrap:wrap}
-.sk-meta .disc{background:#f3f4f6;padding:1px 8px;border-radius:10px}
+.sk-meta .disc{background:rgba(255,255,255,.07);padding:1px 8px;border-radius:10px}
 .sk-src{font-size:11px;color:#9ca3af;margin-top:6px}
 /* 技能详情展开 */
 .sk-detail{display:none;margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);font-size:13px}
@@ -72,10 +76,10 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .heavy .sk:hover{border-color:#818cf8;box-shadow:0 6px 18px rgba(0,0,0,.3)}
 .heavy .sk-src{color:#6366f1}
 /* 数据库直通车 */
-.db-flow{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;margin-top:30px}
+.db-flow{background:rgba(9,25,46,.55);border:1px solid var(--line);border-radius:14px;padding:24px;margin-top:30px}
 .db-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:14px}
-.db-item{background:#f0fdfa;border:1px solid #99f6e4;border-radius:8px;padding:10px 14px;font-size:13px}
-.db-item b{color:var(--deep)}
+.db-item{background:rgba(13,148,136,.12);border:1px solid rgba(153,246,228,.28);border-radius:8px;padding:10px 14px;font-size:13px}
+.db-item b{color:#5eead4}
 footer{background:#115e59;color:#99f6e4;text-align:center;padding:26px 0;font-size:13px;margin-top:40px}
 </style></head><body>
 <nav><div class="wrap">
@@ -83,6 +87,8 @@ footer{background:#115e59;color:#99f6e4;text-align:center;padding:26px 0;font-si
   <a class="back" href="index.html">← 返回门户</a>
 </div></nav>
 
+<video class="bg-video" autoplay muted loop playsinline><source src="assets/img/light-raise.mp4" type="video/mp4"></video>
+<div class="bg-veil"></div>
 <header class="hero">
   <video class="hero-video" autoplay muted loop playsinline><source src="assets/img/rocket-cloud.mp4" type="video/mp4"></video>
   <div class="hero-veil"></div>

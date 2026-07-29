@@ -4,6 +4,7 @@ const VERTICALS = {
   "life": {
     "学科": "生物科学",
     "视频": "idea.mp4",
+    "视频2": "butterfly.mp4",
     "主题色": "#0e9f6e",
     "主题深": "#065f46",
     "主题浅": "#ecfdf5",
@@ -289,6 +290,7 @@ const VERTICALS = {
   "material": {
     "学科": "材料化学",
     "视频": "ai-hand.mp4",
+    "视频2": "hand-touch.mp4",
     "主题色": "#b45309",
     "主题深": "#78350f",
     "主题浅": "#fef3c7",
@@ -511,6 +513,7 @@ const VERTICALS = {
   "engineering": {
     "学科": "工程制造",
     "视频": "wave.mp4",
+    "视频2": "forge.mp4",
     "主题色": "#1d4ed8",
     "主题深": "#1e3a8a",
     "主题浅": "#dbeafe",
@@ -712,6 +715,7 @@ const VERTICALS = {
   "earth": {
     "学科": "地球环境",
     "视频": "sail.mp4",
+    "视频2": "moon-hike.mp4",
     "主题色": "#0284c7",
     "主题深": "#075985",
     "主题浅": "#e0f2fe",
@@ -880,6 +884,7 @@ const VERTICALS = {
   "math": {
     "学科": "数学物理",
     "视频": "beam.mp4",
+    "视频2": "ai-face.mp4",
     "主题色": "#7c3aed",
     "主题深": "#5b21b6",
     "主题浅": "#ede9fe",
@@ -1040,6 +1045,7 @@ const VERTICALS = {
   "cross": {
     "学科": "其他学科",
     "视频": "snowplane.mp4",
+    "视频2": "cross-jet.mp4",
     "主题色": "#db2777",
     "主题深": "#9d174d",
     "主题浅": "#fce7f3",

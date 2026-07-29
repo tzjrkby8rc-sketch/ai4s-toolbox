@@ -5,55 +5,60 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>材料化学 × AI · 科研工具箱</title>
 <style>
-:root{--pri:#b45309;--pri2:#78350f;--deep:#78350f;--acc:#1a56db;--ink:#111827;--sub:#6b7280;--line:#e5e7eb;--bg:#fef3c7;--card:#fff;}
+:root{--pri:#b45309;--pri2:#78350f;--deep:#78350f;--veil:rgba(120,53,15,0.42);--acc:#1a56db;--ink:#e2e8f0;--sub:#94a3b8;--line:rgba(148,163,184,.18);--bg:rgba(255,255,255,.07);--card:rgba(9,25,46,.55);
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:#fafafa;line-height:1.7}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:#081a30;line-height:1.7}
 .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
-nav{position:sticky;top:0;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:50}
+.bg-video{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.bg-veil{position:fixed;inset:0;z-index:0;background:linear-gradient(180deg,rgba(5,15,29,.42) 0%,rgba(6,18,34,.70) 40%,rgba(5,15,29,.88) 100%)}
+section,footer{position:relative;z-index:1}
+.info-card,.step-card,.scene,.diag,.scene-detail,.rep-block,.tool-card,.case-card,.guide-box{backdrop-filter:blur(10px)}
+nav{position:sticky;top:0;background:rgba(8,26,48,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);z-index:50}
 nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
-.logo{font-weight:800;font-size:19px;color:var(--deep)}.logo span{color:var(--pri)}
+.logo{font-weight:800;font-size:19px;color:#eef2f7}.logo span{color:var(--pri)}
 nav a.btn{background:var(--pri);color:#fff;padding:9px 18px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:600}
 .hero{position:relative;color:#fff;padding:70px 0 60px;overflow:hidden}
 .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
-.hero-veil{position:absolute;inset:0;z-index:1;background:linear-gradient(100deg,rgba(120,53,15,.42) 0%,rgba(120,53,15,.12) 42%,rgba(120,53,15,0) 68%),linear-gradient(180deg,rgba(0,0,0,.08) 0%,rgba(0,0,0,0) 45%,rgba(0,0,0,.38) 100%);}
+.hero-veil{position:absolute;inset:0;z-index:1;background:linear-gradient(100deg,var(--veil) 0%,transparent 68%),linear-gradient(180deg,rgba(0,0,0,.08) 0%,rgba(0,0,0,0) 45%,rgba(0,0,0,.38) 100%)}
 .hero .wrap{position:relative;z-index:2}
 .hero .kick{display:inline-block;background:rgba(255,255,255,.15);padding:5px 14px;border-radius:20px;font-size:13px;margin-bottom:18px;font-weight:600}
 .hero h1{font-size:38px;line-height:1.25;font-weight:800;margin-bottom:16px}
 .hero p{font-size:17px;opacity:.94;max-width:680px;margin-bottom:28px}
-.hero .cta{display:inline-block;background:#fff;color:var(--deep);padding:14px 32px;border-radius:10px;font-weight:700;font-size:17px;text-decoration:none;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.hero .cta{display:inline-block;background:linear-gradient(135deg,var(--pri),var(--deep));color:#fff;padding:14px 32px;border-radius:10px;font-weight:700;font-size:17px;text-decoration:none;box-shadow:0 8px 26px rgba(0,0,0,.35)}
 .badges{display:flex;gap:26px;margin-top:38px;flex-wrap:wrap}
-.badges div{font-size:13px;opacity:.92}.badges b{display:block;font-size:25px;font-weight:800}
+.badges div{font-size:13px;opacity:.92}.badges b{display:block;font-size:25px;font-weight:800;text-shadow:0 2px 12px rgba(0,0,0,.5)}
 section{padding:54px 0}
-.sec-title{font-size:27px;font-weight:800;text-align:center;margin-bottom:8px;color:var(--deep)}
+.sec-title{font-size:27px;font-weight:800;text-align:center;margin-bottom:8px;color:#eef2f7}
 .sec-sub{text-align:center;color:var(--sub);margin-bottom:34px;font-size:15px}
-.sec-num{display:inline-block;background:var(--pri);color:#fff;width:32px;height:32px;border-radius:50%;line-height:32px;text-align:center;font-size:15px;font-weight:700;margin-right:10px;vertical-align:middle}
+.sec-num{display:inline-block;background:linear-gradient(135deg,var(--pri),var(--deep));color:#fff;width:32px;height:32px;border-radius:50%;line-height:32px;text-align:center;font-size:15px;font-weight:700;margin-right:10px;vertical-align:middle}
 .grid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}
 .info-card{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--pri);border-radius:12px;padding:22px}
-.info-card h3{color:var(--deep);font-size:18px;margin-bottom:8px}
-.info-card p{font-size:14px;color:#374151;line-height:1.6}
+.info-card h3{color:#e8eef7;font-size:18px;margin-bottom:8px}
+.info-card p{font-size:14px;color:#c6d3e3;line-height:1.6}
 .step-card{display:flex;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 22px;align-items:flex-start}
-.step-no{background:var(--bg);color:var(--deep);font-weight:700;font-size:14px;padding:6px 14px;border-radius:8px;white-space:nowrap;border:1px solid var(--pri)}
-.step-card p{font-size:14px;color:#374151;flex:1}
+.step-no{background:rgba(255,255,255,.06);color:var(--pri);font-weight:700;font-size:14px;padding:6px 14px;border-radius:8px;white-space:nowrap;border:1px solid var(--pri)}
+.step-card p{font-size:14px;color:#c6d3e3;flex:1}
 .scene-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:18px}
 .scene{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;transition:.2s;cursor:pointer}
-.scene:hover{box-shadow:0 10px 28px rgba(0,0,0,.08);transform:translateY(-3px);border-color:var(--pri)}
+.scene:hover{box-shadow:0 14px 34px rgba(0,0,0,.42);transform:translateY(-3px);border-color:var(--pri)}
+.info-card:hover,.step-card:hover,.case-card:hover,.guide-box:hover{box-shadow:0 14px 34px rgba(0,0,0,.42);transform:translateY(-3px);border-color:var(--pri);transition:.2s}
 .scene .ic{font-size:32px;margin-bottom:10px}
-.scene h3{font-size:19px;margin-bottom:6px;color:var(--deep)}
+.scene h3{font-size:19px;margin-bottom:6px;color:#e8eef7}
 .scene .one{font-size:13.5px;color:var(--sub);margin-bottom:12px;line-height:1.5}
-.scene .who{font-size:12px;background:var(--bg);color:var(--deep);padding:5px 11px;border-radius:8px;display:inline-block;margin-bottom:12px}
+.scene .who{font-size:12px;background:rgba(255,255,255,.06);color:#cbd5e1;padding:5px 11px;border-radius:8px;display:inline-block;margin-bottom:12px}
 .scene .tools-count{font-size:12.5px;color:var(--pri);font-weight:700}
-.scene .hook{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);font-size:12.5px;color:#92400e;font-style:italic}
-.scene-detail{display:none;background:#fff;border:1px solid var(--line);border-radius:14px;padding:28px;margin-top:18px}
+.scene .hook{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);font-size:12.5px;color:#fbbf24;font-style:italic}
+.scene-detail{display:none;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:28px;margin-top:18px}
 .scene-detail.open{display:block}
 .sd-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.sd-head h3{font-size:22px;color:var(--deep)}
+.sd-head h3{font-size:22px;color:#e8eef7}
 .sd-close{background:none;border:1px solid var(--line);border-radius:8px;padding:6px 14px;cursor:pointer;color:var(--sub)}
-.sd-pain{background:#fff7ed;border-left:4px solid #f59e0b;padding:12px 16px;border-radius:8px;font-size:14px;margin:14px 0}
+.sd-pain{background:rgba(245,158,11,.1);border-left:4px solid #f59e0b;padding:12px 16px;border-radius:8px;font-size:14px;margin:14px 0}
 .tool-row{display:flex;gap:14px;padding:13px 0;border-bottom:1px dashed var(--line);align-items:flex-start}
 .tool-row:last-child{border:none}
 .tool-row .nm{font-weight:700;min-width:170px;font-size:14.5px}
 .tool-row .nm .tag{display:block;font-size:11px;color:var(--pri);font-weight:600;margin-top:2px}
-.tool-row .val{flex:1;font-size:13.5px;color:#374151}
+.tool-row .val{flex:1;font-size:13.5px;color:#c6d3e3}
 .tool-row .heat{color:var(--pri);font-weight:700;font-size:12.5px;white-space:nowrap}
 .tool-link{color:var(--pri);cursor:pointer;border-bottom:1px dashed var(--pri);display:inline-block}
 .tool-link:hover{color:var(--deep);border-color:var(--deep)}
@@ -62,15 +67,15 @@ section{padding:54px 0}
 .q{margin-bottom:22px}.q label{display:block;font-weight:700;margin-bottom:11px;font-size:15.5px}
 .q .num{color:var(--pri);margin-right:6px}
 .opts{display:flex;flex-wrap:wrap;gap:9px}
-.opt{border:1.5px solid var(--line);background:#fff;padding:9px 16px;border-radius:9px;cursor:pointer;font-size:13.5px;transition:.15s}
+.opt{border:1.5px solid var(--line);background:rgba(255,255,255,.05);padding:9px 16px;border-radius:9px;cursor:pointer;font-size:13.5px;transition:.15s}
 .opt:hover{border-color:var(--pri)}.opt.sel{background:var(--pri);color:#fff;border-color:var(--pri)}
 .diag-btn{width:100%;background:var(--deep);color:#fff;border:none;padding:14px;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;margin-top:6px}
 .diag-btn:disabled{background:#9ca3af;cursor:not-allowed}
 .report{display:none;margin-top:10px}
-.rep-block{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:14px}
-.rep-block h4{color:var(--deep);margin-bottom:11px;font-size:15.5px}
-.rep-pain{background:#fff7ed;border-left:4px solid #f59e0b;padding:13px 17px;border-radius:8px;margin-bottom:14px;font-size:14px}
-.warntip{background:#fef2f2;border-left:4px solid #e02424;padding:11px 15px;border-radius:8px;font-size:13.5px;margin-top:10px}
+.rep-block{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:14px}
+.rep-block h4{color:#e8eef7;margin-bottom:11px;font-size:15.5px}
+.rep-pain{background:rgba(245,158,11,.1);border-left:4px solid #f59e0b;padding:13px 17px;border-radius:8px;margin-bottom:14px;font-size:14px}
+.warntip{background:rgba(224,36,36,.12);border-left:4px solid #e02424;padding:11px 15px;border-radius:8px;font-size:13.5px;margin-top:10px}
 .lead{background:linear-gradient(135deg,var(--deep),var(--pri));border-radius:14px;padding:30px;color:#fff;text-align:center;margin-top:18px}
 .lead h3{font-size:20px;margin-bottom:8px}.lead p{opacity:.92;margin-bottom:18px;font-size:13.5px}
 .lead form{display:flex;gap:10px;max-width:520px;margin:0 auto;flex-wrap:wrap;justify-content:center}
@@ -83,32 +88,32 @@ section{padding:54px 0}
 .pol-amt{color:var(--pri);font-weight:700;font-size:13.5px;white-space:nowrap}
 .tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
 .tool-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;cursor:pointer;transition:.2s}
-.tool-card:hover{border-color:var(--pri);box-shadow:0 4px 12px rgba(0,0,0,.06)}
+.tool-card:hover{border-color:var(--pri);box-shadow:0 10px 26px rgba(0,0,0,.4);transform:translateY(-2px)}
 .tool-card .tc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:8px}
-.tool-card .tc-name{font-weight:700;color:var(--deep);font-size:14px}
-.tool-card .tc-badge{font-size:11px;background:var(--bg);color:var(--deep);padding:2px 8px;border-radius:6px;white-space:nowrap}
-.tool-card .tc-lic{font-size:10px;background:#fef3c7;color:#92400e;padding:1px 6px;border-radius:4px}
+.tool-card .tc-name{font-weight:700;color:#e8eef7;font-size:14px}
+.tool-card .tc-badge{font-size:11px;background:rgba(255,255,255,.06);color:#cbd5e1;padding:2px 8px;border-radius:6px;white-space:nowrap}
+.tool-card .tc-lic{font-size:10px;background:rgba(253,230,138,.14);color:#fde68a;padding:1px 6px;border-radius:4px}
 .tool-card .tc-cn{font-size:12.5px;color:var(--sub);line-height:1.5}
 .tool-card .tc-detail{display:none;margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
 .tool-card.open .tc-detail{display:block}
-.tool-card .en{font-size:12px;color:#374151;margin-bottom:8px;line-height:1.5}
+.tool-card .en{font-size:12px;color:#c6d3e3;margin-bottom:8px;line-height:1.5}
 .tool-card .install-box{background:#0f172a;color:#a7f3d0;padding:10px 12px;border-radius:6px;font-size:11.5px;font-family:monospace;margin:8px 0}
 .tool-card .asset-meta{font-size:12px;color:var(--sub);margin-top:6px}
 .tool-card a{display:inline-block;margin-top:6px;color:var(--pri);font-size:12.5px;text-decoration:none}
 .tool-card .tut-link{margin-left:10px}
-.tc-lic{font-size:10px;background:#fef3c7;color:#92400e;padding:1px 6px;border-radius:4px}
+.tc-lic{font-size:10px;background:rgba(253,230,138,.14);color:#fde68a;padding:1px 6px;border-radius:4px}
 .case-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;border-top:3px solid var(--pri)}
 .case-no{font-size:12px;color:var(--pri);font-weight:600;margin-bottom:6px}
-.case-card h3{font-size:16px;color:var(--deep);margin-bottom:6px}
+.case-card h3{font-size:16px;color:#e8eef7;margin-bottom:6px}
 .case-one{font-size:13.5px;color:var(--sub);margin-bottom:8px}
 .case-meta{font-size:12px;color:var(--sub)}
 .empty{color:var(--sub);font-size:14px;text-align:center;padding:20px}
 .guide-box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;margin-bottom:14px}
-.guide-box h4{color:var(--deep);font-size:15px;margin-bottom:8px}
-.guide-box p{font-size:13.5px;color:#374151}
+.guide-box h4{color:#e8eef7;font-size:15px;margin-bottom:8px}
+.guide-box p{font-size:13.5px;color:#c6d3e3}
 .guide-exp{cursor:pointer;transition:.2s}.guide-exp:hover{border-color:var(--pri)}
 .guide-exp .exp-hint{font-size:12px;color:var(--pri);font-weight:400;float:right}
-.guide-exp .g-det{display:none;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);font-size:13.5px;color:#374151;line-height:1.7}
+.guide-exp .g-det{display:none;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);font-size:13.5px;color:#c6d3e3;line-height:1.7}
 .guide-exp.open .g-det{display:block}
 .guide-exp .g-det a{color:var(--pri);text-decoration:none;border-bottom:1px dashed var(--pri);cursor:pointer}
 footer{background:var(--deep);color:rgba(255,255,255,.8);text-align:center;padding:28px 0;font-size:13px;margin-top:40px}
@@ -120,6 +125,9 @@ footer a{color:#fff}
 <nav><div class="wrap">
   <div class="logo">材料化学<span>×</span>AI 工具箱</div>
 </div></nav>
+
+<video class="bg-video" autoplay muted loop playsinline><source src="assets/img/hand-touch.mp4" type="video/mp4"></video>
+<div class="bg-veil"></div>
 
 <header class="hero">
   <video class="hero-video" autoplay muted loop playsinline><source src="assets/img/ai-hand.mp4" type="video/mp4"></video>
@@ -142,7 +150,7 @@ footer a{color:#fff}
 </div></section>
 
 <!-- 2. 基础使用技巧 -->
-<section id="basics" style="background:#fff"><div class="wrap">
+<section id="basics"><div class="wrap">
   <h2 class="sec-title"><span class="sec-num">2</span>基础使用技巧</h2>
   <p class="sec-sub">从零上手--核心工具的使用路径</p>
   <div class="grid2"><div class="info-card"><h3>MolPilot</h3><p>计算化学副驾驶:输入研究问题 -> 自动生成假设 -> 调用结构互转/性质/反应预测/逆合成工具 -> 返回完整分析。</p></div><div class="info-card"><h3>Bgolearn</h3><p>国产开源贝叶斯优化:npx 启动 -> 输入已有实验数据(少样本)-> 主动学习推荐下一组实验参数,替代盲目 DOE。</p></div><div class="info-card"><h3>SciToolAgent-Mat</h3><p>材料计算工具:MOF 解析 / Materials Project 对接 / 电池评估,72.4k 调用,Web 端即用。</p></div></div>
@@ -156,7 +164,7 @@ footer a{color:#fff}
 </div></section>
 
 <!-- 4. 场景诊断建议 -->
-<section id="scenes" style="background:#fff"><div class="wrap">
+<section id="scenes"><div class="wrap">
   <h2 class="sec-title"><span class="sec-num">4</span>场景诊断建议</h2>
   <p class="sec-sub">点开你的方向,看同行在用什么 AI;3 个问题生成专属落地路径</p>
   <div class="scene-grid" id="sceneGrid"></div>
@@ -196,7 +204,7 @@ footer a{color:#fff}
 </div></section>
 
 <!-- 5. 政策扶持指引 -->
-<section id="policy" style="background:#fff"><div class="wrap">
+<section id="policy"><div class="wrap">
   <h2 class="sec-title"><span class="sec-num">5</span>政策扶持指引</h2>
   <p class="sec-sub">材料化学方向可申报的经费政策(以官方通知为准)</p>
   <div style="max-width:820px;margin:0 auto"><div class="pol-row"><div class="pol-name">2026年度上海市"人工智能+"及科学智能"百团百项"项目申报<span class="pol-tag">已截止 · 2026-05-12 ~ 2026-06-01</span></div><div class="pol-amt">百团百项专项经费（具体额度按项目评审）</div></div><div class="pol-row"><div class="pol-name">2025年度科学智能"百团百项"专项申报<span class="pol-tag">已截止 · 2025年度批次</span></div><div class="pol-amt">百团百项专项经费</div></div></div>
@@ -209,14 +217,14 @@ footer a{color:#fff}
   <div class="guide-box guide-exp"><h4>🔧 科研流程规划 <span class="exp-hint">▾ 详情</span></h4><p class="g-sum">假设(ECNU-ChemGPT2)-> 检索(PubChem)-> 计算(MolPilot/Bgolearn/LASP)-> 验证(湿实验)-> 表征(晶体解析)</p><div class="g-det">四阶段:①假设用 ECNU-ChemGPT2 生成逆合成路线;②检索用 Origene-PubChem 查全球化学库;③计算用 MolPilot 预测反应/性质、Bgolearn 主动学习推荐配方、LASP 大尺度原子模拟;④表征用晶体结构解析加速器处理 XRD。</div></div>
   <div class="guide-box guide-exp"><h4>📊 数据集采纳 <span class="exp-hint">▾ 详情</span></h4><p class="g-sum">PubChem(化学库)、Materials Project(材料数据)、电解液数据集(10235 条)、MOF 数据</p><div class="g-det">PubChem:全球最大开放化学库;Materials Project:材料数据;电解液数据集(10235条);MOF 数据。</div></div>
   <div class="guide-box guide-exp"><h4>🤖 模型与算力选择 <span class="exp-hint">▾ 详情</span></h4><p class="g-sum">ECNU-ChemGPT2(化学大模型)、DPA(深度势能)、燧人系列(物性预测)、LASP(神经网络势函数) ｜ 算力:LASP/DPA 大尺度原子模拟需 GPU;Bgolearn 少样本优化 CPU 即可;轻量性质预测云端 API</p><div class="g-det">ECNU-ChemGPT2:化学大模型(知识图谱+逆合成);DPA:深度势能原子模拟;燧人系列:材料物性预测;LASP:神经网络势函数。<br>算力:LASP/DPA 大尺度原子模拟需 GPU;Bgolearn 少样本优化 CPU 即可;性质预测可云端 API。</div></div>
-  <h4 style="color:var(--deep);margin:24px 0 10px;font-size:15px">开源技能(skills 包,9 个,点击查看详情)</h4>
+  <h4 style="color:#e8eef7;margin:24px 0 10px;font-size:15px">开源技能(skills 包,9 个,点击查看详情)</h4>
   <div id="skillsBox" class="tool-grid"></div>
-  <h4 style="color:var(--deep);margin:24px 0 10px;font-size:15px">平台资产(33 项,点击查看详情)</h4>
+  <h4 style="color:#e8eef7;margin:24px 0 10px;font-size:15px">平台资产(33 项,点击查看详情)</h4>
   <div id="assetsBox" class="tool-grid"></div>
 </div></section>
 
 <!-- 7. 使用案例(课程) -->
-<section id="cases" style="background:#fff"><div class="wrap">
+<section id="cases"><div class="wrap">
   <h2 class="sec-title"><span class="sec-num">7</span>使用案例</h2>
   
   <div class="grid2"><div class="case-card"><div class="case-no">课程 01</div><h3>解码原子世界:新材料研发超级加速器</h3><p class="case-one">AI让材料模拟提速万倍，诺奖级方法触手可及</p><div class="case-meta">讲师: 商城;赵天琦 · 标签: 材料</div></div><div class="case-card"><div class="case-no">课程 02</div><h3>AI会怎样帮助我们发明新纤维</h3><p class="case-one">从试错到闭环：AI重构纤维研发范式</p><div class="case-meta">讲师: 朱丽萍;阙文戈 · 标签: 材料</div></div><div class="case-card"><div class="case-no">课程 03</div><h3>AI赋能能源材料研发及干湿实验室升级</h3><p class="case-one">AI重构材料研发范式，让实验周期压缩80%</p><div class="case-meta">讲师: 杨孟昊,韩阳洋 · 标签: 材料</div></div><div class="case-card"><div class="case-no">课程 05</div><h3>计算化学智能体MolPilot如何练成</h3><p class="case-one">让AI接管计算化学的脏活累活，教授专注科研创新</p><div class="case-meta">讲师: 许晓虎,王晓坤 · 标签: 计算化学</div></div></div>
@@ -226,7 +234,7 @@ footer a{color:#fff}
   材料化学 × AI 工具箱 · <a href="index.html">返回门户</a>
 </footer>
 
-<script>var VERTICALS={"material":{"学科":"材料化学","视频":"ai-hand.mp4","主题色":"#b45309","主题深":"#78350f","主题浅":"#fef3c7","图标":"⚛️","受众":"材料 / 化学 / 化工 / 能源教授","资产数":"33","构成":"2 智能体 / 12 工具链 / 19 模型","Hero标题":"从经验试错到数据驱动<br>AI 正在重构材料与化学研发","Hero副":"计算化学 · 新材料发现 · 结构解析 · 性质预测--33 项材料化学 AI 资产，让'十年磨一剑'变成'一键通关'。","统计":[["33","材料化学AI资产"],["19","垂类模型"],["10235","电解液数据集"],["一键","半导体研发通关"]],"AI4S范畴":[{"标题":"计算化学","内容":"LLM 副驾驶(MolPilot)接管计算化学全流程,自动生成科学假设;ECNU-ChemGPT2 化学大模型支持逆合成路线规划;反应/性质/逆合成预测一站式。"},{"标题":"新材料发现","内容":"主动学习(Bgolearn)+ 生成模型,少样本高效发现新材料;SciToolAgent-Mat 对接 Materials Project,电池/MOF 评估开箱即用;LASP 神经网络势函数大尺度原子模拟。"},{"标题":"结构与解析","内容":"X 射线衍射 -> 电子密度图 -> 原子模型精修,晶体结构解析加速器 + DPA 深度势能原子模拟,结构解析周期数量级缩短。"},{"标题":"性质预测","内容":"燧人系列模型预测热膨胀/临界密度/蒸气压/粘度等材料物性,替代昂贵实验测定。"}],"基础技巧":[{"工具":"MolPilot","步骤":"计算化学副驾驶:输入研究问题 -> 自动生成假设 -> 调用结构互转/性质/反应预测/逆合成工具 -> 返回完整分析。"},{"工具":"Bgolearn","步骤":"国产开源贝叶斯优化:npx 启动 -> 输入已有实验数据(少样本)-> 主动学习推荐下一组实验参数,替代盲目 DOE。"},{"工具":"SciToolAgent-Mat","步骤":"材料计算工具:MOF 解析 / Materials Project 对接 / 电池评估,72.4k 调用,Web 端即用。"}],"科研设计":[{"阶段":"假设与检索","要点":"ECNU-ChemGPT2 生成逆合成路线假设;Origene-PubChem 查全球最大开放化学库定位已知化合物。"},{"阶段":"计算筛选","要点":"MolPilot 预测反应/性质;Bgolearn 主动学习在少样本下推荐最优配方;LASP 大尺度原子模拟验证机理。"},{"阶段":"实验验证","要点":"计算筛选 top 候选 -> 湿实验合成验证 -> 数据回流再训练 Bgolearn,迭代优化。"},{"阶段":"结构表征","要点":"晶体结构解析加速器处理 XRD 数据;DPA 深度势能模拟确认原子级结构。"}],"适用工具指导":{"流程":{"摘":"假设(ECNU-ChemGPT2)-> 检索(PubChem)-> 计算(MolPilot/Bgolearn/LASP)-> 验证(湿实验)-> 表征(晶体解析)","详":"四阶段:①假设用 ECNU-ChemGPT2 生成逆合成路线;②检索用 Origene-PubChem 查全球化学库;③计算用 MolPilot 预测反应/性质、Bgolearn 主动学习推荐配方、LASP 大尺度原子模拟;④表征用晶体结构解析加速器处理 XRD。"},"数据集":{"摘":"PubChem(化学库)、Materials Project(材料数据)、电解液数据集(10235 条)、MOF 数据","详":"PubChem:全球最大开放化学库;Materials Project:材料数据;电解液数据集(10235条);MOF 数据。"},"模型":{"摘":"ECNU-ChemGPT2(化学大模型)、DPA(深度势能)、燧人系列(物性预测)、LASP(神经网络势函数)","详":"ECNU-ChemGPT2:化学大模型(知识图谱+逆合成);DPA:深度势能原子模拟;燧人系列:材料物性预测;LASP:神经网络势函数。"},"算力":{"摘":"LASP/DPA 大尺度原子模拟需 GPU;Bgolearn 少样本优化 CPU 即可;轻量性质预测云端 API","详":"LASP/DPA 大尺度原子模拟需 GPU;Bgolearn 少样本优化 CPU 即可;性质预测可云端 API。"}},"场景":[{"id":"chem","名称":"计算化学","图标":"🧪","一句话":"LLM 副驾驶接管计算化学全流程，自动生成假设","痛点":"量化计算门槛高、反应路径靠经验、逆合成靠人工","适合谁":"计算化学/量子化学/理论化学课题组","代表工具":[{"名称":"MolPilot","类型":"智能体","价值":"基于LLM的计算化学副驾驶:自动化全流程+生成科学假设","机构":"华东师大/创智学院"},{"名称":"SciToolAgent-Chem","类型":"工具","价值":"化学结构互转/性质/反应预测/逆合成/ML分类","机构":"浙大/SCP"},{"名称":"化学与反应计算","类型":"工具","价值":"反应参数/浓度/速率/平衡/产率计算","机构":"上海AI实验室/SCP"},{"名称":"Origene-PubChem","类型":"工具","价值":"全球最大开放化学库即查即用","机构":"临港/SCP"},{"名称":"ECNU-ChemGPT2","类型":"模型","热度":"↓73","价值":"化学大模型:化学知识图谱+逆合成","机构":"华东师大(何晓)"}],"营销钩子":"化学大模型 ECNU-ChemGPT2 已被下载 73 次--你的逆合成还在手动画路线吗?"},{"id":"newmat","名称":"新材料发现","图标":"🔋","一句话":"主动学习+生成模型，少样本高效发现新材料","痛点":"配方摸索靠试错、实验数据零散、工艺优化靠经验","适合谁":"能源材料/电池/催化/高分子课题组","代表工具":[{"名称":"Bgolearn","类型":"工具","价值":"国产开源贝叶斯全局优化:少样本高效决策,替代盲目DOE","机构":"上海大学(熊杰)"},{"名称":"MatDesign","类型":"工具","价值":"Web端AI材料设计平台(主动学习/迁移学习)","机构":"上海大学(熊杰)"},{"名称":"SciToolAgent-Mat","类型":"工具","热度":"72.4k","价值":"MOF解析/Materials Project对接/电池评估","机构":"浙大/SCP"},{"名称":"LASP","类型":"平台","价值":"神经网络势函数大尺度原子模拟,能量计算提速3-4个数量级","机构":"复旦/复鞍智能"},{"名称":"燧人系列模型","类型":"模型","热度":"↓8+","价值":"热膨胀/临界密度/蒸气压/粘度等材料物性预测","机构":"星河启智"}],"营销钩子":"AI 辅助发现新分子突破电池寿命极限(标杆)--材料发现效率跃升"},{"id":"struct","名称":"结构与解析","图标":"💎","一句话":"X射线衍射到原子模型，AI 加速晶体结构解析","痛点":"结构解析靠人工、衍射数据处理慢、精修靠经验","适合谁":"晶体学/结构化学/材料表征课题组","代表工具":[{"名称":"晶体结构解析加速器","类型":"智能体","价值":"X射线衍射->电子密度图->原子模型精修建议","机构":"剑桥晶体学数据中心"},{"名称":"DPA-3.2-5M","类型":"模型","热度":"↓13","价值":"深度势能原子模拟(深势科技)","机构":"深势科技"},{"名称":"通用原子结构生成模型","类型":"模型","价值":"LASP团队:原子模拟驱动结构生成","机构":"复鞍智能(刘智攀)"}],"营销钩子":"半导体研发'十年磨一剑'->'一键通关'(标杆)--结构解析周期数量级缩短"}],"卡点":["计算门槛太高","配方试错太慢","结构解析太难","缺AI方法/人才"]}};var POLICIES_JSON={"政策":[{"标题":"2026年度上海市\"人工智能+\"及科学智能\"百团百项\"项目申报","状态":"已截止","申报时间窗":"2026-05-12 ~ 2026-06-01","资助强度":"百团百项专项经费（具体额度按项目评审）","重点领域":["生命科学","物质科学","地球环境","数学量子","工程技术"],"匹配标签":["青年科学家","40岁以下","百团百项","科学智能","团队申报","五大学科","成果共享"]},{"标题":"2025年度科学智能\"百团百项\"专项申报","状态":"已截止","申报时间窗":"2025年度批次","资助强度":"百团百项专项经费","重点领域":["生命科学","物质科学","地球环境","数学量子","工程技术"],"匹配标签":["百团百项","青年科学家","科学智能","首年"]}]};var SKILLS_DATA=[{"id":"astropy","description":"Core Python library for astronomy and astrophysics workflows that need Astropy APIs, including units/quantities, coordinates, FITS I/O, tables, time systems, WCS, and cosmology. Use when implementing or debugging astronomical data analysis code with Astropy.","cn":"用Astropy处理天文单位、坐标、FITS文件、时间系统与宇宙学计算","环节":"实验与计算","license":"BSD-3-Clause license","source":"claude-scientific-skills"},{"id":"catalyst_sar_screening","description":"HARD-LOCKED Catalyst-Design-Agent FAIRChem UMA (uma-s-1p1, oc20) SAC SAR screening for dissolution potential / adsorption / overpotential. Always call run_pipeline with the user's metals/metrics into a fresh workdir and present ONLY that run's result[\"deliverables\"]. FORBIDDEN to return committed demo shells (metal_center_dissolution_*) as user results. FORBIDDEN tabular/heuristic/other MLIPs. If HF_TOKEN or hub unreachable, STOP and ask (HF_TOKEN / HF_ENDPOINT). Keywords: MLFF, UMA, OC20, catag","cn":"用FAIRChem UMA筛选催化剂的溶解电位、吸附与过电位等SAR指标","环节":"实验与计算","license":"MIT","source":"OpenAI4S"},{"id":"datamol","description":"Pythonic wrapper around RDKit with simplified interface and sensible defaults. Preferred for standard drug discovery including SMILES parsing, standardization, descriptors, fingerprints, clustering, 3D conformers, parallel processing. Returns native rdkit.Chem.Mol objects. For advanced control or custom parameters, use rdkit directly.","cn":"基于RDKit的简化封装，快速处理SMILES、描述符、指纹与聚类","环节":"实验与计算","license":"Apache-2.0 license","source":"claude-scientific-skills"},{"id":"deepchem","description":"Molecular ML with diverse featurizers and pre-built datasets. Use for property prediction (ADMET, toxicity) with traditional ML or GNNs when you want extensive featurization options and MoleculeNet benchmarks. Best for quick experiments with pre-trained models, diverse molecular representations. For graph-first PyTorch workflows use torchdrug; for benchmark datasets use pytdc.","cn":"用DeepChem进行分子机器学习，预测ADMET与毒性等性质","环节":"实验与计算","license":"MIT license","source":"claude-scientific-skills"},{"id":"molfeat","description":"Molecular featurization for ML (100+ featurizers). ECFP, MACCS, descriptors, pretrained models (ChemBERTa), convert SMILES to features, for QSAR and molecular ML.","cn":"用molfeat将SMILES转为ECFP等100余种特征，服务QSAR建模","环节":"实验与计算","license":"Apache-2.0 license","source":"claude-scientific-skills"},{"id":"pymatgen","description":"Analyze, validate, convert, and transform materials structures and computed materials data with current pymatgen APIs, including local phase diagrams, symmetry sensitivity, electronic-structure I/O, and explicitly bounded Materials Project queries.","cn":"用pymatgen分析验证材料结构，处理相图、对称性与电子结构数据","环节":"实验与计算","license":"MIT","source":"claude-scientific-skills"},{"id":"qiskit","description":"Build, simulate, transpile, and execute quantum circuits with Qiskit and IBM Quantum Runtime. Use for Qiskit 2.x circuits and operators, V2 Sampler or Estimator primitives, target-aware transpilation, local or noisy simulation, IBM QPU execution, Runtime sessions or batches, error mitigation, and Qiskit ecosystem packages.","cn":"用Qiskit构建、模拟、转译量子线路，并对接IBM Quantum运行","环节":"实验与计算","license":"Apache-2.0","source":"claude-scientific-skills"},{"id":"qutip","description":"Simulate and audit closed and open quantum-system models with QuTiP 5, including deterministic, trajectory, steady-state, spectral, and phase-space workflows. Use for local quantum-dynamics work where physical assumptions, dimensions, and numerical convergence must be explicit.","cn":"用QuTiP模拟封闭与开放量子系统的动力学、稳态与谱学特性","环节":"实验与计算","license":"MIT","source":"claude-scientific-skills"},{"id":"rdkit","description":"Cheminformatics toolkit for fine-grained molecular control. SMILES/SDF parsing, descriptors (MW, LogP, TPSA), fingerprints, substructure search, 2D/3D generation, similarity, reactions. For standard workflows with simpler interface, use datamol (wrapper around RDKit). Use rdkit for advanced control, custom sanitization, specialized algorithms.","cn":"用RDKit精细操作分子结构，计算描述符、指纹与相似性","环节":"实验与计算","license":"BSD-3-Clause license","source":"claude-scientific-skills"}];var ASSETS_DATA=[{"名称":"计算化学智能体 MolPilot","类型":"智能体","机构":"华东师大/创智学院","简介":"基于LLM的计算化学副驾驶,自动化全流程+生成假设"},{"名称":"晶体结构解析加速器","类型":"智能体","机构":"剑桥晶体学数据中心","简介":"X射线衍射→电子密度图→原子模型精修建议"},{"名称":"SciToolAgent-Chem","类型":"工具","机构":"浙大/SCP","简介":"化学结构互转/性质/反应预测/逆合成/ML分类"},{"名称":"化学与反应计算","类型":"工具","机构":"上海AI实验室/SCP","简介":"反应参数/浓度/速率/平衡/产率"},{"名称":"Origene-PubChem","类型":"工具","机构":"临港/SCP","简介":"全球最大开放化学库"},{"名称":"Origene-ChEMBL","类型":"工具","机构":"临港/SCP","简介":"小分子生物活性库"},{"名称":"材料力学与断裂分析","类型":"工具","机构":"上海AI实验室/SCP","简介":"应力应变/断裂判据/失效预测"},{"名称":"光学与电磁学","类型":"工具","机构":"上海AI实验室/SCP","简介":"光传播/电磁场计算"},{"名称":"电学与电路计算","类型":"工具","机构":"上海AI实验室/SCP","简介":"电路参数/电磁分析"},{"名称":"SciToolAgent-Mat","类型":"工具","机构":"浙大/SCP","简介":"MOF解析/Materials Project对接/电池评估"},{"名称":"物理量与单位换算","类型":"工具","机构":"上海AI实验室/SCP","简介":"物理量与单位换算"},{"名称":"热流体学","类型":"工具","机构":"上海AI实验室/SCP","简介":"热力学/流体力学仿真"},{"名称":"Bgolearn","类型":"工具","机构":"上海大学(熊杰)","简介":"国产开源贝叶斯全局优化框架(少样本高效决策)"},{"名称":"MatDesign","类型":"工具","机构":"上海大学(熊杰)","简介":"Web端AI材料设计平台(主动学习/迁移学习)"},{"名称":"通用原子结构生成模型","类型":"模型","机构":"上海复鞍智能科技有限公司 刘智攀教授团队","简介":"刘智攀教授团队 | LASPAI（乐鞍研发)，原子模拟驱动科学发现"},{"名称":"DPA-3.2-5M","类型":"模型","机构":"深势科技 彭安洋 张铎","简介":""},{"名称":"燧人大模型-热容","类型":"模型","机构":"由@星河启智提供","简介":"first model"},{"名称":"燧人大模型-闪点","类型":"模型","机构":"由@星河启智提供","简介":"first model"},{"名称":"燧人大模型-蒸发焓","类型":"模型","机构":"由@星河启智提供","简介":"first model"},{"名称":"燧人大模型-临界体积","类型":"模型","机构":"由@星河启智提供","简介":"first model"},{"名称":"燧人大模型-临界压强","类型":"模型","机构":"由@星河启智提供","简介":"first model"},{"名称":"燧人大模型-蒸气压","类型":"模型","机构":"由@星河启智提供","简介":"first model"},{"名称":"燧人大模型-临界密度","类型":"模型","机构":"由@星河启智提供","简介":"first model"},{"名称":"燧人大模型-气体扩散系数","类型":"模型","机构":"由@星河启智提供","简介":"first model"},{"名称":"燧人大模型-临界压缩系数","类型":"模型","机构":"由@星河启智提供","简介":"first model"},{"名称":"燧人大模型-粘度","类型":"模型","机构":"由@星河启智提供","简介":"first model"},{"名称":"燧人大模型-热膨胀系数","类型":"模型","机构":"由@星河启智提供","简介":"first model"},{"名称":"燧人大模型-生成焓","类型":"模型","机构":"由@星河启智提供","简介":"first model"},{"名称":"燧人大模型-燃烧焓","类型":"模型","机构":"由@星河启智提供","简介":"first model"},{"名称":"燧人大模型-沸点","类型":"模型","机构":"由@星河启智提供","简介":"first model"},{"名称":"燧人大模型-溶解度常数","类型":"模型","机构":"由@星河启智提供","简介":"first model"},{"名称":"lerobot_smolvlav1","类型":"模型","机构":"jtekt-physical-ai","简介":""},{"名称":"chinese-roberta-climate-transition-physical-risk-prediction-v5","类型":"模型","机构":"hw2942","简介":""}];var TUT_IDS=["alphafold2","diffdock","proteinmpnn","evo2","scgpt","scanpy","rdkit","pymatgen","pydeseq2","molecular-dynamics","database-lookup","gget","depmap","literature-review","scientific-writing","hypothesis-generation","statistical-analysis","matplotlib","peer-review","stats-integrity","idea-evaluator","tech-paper-template","paper-writer","figure-designer"];</script>
+<script>var VERTICALS={"material":{"学科":"材料化学","视频":"ai-hand.mp4","视频2":"hand-touch.mp4","主题色":"#b45309","主题深":"#78350f","主题浅":"#fef3c7","图标":"⚛️","受众":"材料 / 化学 / 化工 / 能源教授","资产数":"33","构成":"2 智能体 / 12 工具链 / 19 模型","Hero标题":"从经验试错到数据驱动<br>AI 正在重构材料与化学研发","Hero副":"计算化学 · 新材料发现 · 结构解析 · 性质预测--33 项材料化学 AI 资产，让'十年磨一剑'变成'一键通关'。","统计":[["33","材料化学AI资产"],["19","垂类模型"],["10235","电解液数据集"],["一键","半导体研发通关"]],"AI4S范畴":[{"标题":"计算化学","内容":"LLM 副驾驶(MolPilot)接管计算化学全流程,自动生成科学假设;ECNU-ChemGPT2 化学大模型支持逆合成路线规划;反应/性质/逆合成预测一站式。"},{"标题":"新材料发现","内容":"主动学习(Bgolearn)+ 生成模型,少样本高效发现新材料;SciToolAgent-Mat 对接 Materials Project,电池/MOF 评估开箱即用;LASP 神经网络势函数大尺度原子模拟。"},{"标题":"结构与解析","内容":"X 射线衍射 -> 电子密度图 -> 原子模型精修,晶体结构解析加速器 + DPA 深度势能原子模拟,结构解析周期数量级缩短。"},{"标题":"性质预测","内容":"燧人系列模型预测热膨胀/临界密度/蒸气压/粘度等材料物性,替代昂贵实验测定。"}],"基础技巧":[{"工具":"MolPilot","步骤":"计算化学副驾驶:输入研究问题 -> 自动生成假设 -> 调用结构互转/性质/反应预测/逆合成工具 -> 返回完整分析。"},{"工具":"Bgolearn","步骤":"国产开源贝叶斯优化:npx 启动 -> 输入已有实验数据(少样本)-> 主动学习推荐下一组实验参数,替代盲目 DOE。"},{"工具":"SciToolAgent-Mat","步骤":"材料计算工具:MOF 解析 / Materials Project 对接 / 电池评估,72.4k 调用,Web 端即用。"}],"科研设计":[{"阶段":"假设与检索","要点":"ECNU-ChemGPT2 生成逆合成路线假设;Origene-PubChem 查全球最大开放化学库定位已知化合物。"},{"阶段":"计算筛选","要点":"MolPilot 预测反应/性质;Bgolearn 主动学习在少样本下推荐最优配方;LASP 大尺度原子模拟验证机理。"},{"阶段":"实验验证","要点":"计算筛选 top 候选 -> 湿实验合成验证 -> 数据回流再训练 Bgolearn,迭代优化。"},{"阶段":"结构表征","要点":"晶体结构解析加速器处理 XRD 数据;DPA 深度势能模拟确认原子级结构。"}],"适用工具指导":{"流程":{"摘":"假设(ECNU-ChemGPT2)-> 检索(PubChem)-> 计算(MolPilot/Bgolearn/LASP)-> 验证(湿实验)-> 表征(晶体解析)","详":"四阶段:①假设用 ECNU-ChemGPT2 生成逆合成路线;②检索用 Origene-PubChem 查全球化学库;③计算用 MolPilot 预测反应/性质、Bgolearn 主动学习推荐配方、LASP 大尺度原子模拟;④表征用晶体结构解析加速器处理 XRD。"},"数据集":{"摘":"PubChem(化学库)、Materials Project(材料数据)、电解液数据集(10235 条)、MOF 数据","详":"PubChem:全球最大开放化学库;Materials Project:材料数据;电解液数据集(10235条);MOF 数据。"},"模型":{"摘":"ECNU-ChemGPT2(化学大模型)、DPA(深度势能)、燧人系列(物性预测)、LASP(神经网络势函数)","详":"ECNU-ChemGPT2:化学大模型(知识图谱+逆合成);DPA:深度势能原子模拟;燧人系列:材料物性预测;LASP:神经网络势函数。"},"算力":{"摘":"LASP/DPA 大尺度原子模拟需 GPU;Bgolearn 少样本优化 CPU 即可;轻量性质预测云端 API","详":"LASP/DPA 大尺度原子模拟需 GPU;Bgolearn 少样本优化 CPU 即可;性质预测可云端 API。"}},"场景":[{"id":"chem","名称":"计算化学","图标":"🧪","一句话":"LLM 副驾驶接管计算化学全流程，自动生成假设","痛点":"量化计算门槛高、反应路径靠经验、逆合成靠人工","适合谁":"计算化学/量子化学/理论化学课题组","代表工具":[{"名称":"MolPilot","类型":"智能体","价值":"基于LLM的计算化学副驾驶:自动化全流程+生成科学假设","机构":"华东师大/创智学院"},{"名称":"SciToolAgent-Chem","类型":"工具","价值":"化学结构互转/性质/反应预测/逆合成/ML分类","机构":"浙大/SCP"},{"名称":"化学与反应计算","类型":"工具","价值":"反应参数/浓度/速率/平衡/产率计算","机构":"上海AI实验室/SCP"},{"名称":"Origene-PubChem","类型":"工具","价值":"全球最大开放化学库即查即用","机构":"临港/SCP"},{"名称":"ECNU-ChemGPT2","类型":"模型","热度":"↓73","价值":"化学大模型:化学知识图谱+逆合成","机构":"华东师大(何晓)"}],"营销钩子":"化学大模型 ECNU-ChemGPT2 已被下载 73 次--你的逆合成还在手动画路线吗?"},{"id":"newmat","名称":"新材料发现","图标":"🔋","一句话":"主动学习+生成模型，少样本高效发现新材料","痛点":"配方摸索靠试错、实验数据零散、工艺优化靠经验","适合谁":"能源材料/电池/催化/高分子课题组","代表工具":[{"名称":"Bgolearn","类型":"工具","价值":"国产开源贝叶斯全局优化:少样本高效决策,替代盲目DOE","机构":"上海大学(熊杰)"},{"名称":"MatDesign","类型":"工具","价值":"Web端AI材料设计平台(主动学习/迁移学习)","机构":"上海大学(熊杰)"},{"名称":"SciToolAgent-Mat","类型":"工具","热度":"72.4k","价值":"MOF解析/Materials Project对接/电池评估","机构":"浙大/SCP"},{"名称":"LASP","类型":"平台","价值":"神经网络势函数大尺度原子模拟,能量计算提速3-4个数量级","机构":"复旦/复鞍智能"},{"名称":"燧人系列模型","类型":"模型","热度":"↓8+","价值":"热膨胀/临界密度/蒸气压/粘度等材料物性预测","机构":"星河启智"}],"营销钩子":"AI 辅助发现新分子突破电池寿命极限(标杆)--材料发现效率跃升"},{"id":"struct","名称":"结构与解析","图标":"💎","一句话":"X射线衍射到原子模型，AI 加速晶体结构解析","痛点":"结构解析靠人工、衍射数据处理慢、精修靠经验","适合谁":"晶体学/结构化学/材料表征课题组","代表工具":[{"名称":"晶体结构解析加速器","类型":"智能体","价值":"X射线衍射->电子密度图->原子模型精修建议","机构":"剑桥晶体学数据中心"},{"名称":"DPA-3.2-5M","类型":"模型","热度":"↓13","价值":"深度势能原子模拟(深势科技)","机构":"深势科技"},{"名称":"通用原子结构生成模型","类型":"模型","价值":"LASP团队:原子模拟驱动结构生成","机构":"复鞍智能(刘智攀)"}],"营销钩子":"半导体研发'十年磨一剑'->'一键通关'(标杆)--结构解析周期数量级缩短"}],"卡点":["计算门槛太高","配方试错太慢","结构解析太难","缺AI方法/人才"]}};var POLICIES_JSON={"政策":[{"标题":"2026年度上海市\"人工智能+\"及科学智能\"百团百项\"项目申报","状态":"已截止","申报时间窗":"2026-05-12 ~ 2026-06-01","资助强度":"百团百项专项经费（具体额度按项目评审）","重点领域":["生命科学","物质科学","地球环境","数学量子","工程技术"],"匹配标签":["青年科学家","40岁以下","百团百项","科学智能","团队申报","五大学科","成果共享"]},{"标题":"2025年度科学智能\"百团百项\"专项申报","状态":"已截止","申报时间窗":"2025年度批次","资助强度":"百团百项专项经费","重点领域":["生命科学","物质科学","地球环境","数学量子","工程技术"],"匹配标签":["百团百项","青年科学家","科学智能","首年"]}]};var SKILLS_DATA=[{"id":"astropy","description":"Core Python library for astronomy and astrophysics workflows that need Astropy APIs, including units/quantities, coordinates, FITS I/O, tables, time systems, WCS, and cosmology. Use when implementing or debugging astronomical data analysis code with Astropy.","cn":"用Astropy处理天文单位、坐标、FITS文件、时间系统与宇宙学计算","环节":"实验与计算","license":"BSD-3-Clause license","source":"claude-scientific-skills"},{"id":"catalyst_sar_screening","description":"HARD-LOCKED Catalyst-Design-Agent FAIRChem UMA (uma-s-1p1, oc20) SAC SAR screening for dissolution potential / adsorption / overpotential. Always call run_pipeline with the user's metals/metrics into a fresh workdir and present ONLY that run's result[\"deliverables\"]. FORBIDDEN to return committed demo shells (metal_center_dissolution_*) as user results. FORBIDDEN tabular/heuristic/other MLIPs. If HF_TOKEN or hub unreachable, STOP and ask (HF_TOKEN / HF_ENDPOINT). Keywords: MLFF, UMA, OC20, catag","cn":"用FAIRChem UMA筛选催化剂的溶解电位、吸附与过电位等SAR指标","环节":"实验与计算","license":"MIT","source":"OpenAI4S"},{"id":"datamol","description":"Pythonic wrapper around RDKit with simplified interface and sensible defaults. Preferred for standard drug discovery including SMILES parsing, standardization, descriptors, fingerprints, clustering, 3D conformers, parallel processing. Returns native rdkit.Chem.Mol objects. For advanced control or custom parameters, use rdkit directly.","cn":"基于RDKit的简化封装，快速处理SMILES、描述符、指纹与聚类","环节":"实验与计算","license":"Apache-2.0 license","source":"claude-scientific-skills"},{"id":"deepchem","description":"Molecular ML with diverse featurizers and pre-built datasets. Use for property prediction (ADMET, toxicity) with traditional ML or GNNs when you want extensive featurization options and MoleculeNet benchmarks. Best for quick experiments with pre-trained models, diverse molecular representations. For graph-first PyTorch workflows use torchdrug; for benchmark datasets use pytdc.","cn":"用DeepChem进行分子机器学习，预测ADMET与毒性等性质","环节":"实验与计算","license":"MIT license","source":"claude-scientific-skills"},{"id":"molfeat","description":"Molecular featurization for ML (100+ featurizers). ECFP, MACCS, descriptors, pretrained models (ChemBERTa), convert SMILES to features, for QSAR and molecular ML.","cn":"用molfeat将SMILES转为ECFP等100余种特征，服务QSAR建模","环节":"实验与计算","license":"Apache-2.0 license","source":"claude-scientific-skills"},{"id":"pymatgen","description":"Analyze, validate, convert, and transform materials structures and computed materials data with current pymatgen APIs, including local phase diagrams, symmetry sensitivity, electronic-structure I/O, and explicitly bounded Materials Project queries.","cn":"用pymatgen分析验证材料结构，处理相图、对称性与电子结构数据","环节":"实验与计算","license":"MIT","source":"claude-scientific-skills"},{"id":"qiskit","description":"Build, simulate, transpile, and execute quantum circuits with Qiskit and IBM Quantum Runtime. Use for Qiskit 2.x circuits and operators, V2 Sampler or Estimator primitives, target-aware transpilation, local or noisy simulation, IBM QPU execution, Runtime sessions or batches, error mitigation, and Qiskit ecosystem packages.","cn":"用Qiskit构建、模拟、转译量子线路，并对接IBM Quantum运行","环节":"实验与计算","license":"Apache-2.0","source":"claude-scientific-skills"},{"id":"qutip","description":"Simulate and audit closed and open quantum-system models with QuTiP 5, including deterministic, trajectory, steady-state, spectral, and phase-space workflows. Use for local quantum-dynamics work where physical assumptions, dimensions, and numerical convergence must be explicit.","cn":"用QuTiP模拟封闭与开放量子系统的动力学、稳态与谱学特性","环节":"实验与计算","license":"MIT","source":"claude-scientific-skills"},{"id":"rdkit","description":"Cheminformatics toolkit for fine-grained molecular control. SMILES/SDF parsing, descriptors (MW, LogP, TPSA), fingerprints, substructure search, 2D/3D generation, similarity, reactions. For standard workflows with simpler interface, use datamol (wrapper around RDKit). Use rdkit for advanced control, custom sanitization, specialized algorithms.","cn":"用RDKit精细操作分子结构，计算描述符、指纹与相似性","环节":"实验与计算","license":"BSD-3-Clause license","source":"claude-scientific-skills"}];var ASSETS_DATA=[{"名称":"计算化学智能体 MolPilot","类型":"智能体","机构":"华东师大/创智学院","简介":"基于LLM的计算化学副驾驶,自动化全流程+生成假设"},{"名称":"晶体结构解析加速器","类型":"智能体","机构":"剑桥晶体学数据中心","简介":"X射线衍射→电子密度图→原子模型精修建议"},{"名称":"SciToolAgent-Chem","类型":"工具","机构":"浙大/SCP","简介":"化学结构互转/性质/反应预测/逆合成/ML分类"},{"名称":"化学与反应计算","类型":"工具","机构":"上海AI实验室/SCP","简介":"反应参数/浓度/速率/平衡/产率"},{"名称":"Origene-PubChem","类型":"工具","机构":"临港/SCP","简介":"全球最大开放化学库"},{"名称":"Origene-ChEMBL","类型":"工具","机构":"临港/SCP","简介":"小分子生物活性库"},{"名称":"材料力学与断裂分析","类型":"工具","机构":"上海AI实验室/SCP","简介":"应力应变/断裂判据/失效预测"},{"名称":"光学与电磁学","类型":"工具","机构":"上海AI实验室/SCP","简介":"光传播/电磁场计算"},{"名称":"电学与电路计算","类型":"工具","机构":"上海AI实验室/SCP","简介":"电路参数/电磁分析"},{"名称":"SciToolAgent-Mat","类型":"工具","机构":"浙大/SCP","简介":"MOF解析/Materials Project对接/电池评估"},{"名称":"物理量与单位换算","类型":"工具","机构":"上海AI实验室/SCP","简介":"物理量与单位换算"},{"名称":"热流体学","类型":"工具","机构":"上海AI实验室/SCP","简介":"热力学/流体力学仿真"},{"名称":"Bgolearn","类型":"工具","机构":"上海大学(熊杰)","简介":"国产开源贝叶斯全局优化框架(少样本高效决策)"},{"名称":"MatDesign","类型":"工具","机构":"上海大学(熊杰)","简介":"Web端AI材料设计平台(主动学习/迁移学习)"},{"名称":"通用原子结构生成模型","类型":"模型","机构":"上海复鞍智能科技有限公司 刘智攀教授团队","简介":"刘智攀教授团队 | LASPAI（乐鞍研发)，原子模拟驱动科学发现"},{"名称":"DPA-3.2-5M","类型":"模型","机构":"深势科技 彭安洋 张铎","简介":""},{"名称":"燧人大模型-热容","类型":"模型","机构":"由@星河启智提供","简介":"first model"},{"名称":"燧人大模型-闪点","类型":"模型","机构":"由@星河启智提供","简介":"first model"},{"名称":"燧人大模型-蒸发焓","类型":"模型","机构":"由@星河启智提供","简介":"first model"},{"名称":"燧人大模型-临界体积","类型":"模型","机构":"由@星河启智提供","简介":"first model"},{"名称":"燧人大模型-临界压强","类型":"模型","机构":"由@星河启智提供","简介":"first model"},{"名称":"燧人大模型-蒸气压","类型":"模型","机构":"由@星河启智提供","简介":"first model"},{"名称":"燧人大模型-临界密度","类型":"模型","机构":"由@星河启智提供","简介":"first model"},{"名称":"燧人大模型-气体扩散系数","类型":"模型","机构":"由@星河启智提供","简介":"first model"},{"名称":"燧人大模型-临界压缩系数","类型":"模型","机构":"由@星河启智提供","简介":"first model"},{"名称":"燧人大模型-粘度","类型":"模型","机构":"由@星河启智提供","简介":"first model"},{"名称":"燧人大模型-热膨胀系数","类型":"模型","机构":"由@星河启智提供","简介":"first model"},{"名称":"燧人大模型-生成焓","类型":"模型","机构":"由@星河启智提供","简介":"first model"},{"名称":"燧人大模型-燃烧焓","类型":"模型","机构":"由@星河启智提供","简介":"first model"},{"名称":"燧人大模型-沸点","类型":"模型","机构":"由@星河启智提供","简介":"first model"},{"名称":"燧人大模型-溶解度常数","类型":"模型","机构":"由@星河启智提供","简介":"first model"},{"名称":"lerobot_smolvlav1","类型":"模型","机构":"jtekt-physical-ai","简介":""},{"名称":"chinese-roberta-climate-transition-physical-risk-prediction-v5","类型":"模型","机构":"hw2942","简介":""}];var TUT_IDS=["alphafold2","diffdock","proteinmpnn","evo2","scgpt","scanpy","rdkit","pymatgen","pydeseq2","molecular-dynamics","database-lookup","gget","depmap","literature-review","scientific-writing","hypothesis-generation","statistical-analysis","matplotlib","peer-review","stats-integrity","idea-evaluator","tech-paper-template","paper-writer","figure-designer"];</script>
 <script>
 
 const V=VERTICALS["material"],S=V.场景,POL=POLICIES_JSON;

@@ -5,55 +5,60 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>工程制造 × AI · 科研工具箱</title>
 <style>
-:root{--pri:#1d4ed8;--pri2:#1e3a8a;--deep:#1e3a8a;--acc:#1a56db;--ink:#111827;--sub:#6b7280;--line:#e5e7eb;--bg:#dbeafe;--card:#fff;}
+:root{--pri:#1d4ed8;--pri2:#1e3a8a;--deep:#1e3a8a;--veil:rgba(30,58,138,0.42);--acc:#1a56db;--ink:#e2e8f0;--sub:#94a3b8;--line:rgba(148,163,184,.18);--bg:rgba(255,255,255,.07);--card:rgba(9,25,46,.55);
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:#fafafa;line-height:1.7}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:#081a30;line-height:1.7}
 .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
-nav{position:sticky;top:0;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:50}
+.bg-video{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.bg-veil{position:fixed;inset:0;z-index:0;background:linear-gradient(180deg,rgba(5,15,29,.42) 0%,rgba(6,18,34,.70) 40%,rgba(5,15,29,.88) 100%)}
+section,footer{position:relative;z-index:1}
+.info-card,.step-card,.scene,.diag,.scene-detail,.rep-block,.tool-card,.case-card,.guide-box{backdrop-filter:blur(10px)}
+nav{position:sticky;top:0;background:rgba(8,26,48,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);z-index:50}
 nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
-.logo{font-weight:800;font-size:19px;color:var(--deep)}.logo span{color:var(--pri)}
+.logo{font-weight:800;font-size:19px;color:#eef2f7}.logo span{color:var(--pri)}
 nav a.btn{background:var(--pri);color:#fff;padding:9px 18px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:600}
 .hero{position:relative;color:#fff;padding:70px 0 60px;overflow:hidden}
 .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
-.hero-veil{position:absolute;inset:0;z-index:1;background:linear-gradient(100deg,rgba(30,58,138,.42) 0%,rgba(30,58,138,.12) 42%,rgba(30,58,138,0) 68%),linear-gradient(180deg,rgba(0,0,0,.08) 0%,rgba(0,0,0,0) 45%,rgba(0,0,0,.38) 100%);}
+.hero-veil{position:absolute;inset:0;z-index:1;background:linear-gradient(100deg,var(--veil) 0%,transparent 68%),linear-gradient(180deg,rgba(0,0,0,.08) 0%,rgba(0,0,0,0) 45%,rgba(0,0,0,.38) 100%)}
 .hero .wrap{position:relative;z-index:2}
 .hero .kick{display:inline-block;background:rgba(255,255,255,.15);padding:5px 14px;border-radius:20px;font-size:13px;margin-bottom:18px;font-weight:600}
 .hero h1{font-size:38px;line-height:1.25;font-weight:800;margin-bottom:16px}
 .hero p{font-size:17px;opacity:.94;max-width:680px;margin-bottom:28px}
-.hero .cta{display:inline-block;background:#fff;color:var(--deep);padding:14px 32px;border-radius:10px;font-weight:700;font-size:17px;text-decoration:none;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.hero .cta{display:inline-block;background:linear-gradient(135deg,var(--pri),var(--deep));color:#fff;padding:14px 32px;border-radius:10px;font-weight:700;font-size:17px;text-decoration:none;box-shadow:0 8px 26px rgba(0,0,0,.35)}
 .badges{display:flex;gap:26px;margin-top:38px;flex-wrap:wrap}
-.badges div{font-size:13px;opacity:.92}.badges b{display:block;font-size:25px;font-weight:800}
+.badges div{font-size:13px;opacity:.92}.badges b{display:block;font-size:25px;font-weight:800;text-shadow:0 2px 12px rgba(0,0,0,.5)}
 section{padding:54px 0}
-.sec-title{font-size:27px;font-weight:800;text-align:center;margin-bottom:8px;color:var(--deep)}
+.sec-title{font-size:27px;font-weight:800;text-align:center;margin-bottom:8px;color:#eef2f7}
 .sec-sub{text-align:center;color:var(--sub);margin-bottom:34px;font-size:15px}
-.sec-num{display:inline-block;background:var(--pri);color:#fff;width:32px;height:32px;border-radius:50%;line-height:32px;text-align:center;font-size:15px;font-weight:700;margin-right:10px;vertical-align:middle}
+.sec-num{display:inline-block;background:linear-gradient(135deg,var(--pri),var(--deep));color:#fff;width:32px;height:32px;border-radius:50%;line-height:32px;text-align:center;font-size:15px;font-weight:700;margin-right:10px;vertical-align:middle}
 .grid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}
 .info-card{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--pri);border-radius:12px;padding:22px}
-.info-card h3{color:var(--deep);font-size:18px;margin-bottom:8px}
-.info-card p{font-size:14px;color:#374151;line-height:1.6}
+.info-card h3{color:#e8eef7;font-size:18px;margin-bottom:8px}
+.info-card p{font-size:14px;color:#c6d3e3;line-height:1.6}
 .step-card{display:flex;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 22px;align-items:flex-start}
-.step-no{background:var(--bg);color:var(--deep);font-weight:700;font-size:14px;padding:6px 14px;border-radius:8px;white-space:nowrap;border:1px solid var(--pri)}
-.step-card p{font-size:14px;color:#374151;flex:1}
+.step-no{background:rgba(255,255,255,.06);color:var(--pri);font-weight:700;font-size:14px;padding:6px 14px;border-radius:8px;white-space:nowrap;border:1px solid var(--pri)}
+.step-card p{font-size:14px;color:#c6d3e3;flex:1}
 .scene-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:18px}
 .scene{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;transition:.2s;cursor:pointer}
-.scene:hover{box-shadow:0 10px 28px rgba(0,0,0,.08);transform:translateY(-3px);border-color:var(--pri)}
+.scene:hover{box-shadow:0 14px 34px rgba(0,0,0,.42);transform:translateY(-3px);border-color:var(--pri)}
+.info-card:hover,.step-card:hover,.case-card:hover,.guide-box:hover{box-shadow:0 14px 34px rgba(0,0,0,.42);transform:translateY(-3px);border-color:var(--pri);transition:.2s}
 .scene .ic{font-size:32px;margin-bottom:10px}
-.scene h3{font-size:19px;margin-bottom:6px;color:var(--deep)}
+.scene h3{font-size:19px;margin-bottom:6px;color:#e8eef7}
 .scene .one{font-size:13.5px;color:var(--sub);margin-bottom:12px;line-height:1.5}
-.scene .who{font-size:12px;background:var(--bg);color:var(--deep);padding:5px 11px;border-radius:8px;display:inline-block;margin-bottom:12px}
+.scene .who{font-size:12px;background:rgba(255,255,255,.06);color:#cbd5e1;padding:5px 11px;border-radius:8px;display:inline-block;margin-bottom:12px}
 .scene .tools-count{font-size:12.5px;color:var(--pri);font-weight:700}
-.scene .hook{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);font-size:12.5px;color:#92400e;font-style:italic}
-.scene-detail{display:none;background:#fff;border:1px solid var(--line);border-radius:14px;padding:28px;margin-top:18px}
+.scene .hook{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);font-size:12.5px;color:#fbbf24;font-style:italic}
+.scene-detail{display:none;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:28px;margin-top:18px}
 .scene-detail.open{display:block}
 .sd-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.sd-head h3{font-size:22px;color:var(--deep)}
+.sd-head h3{font-size:22px;color:#e8eef7}
 .sd-close{background:none;border:1px solid var(--line);border-radius:8px;padding:6px 14px;cursor:pointer;color:var(--sub)}
-.sd-pain{background:#fff7ed;border-left:4px solid #f59e0b;padding:12px 16px;border-radius:8px;font-size:14px;margin:14px 0}
+.sd-pain{background:rgba(245,158,11,.1);border-left:4px solid #f59e0b;padding:12px 16px;border-radius:8px;font-size:14px;margin:14px 0}
 .tool-row{display:flex;gap:14px;padding:13px 0;border-bottom:1px dashed var(--line);align-items:flex-start}
 .tool-row:last-child{border:none}
 .tool-row .nm{font-weight:700;min-width:170px;font-size:14.5px}
 .tool-row .nm .tag{display:block;font-size:11px;color:var(--pri);font-weight:600;margin-top:2px}
-.tool-row .val{flex:1;font-size:13.5px;color:#374151}
+.tool-row .val{flex:1;font-size:13.5px;color:#c6d3e3}
 .tool-row .heat{color:var(--pri);font-weight:700;font-size:12.5px;white-space:nowrap}
 .tool-link{color:var(--pri);cursor:pointer;border-bottom:1px dashed var(--pri);display:inline-block}
 .tool-link:hover{color:var(--deep);border-color:var(--deep)}
@@ -62,15 +67,15 @@ section{padding:54px 0}
 .q{margin-bottom:22px}.q label{display:block;font-weight:700;margin-bottom:11px;font-size:15.5px}
 .q .num{color:var(--pri);margin-right:6px}
 .opts{display:flex;flex-wrap:wrap;gap:9px}
-.opt{border:1.5px solid var(--line);background:#fff;padding:9px 16px;border-radius:9px;cursor:pointer;font-size:13.5px;transition:.15s}
+.opt{border:1.5px solid var(--line);background:rgba(255,255,255,.05);padding:9px 16px;border-radius:9px;cursor:pointer;font-size:13.5px;transition:.15s}
 .opt:hover{border-color:var(--pri)}.opt.sel{background:var(--pri);color:#fff;border-color:var(--pri)}
 .diag-btn{width:100%;background:var(--deep);color:#fff;border:none;padding:14px;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;margin-top:6px}
 .diag-btn:disabled{background:#9ca3af;cursor:not-allowed}
 .report{display:none;margin-top:10px}
-.rep-block{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:14px}
-.rep-block h4{color:var(--deep);margin-bottom:11px;font-size:15.5px}
-.rep-pain{background:#fff7ed;border-left:4px solid #f59e0b;padding:13px 17px;border-radius:8px;margin-bottom:14px;font-size:14px}
-.warntip{background:#fef2f2;border-left:4px solid #e02424;padding:11px 15px;border-radius:8px;font-size:13.5px;margin-top:10px}
+.rep-block{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:14px}
+.rep-block h4{color:#e8eef7;margin-bottom:11px;font-size:15.5px}
+.rep-pain{background:rgba(245,158,11,.1);border-left:4px solid #f59e0b;padding:13px 17px;border-radius:8px;margin-bottom:14px;font-size:14px}
+.warntip{background:rgba(224,36,36,.12);border-left:4px solid #e02424;padding:11px 15px;border-radius:8px;font-size:13.5px;margin-top:10px}
 .lead{background:linear-gradient(135deg,var(--deep),var(--pri));border-radius:14px;padding:30px;color:#fff;text-align:center;margin-top:18px}
 .lead h3{font-size:20px;margin-bottom:8px}.lead p{opacity:.92;margin-bottom:18px;font-size:13.5px}
 .lead form{display:flex;gap:10px;max-width:520px;margin:0 auto;flex-wrap:wrap;justify-content:center}
@@ -83,32 +88,32 @@ section{padding:54px 0}
 .pol-amt{color:var(--pri);font-weight:700;font-size:13.5px;white-space:nowrap}
 .tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
 .tool-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;cursor:pointer;transition:.2s}
-.tool-card:hover{border-color:var(--pri);box-shadow:0 4px 12px rgba(0,0,0,.06)}
+.tool-card:hover{border-color:var(--pri);box-shadow:0 10px 26px rgba(0,0,0,.4);transform:translateY(-2px)}
 .tool-card .tc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:8px}
-.tool-card .tc-name{font-weight:700;color:var(--deep);font-size:14px}
-.tool-card .tc-badge{font-size:11px;background:var(--bg);color:var(--deep);padding:2px 8px;border-radius:6px;white-space:nowrap}
-.tool-card .tc-lic{font-size:10px;background:#fef3c7;color:#92400e;padding:1px 6px;border-radius:4px}
+.tool-card .tc-name{font-weight:700;color:#e8eef7;font-size:14px}
+.tool-card .tc-badge{font-size:11px;background:rgba(255,255,255,.06);color:#cbd5e1;padding:2px 8px;border-radius:6px;white-space:nowrap}
+.tool-card .tc-lic{font-size:10px;background:rgba(253,230,138,.14);color:#fde68a;padding:1px 6px;border-radius:4px}
 .tool-card .tc-cn{font-size:12.5px;color:var(--sub);line-height:1.5}
 .tool-card .tc-detail{display:none;margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
 .tool-card.open .tc-detail{display:block}
-.tool-card .en{font-size:12px;color:#374151;margin-bottom:8px;line-height:1.5}
+.tool-card .en{font-size:12px;color:#c6d3e3;margin-bottom:8px;line-height:1.5}
 .tool-card .install-box{background:#0f172a;color:#a7f3d0;padding:10px 12px;border-radius:6px;font-size:11.5px;font-family:monospace;margin:8px 0}
 .tool-card .asset-meta{font-size:12px;color:var(--sub);margin-top:6px}
 .tool-card a{display:inline-block;margin-top:6px;color:var(--pri);font-size:12.5px;text-decoration:none}
 .tool-card .tut-link{margin-left:10px}
-.tc-lic{font-size:10px;background:#fef3c7;color:#92400e;padding:1px 6px;border-radius:4px}
+.tc-lic{font-size:10px;background:rgba(253,230,138,.14);color:#fde68a;padding:1px 6px;border-radius:4px}
 .case-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;border-top:3px solid var(--pri)}
 .case-no{font-size:12px;color:var(--pri);font-weight:600;margin-bottom:6px}
-.case-card h3{font-size:16px;color:var(--deep);margin-bottom:6px}
+.case-card h3{font-size:16px;color:#e8eef7;margin-bottom:6px}
 .case-one{font-size:13.5px;color:var(--sub);margin-bottom:8px}
 .case-meta{font-size:12px;color:var(--sub)}
 .empty{color:var(--sub);font-size:14px;text-align:center;padding:20px}
 .guide-box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;margin-bottom:14px}
-.guide-box h4{color:var(--deep);font-size:15px;margin-bottom:8px}
-.guide-box p{font-size:13.5px;color:#374151}
+.guide-box h4{color:#e8eef7;font-size:15px;margin-bottom:8px}
+.guide-box p{font-size:13.5px;color:#c6d3e3}
 .guide-exp{cursor:pointer;transition:.2s}.guide-exp:hover{border-color:var(--pri)}
 .guide-exp .exp-hint{font-size:12px;color:var(--pri);font-weight:400;float:right}
-.guide-exp .g-det{display:none;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);font-size:13.5px;color:#374151;line-height:1.7}
+.guide-exp .g-det{display:none;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);font-size:13.5px;color:#c6d3e3;line-height:1.7}
 .guide-exp.open .g-det{display:block}
 .guide-exp .g-det a{color:var(--pri);text-decoration:none;border-bottom:1px dashed var(--pri);cursor:pointer}
 footer{background:var(--deep);color:rgba(255,255,255,.8);text-align:center;padding:28px 0;font-size:13px;margin-top:40px}
@@ -120,6 +125,9 @@ footer a{color:#fff}
 <nav><div class="wrap">
   <div class="logo">工程制造<span>×</span>AI 工具箱</div>
 </div></nav>
+
+<video class="bg-video" autoplay muted loop playsinline><source src="assets/img/forge.mp4" type="video/mp4"></video>
+<div class="bg-veil"></div>
 
 <header class="hero">
   <video class="hero-video" autoplay muted loop playsinline><source src="assets/img/wave.mp4" type="video/mp4"></video>
@@ -142,7 +150,7 @@ footer a{color:#fff}
 </div></section>
 
 <!-- 2. 基础使用技巧 -->
-<section id="basics" style="background:#fff"><div class="wrap">
+<section id="basics"><div class="wrap">
   <h2 class="sec-title"><span class="sec-num">2</span>基础使用技巧</h2>
   <p class="sec-sub">从零上手--核心工具的使用路径</p>
   <div class="grid2"><div class="info-card"><h3>Optics GPT</h3><p>光领域垂直大模型:输入光学设计问题 -> 生成设计方案/参数建议,替代经验试错。</p></div><div class="info-card"><h3>COAP 优化平台</h3><p>在线优化求解:在 Web 端定义变量/约束/目标 -> 调用 COPT/COIN 求解 -> 获取最优解。</p></div><div class="info-card"><h3>Thoth-Plan</h3><p>科研 protocol 自动生成:描述实验目标 -> 生成可执行 protocol -> Thoth-OP 编排原子操作(移液/混匀/离心)。</p></div></div>
@@ -156,7 +164,7 @@ footer a{color:#fff}
 </div></section>
 
 <!-- 4. 场景诊断建议 -->
-<section id="scenes" style="background:#fff"><div class="wrap">
+<section id="scenes"><div class="wrap">
   <h2 class="sec-title"><span class="sec-num">4</span>场景诊断建议</h2>
   <p class="sec-sub">点开你的方向,看同行在用什么 AI;3 个问题生成专属落地路径</p>
   <div class="scene-grid" id="sceneGrid"></div>
@@ -196,7 +204,7 @@ footer a{color:#fff}
 </div></section>
 
 <!-- 5. 政策扶持指引 -->
-<section id="policy" style="background:#fff"><div class="wrap">
+<section id="policy"><div class="wrap">
   <h2 class="sec-title"><span class="sec-num">5</span>政策扶持指引</h2>
   <p class="sec-sub">工程制造方向可申报的经费政策(以官方通知为准)</p>
   <div style="max-width:820px;margin:0 auto"><div class="pol-row"><div class="pol-name">上海市进一步推动"AI+制造"发展的若干措施<span class="pol-tag">申报中 · 常年受理，分批评审（最新一批）</span></div><div class="pol-amt">算力租用最高补4000万；工业大模型/智能体研发最高2000万；中试基地最高20</div></div><div class="pol-row"><div class="pol-name">2026年度上海市"人工智能+"及科学智能"百团百项"项目申报<span class="pol-tag">已截止 · 2026-05-12 ~ 2026-06-01</span></div><div class="pol-amt">百团百项专项经费（具体额度按项目评审）</div></div><div class="pol-row"><div class="pol-name">贯彻落实国家"人工智能+"行动·2025上海申报通知<span class="pol-tag">已截止 · 2025年度批次</span></div><div class="pol-amt">目标：≥10个产业创新公共服务平台、≥100项核心技术突破、≥200个标杆示范应</div></div><div class="pol-row"><div class="pol-name">2025年度科学智能"百团百项"专项申报<span class="pol-tag">已截止 · 2025年度批次</span></div><div class="pol-amt">百团百项专项经费</div></div></div>
@@ -209,14 +217,14 @@ footer a{color:#fff}
   <div class="guide-box guide-exp"><h4>🔧 科研流程规划 <span class="exp-hint">▾ 详情</span></h4><p class="g-sum">建模(COLORMind)-> 数据(产线/实验)-> 求解(COAP/ManuDrive)-> 自动化(Thoth)-> 验证</p><div class="g-det">四阶段:①建模(COLORMind 自然语言转数学模型);②数据采集(产线/实验);③求解(COAP/ManuDrive);④自动化验证(Thoth 编排湿实验)。</div></div>
   <div class="guide-box guide-exp"><h4>📊 数据集采纳 <span class="exp-hint">▾ 详情</span></h4><p class="g-sum">产线工艺数据、实验 protocol 库、光学参数数据集</p><div class="g-det">产线工艺数据;实验 protocol 库;光学参数数据集。</div></div>
   <div class="guide-box guide-exp"><h4>🤖 模型与算力选择 <span class="exp-hint">▾ 详情</span></h4><p class="g-sum">Optics GPT(光学)、ManuDrive(工业优化) ｜ 算力:上海'AI+制造'单项最高补 4000 万算力;CAML 国产算子库对标 CUDA-X,部分算子填补国内空白</p><div class="g-det">Optics GPT:光领域垂直大模型;ManuDrive:工业优化大模型。<br>算力:上海"AI+制造"单项最高补4000万算力;CAML 国产算子库对标 CUDA-X。</div></div>
-  <h4 style="color:var(--deep);margin:24px 0 10px;font-size:15px">开源技能(skills 包,6 个,点击查看详情)</h4>
+  <h4 style="color:#e8eef7;margin:24px 0 10px;font-size:15px">开源技能(skills 包,6 个,点击查看详情)</h4>
   <div id="skillsBox" class="tool-grid"></div>
-  <h4 style="color:var(--deep);margin:24px 0 10px;font-size:15px">平台资产(8 项,点击查看详情)</h4>
+  <h4 style="color:#e8eef7;margin:24px 0 10px;font-size:15px">平台资产(8 项,点击查看详情)</h4>
   <div id="assetsBox" class="tool-grid"></div>
 </div></section>
 
 <!-- 7. 使用案例(课程) -->
-<section id="cases" style="background:#fff"><div class="wrap">
+<section id="cases"><div class="wrap">
   <h2 class="sec-title"><span class="sec-num">7</span>使用案例</h2>
   
   <div class="grid2"><div class="case-card"><div class="case-no">课程 04</div><h3>从实验室到公司:AI for EDA产研转化</h3><p class="case-one"></p><div class="case-meta">讲师: 朱可人,潘鸿洋,高磊 · 标签: EDA</div></div></div>
@@ -226,7 +234,7 @@ footer a{color:#fff}
   工程制造 × AI 工具箱 · <a href="index.html">返回门户</a>
 </footer>
 
-<script>var VERTICALS={"engineering":{"学科":"工程制造","视频":"wave.mp4","主题色":"#1d4ed8","主题深":"#1e3a8a","主题浅":"#dbeafe","图标":"⚙️","受众":"光学 / 制造 / 电子 / 工业工程教授","资产数":"8","构成":"1 智能体 / 5 工具链 / 2 模型","Hero标题":"工业智能化浪潮下<br>让 AI 进你的实验室与产线","Hero副":"光学设计 · 工业优化 · 湿实验自动化--叠加上海'AI+制造'最高 4000 万算力补贴，工程制造正当时。","统计":[["8","工程制造AI资产"],["4000万","算力补贴上限"],["25","Optics GPT下载"],["2","垂类大模型"]],"AI4S范畴":[{"标题":"光学与光电子","内容":"Optics GPT 光领域垂直大模型,光学设计/电磁场计算/参数调优智能化,进入大模型时代。"},{"标题":"工业优化与制造","内容":"ManuDrive 数据驱动实时优化破解动态调控;COLORMind AI 自然语言->数学模型+求解代码;COAP 在线优化求解。"},{"标题":"湿实验自动化","内容":"Thoth-OP/Thoth-Plan 把实验 protocol 写成机器可执行,湿实验自动编排,误差可溯源。"},{"标题":"EDA 产研转化","内容":"AI for EDA 从实验室到公司,芯片设计自动化与产研转化路径。"}],"基础技巧":[{"工具":"Optics GPT","步骤":"光领域垂直大模型:输入光学设计问题 -> 生成设计方案/参数建议,替代经验试错。"},{"工具":"COAP 优化平台","步骤":"在线优化求解:在 Web 端定义变量/约束/目标 -> 调用 COPT/COIN 求解 -> 获取最优解。"},{"工具":"Thoth-Plan","步骤":"科研 protocol 自动生成:描述实验目标 -> 生成可执行 protocol -> Thoth-OP 编排原子操作(移液/混匀/离心)。"}],"科研设计":[{"阶段":"问题建模","要点":"COLORMind 把自然语言描述的优化问题转为数学模型+求解代码,降低建模门槛。"},{"阶段":"数据采集","要点":"产线/实验数据接入 ManuDrive,数据驱动实时优化;CAML 高性能算子库加速科学计算。"},{"阶段":"优化求解","要点":"COAP 在线求解(COPT/COIN);ManuDrive 实时动态调控。"},{"阶段":"自动化验证","要点":"Thoth 编排湿实验 protocol 自动执行,误差溯源清晰,实验可复现。"}],"适用工具指导":{"流程":{"摘":"建模(COLORMind)-> 数据(产线/实验)-> 求解(COAP/ManuDrive)-> 自动化(Thoth)-> 验证","详":"四阶段:①建模(COLORMind 自然语言转数学模型);②数据采集(产线/实验);③求解(COAP/ManuDrive);④自动化验证(Thoth 编排湿实验)。"},"数据集":{"摘":"产线工艺数据、实验 protocol 库、光学参数数据集","详":"产线工艺数据;实验 protocol 库;光学参数数据集。"},"模型":{"摘":"Optics GPT(光学)、ManuDrive(工业优化)","详":"Optics GPT:光领域垂直大模型;ManuDrive:工业优化大模型。"},"算力":{"摘":"上海'AI+制造'单项最高补 4000 万算力;CAML 国产算子库对标 CUDA-X,部分算子填补国内空白","详":"上海\"AI+制造\"单项最高补4000万算力;CAML 国产算子库对标 CUDA-X。"}},"场景":[{"id":"optics","名称":"光学与光电子","图标":"🔭","一句话":"光领域垂直大模型,光学设计与分析智能化","痛点":"光学设计靠经验、电磁场计算复杂、参数调优慢","适合谁":"光学/光电子/激光/微纳光子课题组","代表工具":[{"名称":"Optics GPT","类型":"模型","热度":"↓25","价值":"光领域垂直大模型(义理林团队)","机构":"上海交大"},{"名称":"光学与电磁学","类型":"工具","价值":"光传播/电磁场计算","机构":"上海AI实验室/SCP"},{"名称":"电学与电路计算","类型":"工具","价值":"电路参数/电磁分析","机构":"上海AI实验室/SCP"}],"营销钩子":"上交大 Optics GPT 垂直大模型已入驻--光学设计进入大模型时代"},{"id":"industry","名称":"工业优化与制造","图标":"🏭","一句话":"数据驱动实时优化，破解工业动态调控难题","痛点":"工艺调控靠经验、优化求解慢、产线数据闲置","适合谁":"工业工程/智能制造/过程控制课题组","代表工具":[{"名称":"ManuDrive","类型":"模型","价值":"数据驱动实时优化,破解工业动态调控难题","机构":"上海交大(李金金)"},{"名称":"COLORMind AI建模","类型":"智能体","价值":"自然语言->数学模型+求解代码->优化决策","机构":"杉树科技"},{"名称":"COAP优化平台","类型":"工具","价值":"在线优化求解(COPT/COIN)","机构":"杉数科技(葛冬冬)"},{"名称":"CAML算子库","类型":"工具","价值":"对标CUDA-X高性能数学库,部分算子国内空白","机构":"杉数科技"}],"营销钩子":"上海'AI+制造'单项最高补4000万--工业大模型/智能体正当时"},{"id":"wetlab","名称":"湿实验自动化","图标":"🤖","一句话":"把实验 protocol 写成机器可执行，湿实验自动编排","痛点":"湿实验靠手工、protocol难复现、操作误差难溯源","适合谁":"实验工程/自动化/机器人实验室","代表工具":[{"名称":"Thoth-OP","类型":"工具","价值":"湿实验原子操作编排(移液/混匀/孵育/离心)","机构":"上海AI实验室/SCP"},{"名称":"Thoth-Plan","类型":"工具","价值":"科研protocol自动生成与执行","机构":"上海AI实验室/SCP"},{"名称":"SCP-Workflow","类型":"工具","价值":"工具发现与流程编排智能协调中枢","机构":"上海AI实验室/SCP"}],"营销钩子":"把经验变成可复现程序--误差溯源清晰,实验不再靠手感"}],"卡点":["计算资源不足","优化求解太慢","实验难自动化","缺AI方法/人才"]}};var POLICIES_JSON={"政策":[{"标题":"上海市进一步推动\"AI+制造\"发展的若干措施","状态":"申报中","申报时间窗":"常年受理，分批评审（最新一批）","资助强度":"算力租用最高补4000万；工业大模型/智能体研发最高2000万；中试基地最高2000万；具身智能场景最高1000万；私有化部署第三方大模型最高500万；购买语料最高500万；Token体验券","重点领域":["工业垂类大模型","AI编程大模型","物理AI","工业智能体","工业数据集","具身智能"],"匹配标签":["制造","工业","工程","物理AI","智能体","数据集","算力补贴","高额补贴"]},{"标题":"2026年度上海市\"人工智能+\"及科学智能\"百团百项\"项目申报","状态":"已截止","申报时间窗":"2026-05-12 ~ 2026-06-01","资助强度":"百团百项专项经费（具体额度按项目评审）","重点领域":["生命科学","物质科学","地球环境","数学量子","工程技术"],"匹配标签":["青年科学家","40岁以下","百团百项","科学智能","团队申报","五大学科","成果共享"]},{"标题":"贯彻落实国家\"人工智能+\"行动·2025上海申报通知","状态":"已截止","申报时间窗":"2025年度批次","资助强度":"目标：≥10个产业创新公共服务平台、≥100项核心技术突破、≥200个标杆示范应用","重点领域":["AI+科学技术","AI+制造","AI+医疗","AI+教育","AI+城市治理"],"匹配标签":["人工智能+","顶层文件","标杆示范","科学技术"]},{"标题":"2025年度科学智能\"百团百项\"专项申报","状态":"已截止","申报时间窗":"2025年度批次","资助强度":"百团百项专项经费","重点领域":["生命科学","物质科学","地球环境","数学量子","工程技术"],"匹配标签":["百团百项","青年科学家","科学智能","首年"]}]};var SKILLS_DATA=[{"id":"fluidsim","description":"Plan, configure, inspect, restart, and analyze bounded FluidSim computational-fluid-dynamics simulations with explicit numerical-validity and HPC safety checks. Use for FluidSim solver selection, parameter review, FFT/MPI setup, output diagnostics, or restart compatibility.","cn":"规划、配置并安全重启分析FluidSim流体仿真，含数值校验与HPC检查","环节":"实验与计算","license":"MIT","source":"claude-scientific-skills"},{"id":"modal","description":"Modal is a serverless cloud platform for running Python on demand, including on-demand GPUs. Use when deploying or serving AI/ML models, running GPU-accelerated workloads (training, fine-tuning, inference), serving web endpoints, scheduling batch jobs, or scaling Python code to cloud containers with the Modal SDK.","cn":"用Modal无服务器云平台按需运行Python及GPU，部署AI/ML模型","环节":"实验与计算","license":"Apache-2.0","source":"claude-scientific-skills"},{"id":"modal-run","description":"Use when the user asks to run heavy or GPU work on Modal (the cloud compute platform) — writing a Modal function in the workspace, running it with the user's own `modal` CLI + token, and bringing results back. Data-to-compute for jobs too big for the laptop, without a Slurm cluster.","cn":"在Modal平台编写函数并用CLI+token运行GPU重负载任务","环节":"实验与计算","license":"MIT","source":"open-science"},{"id":"remote-compute","description":"Use when the user asks to run, submit, monitor, or cancel a job on a remote machine over SSH — their own GPU/CPU server, a workstation, or a Slurm cluster (\"the cluster\", a login node, \"my 3090 box\", \"the compute server\"). Picks a saved machine, runs the work directly over SSH (or via Slurm when present), tracks it, and fetches results back into the workspace.","cn":"通过SSH在远程服务器或Slurm集群提交、监控、取消计算任务","环节":"实验与计算","license":"MIT","source":"open-science"},{"id":"remote-compute-nvidia","description":"Run GPU jobs on NVIDIA NIM microservices via host.compute.create('byoc:nvidia', ...). Covers both forms — self_hosted (an nvcr.io NIM container on a local GPU with --gpus all) and hosted (the fully-managed integrate.api.nvidia.com gateway, no local GPU) — sharing one submit→poll .result()→harvest flow. Load once you've decided to dispatch to NVIDIA NIM.","cn":"通过NVIDIA NIM微服务运行GPU任务，支持自托管与托管模式","环节":"实验与计算","license":"Apache-2.0","source":"OpenAI4S"},{"id":"remote-compute-ssh","description":"Submit→poll .result()→harvest workflow for the user's SSH/SLURM hosts. Load once you've decided to dispatch remote.","cn":"对SSH/SLURM主机执行提交→轮询→获取结果的远程工作流","环节":"实验与计算","license":"Apache-2.0","source":"OpenAI4S"}];var ASSETS_DATA=[{"名称":"COLORMind AI建模","类型":"智能体","机构":"杉树科技","简介":"自然语言→数学模型+求解代码→优化决策"},{"名称":"ToolUniverse","类型":"工具","机构":"上海AI实验室/SCP","简介":"标准化工具生态平台(数百工具统一接口,MCP)"},{"名称":"数据处理与统计分析","类型":"工具","机构":"上海AI实验室/SCP","简介":"清洗/拟合/误差/分布/相关性"},{"名称":"SCP-Workflow","类型":"工具","机构":"上海AI实验室/SCP","简介":"工具发现与流程编排智能协调中枢"},{"名称":"Thoth-OP","类型":"工具","机构":"上海AI实验室/SCP","简介":"湿实验原子操作编排(移液/混匀/孵育/离心)"},{"名称":"mcp-npx-fetch","类型":"工具","机构":"aaas","简介":"MCP服务"},{"名称":"ManuDrive","类型":"模型","机构":"上海交通大学  李金金教授团队","简介":"李金金教授团队 | 数据驱动、实时优化，破解工业动态调控难题"},{"名称":"Optics GPT","类型":"模型","机构":"上海交通大学 义理林 牛泽坤","简介":"义理林教授 | 携Optics GPT光领域垂直大模型重磅入驻"}];var TUT_IDS=["alphafold2","diffdock","proteinmpnn","evo2","scgpt","scanpy","rdkit","pymatgen","pydeseq2","molecular-dynamics","database-lookup","gget","depmap","literature-review","scientific-writing","hypothesis-generation","statistical-analysis","matplotlib","peer-review","stats-integrity","idea-evaluator","tech-paper-template","paper-writer","figure-designer"];</script>
+<script>var VERTICALS={"engineering":{"学科":"工程制造","视频":"wave.mp4","视频2":"forge.mp4","主题色":"#1d4ed8","主题深":"#1e3a8a","主题浅":"#dbeafe","图标":"⚙️","受众":"光学 / 制造 / 电子 / 工业工程教授","资产数":"8","构成":"1 智能体 / 5 工具链 / 2 模型","Hero标题":"工业智能化浪潮下<br>让 AI 进你的实验室与产线","Hero副":"光学设计 · 工业优化 · 湿实验自动化--叠加上海'AI+制造'最高 4000 万算力补贴，工程制造正当时。","统计":[["8","工程制造AI资产"],["4000万","算力补贴上限"],["25","Optics GPT下载"],["2","垂类大模型"]],"AI4S范畴":[{"标题":"光学与光电子","内容":"Optics GPT 光领域垂直大模型,光学设计/电磁场计算/参数调优智能化,进入大模型时代。"},{"标题":"工业优化与制造","内容":"ManuDrive 数据驱动实时优化破解动态调控;COLORMind AI 自然语言->数学模型+求解代码;COAP 在线优化求解。"},{"标题":"湿实验自动化","内容":"Thoth-OP/Thoth-Plan 把实验 protocol 写成机器可执行,湿实验自动编排,误差可溯源。"},{"标题":"EDA 产研转化","内容":"AI for EDA 从实验室到公司,芯片设计自动化与产研转化路径。"}],"基础技巧":[{"工具":"Optics GPT","步骤":"光领域垂直大模型:输入光学设计问题 -> 生成设计方案/参数建议,替代经验试错。"},{"工具":"COAP 优化平台","步骤":"在线优化求解:在 Web 端定义变量/约束/目标 -> 调用 COPT/COIN 求解 -> 获取最优解。"},{"工具":"Thoth-Plan","步骤":"科研 protocol 自动生成:描述实验目标 -> 生成可执行 protocol -> Thoth-OP 编排原子操作(移液/混匀/离心)。"}],"科研设计":[{"阶段":"问题建模","要点":"COLORMind 把自然语言描述的优化问题转为数学模型+求解代码,降低建模门槛。"},{"阶段":"数据采集","要点":"产线/实验数据接入 ManuDrive,数据驱动实时优化;CAML 高性能算子库加速科学计算。"},{"阶段":"优化求解","要点":"COAP 在线求解(COPT/COIN);ManuDrive 实时动态调控。"},{"阶段":"自动化验证","要点":"Thoth 编排湿实验 protocol 自动执行,误差溯源清晰,实验可复现。"}],"适用工具指导":{"流程":{"摘":"建模(COLORMind)-> 数据(产线/实验)-> 求解(COAP/ManuDrive)-> 自动化(Thoth)-> 验证","详":"四阶段:①建模(COLORMind 自然语言转数学模型);②数据采集(产线/实验);③求解(COAP/ManuDrive);④自动化验证(Thoth 编排湿实验)。"},"数据集":{"摘":"产线工艺数据、实验 protocol 库、光学参数数据集","详":"产线工艺数据;实验 protocol 库;光学参数数据集。"},"模型":{"摘":"Optics GPT(光学)、ManuDrive(工业优化)","详":"Optics GPT:光领域垂直大模型;ManuDrive:工业优化大模型。"},"算力":{"摘":"上海'AI+制造'单项最高补 4000 万算力;CAML 国产算子库对标 CUDA-X,部分算子填补国内空白","详":"上海\"AI+制造\"单项最高补4000万算力;CAML 国产算子库对标 CUDA-X。"}},"场景":[{"id":"optics","名称":"光学与光电子","图标":"🔭","一句话":"光领域垂直大模型,光学设计与分析智能化","痛点":"光学设计靠经验、电磁场计算复杂、参数调优慢","适合谁":"光学/光电子/激光/微纳光子课题组","代表工具":[{"名称":"Optics GPT","类型":"模型","热度":"↓25","价值":"光领域垂直大模型(义理林团队)","机构":"上海交大"},{"名称":"光学与电磁学","类型":"工具","价值":"光传播/电磁场计算","机构":"上海AI实验室/SCP"},{"名称":"电学与电路计算","类型":"工具","价值":"电路参数/电磁分析","机构":"上海AI实验室/SCP"}],"营销钩子":"上交大 Optics GPT 垂直大模型已入驻--光学设计进入大模型时代"},{"id":"industry","名称":"工业优化与制造","图标":"🏭","一句话":"数据驱动实时优化，破解工业动态调控难题","痛点":"工艺调控靠经验、优化求解慢、产线数据闲置","适合谁":"工业工程/智能制造/过程控制课题组","代表工具":[{"名称":"ManuDrive","类型":"模型","价值":"数据驱动实时优化,破解工业动态调控难题","机构":"上海交大(李金金)"},{"名称":"COLORMind AI建模","类型":"智能体","价值":"自然语言->数学模型+求解代码->优化决策","机构":"杉树科技"},{"名称":"COAP优化平台","类型":"工具","价值":"在线优化求解(COPT/COIN)","机构":"杉数科技(葛冬冬)"},{"名称":"CAML算子库","类型":"工具","价值":"对标CUDA-X高性能数学库,部分算子国内空白","机构":"杉数科技"}],"营销钩子":"上海'AI+制造'单项最高补4000万--工业大模型/智能体正当时"},{"id":"wetlab","名称":"湿实验自动化","图标":"🤖","一句话":"把实验 protocol 写成机器可执行，湿实验自动编排","痛点":"湿实验靠手工、protocol难复现、操作误差难溯源","适合谁":"实验工程/自动化/机器人实验室","代表工具":[{"名称":"Thoth-OP","类型":"工具","价值":"湿实验原子操作编排(移液/混匀/孵育/离心)","机构":"上海AI实验室/SCP"},{"名称":"Thoth-Plan","类型":"工具","价值":"科研protocol自动生成与执行","机构":"上海AI实验室/SCP"},{"名称":"SCP-Workflow","类型":"工具","价值":"工具发现与流程编排智能协调中枢","机构":"上海AI实验室/SCP"}],"营销钩子":"把经验变成可复现程序--误差溯源清晰,实验不再靠手感"}],"卡点":["计算资源不足","优化求解太慢","实验难自动化","缺AI方法/人才"]}};var POLICIES_JSON={"政策":[{"标题":"上海市进一步推动\"AI+制造\"发展的若干措施","状态":"申报中","申报时间窗":"常年受理，分批评审（最新一批）","资助强度":"算力租用最高补4000万；工业大模型/智能体研发最高2000万；中试基地最高2000万；具身智能场景最高1000万；私有化部署第三方大模型最高500万；购买语料最高500万；Token体验券","重点领域":["工业垂类大模型","AI编程大模型","物理AI","工业智能体","工业数据集","具身智能"],"匹配标签":["制造","工业","工程","物理AI","智能体","数据集","算力补贴","高额补贴"]},{"标题":"2026年度上海市\"人工智能+\"及科学智能\"百团百项\"项目申报","状态":"已截止","申报时间窗":"2026-05-12 ~ 2026-06-01","资助强度":"百团百项专项经费（具体额度按项目评审）","重点领域":["生命科学","物质科学","地球环境","数学量子","工程技术"],"匹配标签":["青年科学家","40岁以下","百团百项","科学智能","团队申报","五大学科","成果共享"]},{"标题":"贯彻落实国家\"人工智能+\"行动·2025上海申报通知","状态":"已截止","申报时间窗":"2025年度批次","资助强度":"目标：≥10个产业创新公共服务平台、≥100项核心技术突破、≥200个标杆示范应用","重点领域":["AI+科学技术","AI+制造","AI+医疗","AI+教育","AI+城市治理"],"匹配标签":["人工智能+","顶层文件","标杆示范","科学技术"]},{"标题":"2025年度科学智能\"百团百项\"专项申报","状态":"已截止","申报时间窗":"2025年度批次","资助强度":"百团百项专项经费","重点领域":["生命科学","物质科学","地球环境","数学量子","工程技术"],"匹配标签":["百团百项","青年科学家","科学智能","首年"]}]};var SKILLS_DATA=[{"id":"fluidsim","description":"Plan, configure, inspect, restart, and analyze bounded FluidSim computational-fluid-dynamics simulations with explicit numerical-validity and HPC safety checks. Use for FluidSim solver selection, parameter review, FFT/MPI setup, output diagnostics, or restart compatibility.","cn":"规划、配置并安全重启分析FluidSim流体仿真，含数值校验与HPC检查","环节":"实验与计算","license":"MIT","source":"claude-scientific-skills"},{"id":"modal","description":"Modal is a serverless cloud platform for running Python on demand, including on-demand GPUs. Use when deploying or serving AI/ML models, running GPU-accelerated workloads (training, fine-tuning, inference), serving web endpoints, scheduling batch jobs, or scaling Python code to cloud containers with the Modal SDK.","cn":"用Modal无服务器云平台按需运行Python及GPU，部署AI/ML模型","环节":"实验与计算","license":"Apache-2.0","source":"claude-scientific-skills"},{"id":"modal-run","description":"Use when the user asks to run heavy or GPU work on Modal (the cloud compute platform) — writing a Modal function in the workspace, running it with the user's own `modal` CLI + token, and bringing results back. Data-to-compute for jobs too big for the laptop, without a Slurm cluster.","cn":"在Modal平台编写函数并用CLI+token运行GPU重负载任务","环节":"实验与计算","license":"MIT","source":"open-science"},{"id":"remote-compute","description":"Use when the user asks to run, submit, monitor, or cancel a job on a remote machine over SSH — their own GPU/CPU server, a workstation, or a Slurm cluster (\"the cluster\", a login node, \"my 3090 box\", \"the compute server\"). Picks a saved machine, runs the work directly over SSH (or via Slurm when present), tracks it, and fetches results back into the workspace.","cn":"通过SSH在远程服务器或Slurm集群提交、监控、取消计算任务","环节":"实验与计算","license":"MIT","source":"open-science"},{"id":"remote-compute-nvidia","description":"Run GPU jobs on NVIDIA NIM microservices via host.compute.create('byoc:nvidia', ...). Covers both forms — self_hosted (an nvcr.io NIM container on a local GPU with --gpus all) and hosted (the fully-managed integrate.api.nvidia.com gateway, no local GPU) — sharing one submit→poll .result()→harvest flow. Load once you've decided to dispatch to NVIDIA NIM.","cn":"通过NVIDIA NIM微服务运行GPU任务，支持自托管与托管模式","环节":"实验与计算","license":"Apache-2.0","source":"OpenAI4S"},{"id":"remote-compute-ssh","description":"Submit→poll .result()→harvest workflow for the user's SSH/SLURM hosts. Load once you've decided to dispatch remote.","cn":"对SSH/SLURM主机执行提交→轮询→获取结果的远程工作流","环节":"实验与计算","license":"Apache-2.0","source":"OpenAI4S"}];var ASSETS_DATA=[{"名称":"COLORMind AI建模","类型":"智能体","机构":"杉树科技","简介":"自然语言→数学模型+求解代码→优化决策"},{"名称":"ToolUniverse","类型":"工具","机构":"上海AI实验室/SCP","简介":"标准化工具生态平台(数百工具统一接口,MCP)"},{"名称":"数据处理与统计分析","类型":"工具","机构":"上海AI实验室/SCP","简介":"清洗/拟合/误差/分布/相关性"},{"名称":"SCP-Workflow","类型":"工具","机构":"上海AI实验室/SCP","简介":"工具发现与流程编排智能协调中枢"},{"名称":"Thoth-OP","类型":"工具","机构":"上海AI实验室/SCP","简介":"湿实验原子操作编排(移液/混匀/孵育/离心)"},{"名称":"mcp-npx-fetch","类型":"工具","机构":"aaas","简介":"MCP服务"},{"名称":"ManuDrive","类型":"模型","机构":"上海交通大学  李金金教授团队","简介":"李金金教授团队 | 数据驱动、实时优化，破解工业动态调控难题"},{"名称":"Optics GPT","类型":"模型","机构":"上海交通大学 义理林 牛泽坤","简介":"义理林教授 | 携Optics GPT光领域垂直大模型重磅入驻"}];var TUT_IDS=["alphafold2","diffdock","proteinmpnn","evo2","scgpt","scanpy","rdkit","pymatgen","pydeseq2","molecular-dynamics","database-lookup","gget","depmap","literature-review","scientific-writing","hypothesis-generation","statistical-analysis","matplotlib","peer-review","stats-integrity","idea-evaluator","tech-paper-template","paper-writer","figure-designer"];</script>
 <script>
 
 const V=VERTICALS["engineering"],S=V.场景,POL=POLICIES_JSON;
